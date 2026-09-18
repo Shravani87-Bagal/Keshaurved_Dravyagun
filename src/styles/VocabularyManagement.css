@@ -391,6 +391,27 @@
     text-decoration: underline;
   }
   
+  .vocabulary-action-delete {
+    border: 1px solid #e2b8b8;
+    background: #fff8f8;
+    color: #b42318;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .vocabulary-action-delete:hover {
+    background: #fdecec;
+    border-color: #d99a9a;
+    color: #8f1d1d;
+  }
+  
+  .vocabulary-action-delete:active {
+    transform: scale(0.96);
+  }
   
   /* =========================================
      EMPTY STATE
