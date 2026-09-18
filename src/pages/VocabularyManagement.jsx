@@ -194,6 +194,37 @@ function VocabularyManagement() {
     )
   }
 
+  const handleDeleteTerm = (termId) => {
+    const termToDelete = vocabularyData.find(
+      (item) => item.id === termId
+    )
+  
+    if (!termToDelete) {
+      return
+    }
+  
+    const confirmDelete = window.confirm(
+      `Are you sure you want to permanently delete "${termToDelete.term}"?\n\nThis action cannot be undone.`
+    )
+  
+    if (!confirmDelete) {
+      return
+    }
+  
+    const updatedVocabulary = vocabularyData.filter(
+      (item) => item.id !== termId
+    )
+  
+    setVocabularyData(updatedVocabulary)
+  
+    localStorage.setItem(
+      "vocabulary",
+      JSON.stringify(updatedVocabulary)
+    )
+  
+    alert(`"${termToDelete.term}" was permanently deleted.`)
+  }
+
   const handleEditTerm = (termId) => {
     const termToEdit = vocabularyData.find(
       (item) => item.id === termId
@@ -482,6 +513,13 @@ function VocabularyManagement() {
                           {item.status === "Active"
                           ? "Deactivate"
                           : "Activate"}
+                          </button>
+
+                          <button
+                          type="button"
+                          className="vocabulary-action-delete"
+                          onClick={() => handleDeleteTerm(item.id)}>
+                            Delete
                           </button>
 
                       </div>
