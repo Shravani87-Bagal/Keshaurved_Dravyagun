@@ -1,0 +1,545 @@
+/* =========================================
+   AUDIT LOG PAGE
+   ========================================= */
+
+   .audit-log-page {
+    width: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+    color: #17251d;
+  }
+  
+  
+  /* =========================================
+     PAGE HEADER
+     ========================================= */
+  
+  .audit-log-header {
+    margin-bottom: 20px;
+  }
+  
+  .audit-log-header h1 {
+    margin: 0;
+    color: #17251d;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  
+  .audit-log-header p {
+    margin: 7px 0 0;
+    color: #68746c;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  
+  /* =========================================
+     FILTER CARD
+     ========================================= */
+  
+  .audit-log-filter-card {
+    width: 100%;
+    margin-bottom: 18px;
+    padding: 13px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #ddd9d0;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(25, 42, 31, 0.06);
+  }
+  
+  .audit-log-filter-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1.65fr;
+    gap: 9px;
+    align-items: center;
+  }
+  
+  .audit-log-filter-row select {
+    width: 100%;
+    height: 34px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    border: 1px solid #d8d4cc;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #344139;
+    font-family: inherit;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .audit-log-filter-row select:focus {
+    border-color: #4b7c5d;
+  }
+  
+  
+  /* =========================================
+     SEARCH
+     ========================================= */
+  
+  .audit-log-search {
+    height: 34px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    border: 1px solid #d8d4cc;
+    border-radius: 4px;
+    background: #ffffff;
+  }
+  
+  .audit-log-search > span {
+    color: #7e8981;
+    font-size: 16px;
+  }
+  
+  .audit-log-search input {
+    width: 100%;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #26342b;
+    font-family: inherit;
+    font-size: 13px;
+  }
+  
+  .audit-log-search input::placeholder {
+    color: #9ba29d;
+  }
+  
+  
+  /* =========================================
+     DATE FILTER ROW
+     ========================================= */
+  
+  .audit-log-date-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 9px;
+  }
+  
+  .audit-log-date-field {
+    width: 108px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    border: 1px solid #d8d4cc;
+    border-radius: 4px;
+    background: #ffffff;
+  }
+  
+  .audit-log-date-field input {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    padding: 0 8px;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #536057;
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  
+  .audit-log-date-field input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.7;
+  }
+  
+  .audit-log-date-field input::placeholder {
+    color: #8d9790;
+  }
+  
+  .audit-log-date-separator {
+    color: #7b857e;
+    font-size: 12px;
+  }
+  
+  .audit-log-apply-button {
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 12px;
+    border: none;
+    border-radius: 4px;
+    background: #e2eee6;
+    color: #326446;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .audit-log-apply-button:hover {
+    background: #d4e7da;
+  }
+  
+  .audit-log-apply-button span {
+    font-size: 12px;
+  }
+  
+  
+  /* =========================================
+     TABLE CARD
+     ========================================= */
+  
+  .audit-log-table-card {
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #ddd9d0;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(25, 42, 31, 0.06);
+  }
+  
+  
+  /* =========================================
+     TABLE WRAPPER
+     ========================================= */
+  
+  .audit-log-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  
+  /* =========================================
+     AUDIT TABLE
+     ========================================= */
+  
+  .audit-log-table {
+    width: 100%;
+    min-width: 1180px;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  
+  .audit-log-table th {
+    height: 42px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    background: #faf9f6;
+    border-bottom: 1px solid #e1ded7;
+    color: #747e77;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: left;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+  
+  .audit-log-table td {
+    height: 54px;
+    padding: 9px 12px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e4e1da;
+    color: #4e5a52;
+    font-size: 13px;
+    vertical-align: middle;
+  }
+  
+  .audit-log-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .audit-log-table tbody tr:hover {
+    background: #fcfcfa;
+  }
+  
+  
+  /* =========================================
+     COLUMN WIDTHS
+     ========================================= */
+  
+  .audit-log-table th:nth-child(1) {
+    width: 17%;
+  }
+  
+  .audit-log-table th:nth-child(2) {
+    width: 14%;
+  }
+  
+  .audit-log-table th:nth-child(3) {
+    width: 8%;
+  }
+  
+  .audit-log-table th:nth-child(4) {
+    width: 11%;
+  }
+  
+  .audit-log-table th:nth-child(5) {
+    width: 9%;
+  }
+  
+  .audit-log-table th:nth-child(6) {
+    width: 11%;
+  }
+  
+  .audit-log-table th:nth-child(7) {
+    width: 11%;
+  }
+  
+  .audit-log-table th:nth-child(8) {
+    width: 12%;
+  }
+  
+  .audit-log-table th:nth-child(9) {
+    width: 10%;
+  }
+  
+  
+  /* =========================================
+     TIMESTAMP
+     ========================================= */
+  
+  .audit-timestamp {
+    color: #718078;
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  
+  
+  /* =========================================
+     USER
+     ========================================= */
+  
+  .audit-user {
+    color: #26342b;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  
+  
+  /* =========================================
+     ROLE
+     ========================================= */
+  
+  .audit-role {
+    color: #5d6961;
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+  }
+  
+  
+  /* =========================================
+     ACTION
+     ========================================= */
+  
+  .audit-action {
+    color: #25372c;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.35;
+  }
+  
+  .audit-action.danger {
+    color: #b14c35;
+  }
+  
+  
+  /* =========================================
+     MODULE BADGE
+     ========================================= */
+  
+  .audit-module {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 7px;
+    border-radius: 4px;
+    background: #e7f1ea;
+    color: #3b6c4d;
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  
+  
+  /* =========================================
+     ITEM
+     ========================================= */
+  
+  .audit-item {
+    color: #26342b;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  
+  /* =========================================
+     VALUES
+     ========================================= */
+  
+  .audit-value {
+    display: block;
+    overflow: hidden;
+    color: #68746c;
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .previous-value {
+    color: #727c75;
+  }
+  
+  .new-value {
+    color: #39704c;
+  }
+  
+  
+  /* =========================================
+     ACTIONS
+     ========================================= */
+  
+  .audit-actions {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    white-space: nowrap;
+  }
+  
+  .audit-actions button {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #7c867f;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .audit-actions button:hover {
+    color: #285c3b;
+  }
+  
+  .audit-actions .rollback-button {
+    color: #657169;
+    font-size: 11px;
+  }
+  
+  .audit-actions .rollback-button:hover {
+    color: #285c3b;
+  }
+  
+  
+  /* =========================================
+     TABLE FOOTER
+     ========================================= */
+  
+  .audit-log-footer {
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    border-top: 1px solid #e2dfd8;
+  }
+  
+  .audit-log-footer > span {
+    color: #7b857e;
+    font-size: 12px;
+  }
+  
+  
+  /* =========================================
+     PAGINATION
+     ========================================= */
+  
+  .audit-pagination {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .audit-pagination button {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #647068;
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  
+  .audit-pagination button:hover {
+    background: #edf3ee;
+    color: #285c3b;
+  }
+  
+  .audit-pagination button.active {
+    background: #183f26;
+    color: #ffffff;
+  }
+  
+  .audit-pagination > span {
+    padding: 0 4px;
+    color: #7c867f;
+    font-size: 12px;
+  }
+  
+  
+  /* =========================================
+     RESPONSIVE
+     ========================================= */
+  
+  @media (max-width: 900px) {
+  
+    .audit-log-filter-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .audit-log-search {
+      width: 100%;
+    }
+  
+    .audit-log-table {
+      min-width: 1180px;
+    }
+  }
+  
+  
+  @media (max-width: 600px) {
+  
+    .audit-log-header h1 {
+      font-size: 26px;
+    }
+  
+    .audit-log-header p {
+      font-size: 13px;
+    }
+  
+    .audit-log-filter-row {
+      grid-template-columns: 1fr;
+    }
+  
+    .audit-log-date-row {
+      flex-wrap: wrap;
+    }
+  
+    .audit-log-footer {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }

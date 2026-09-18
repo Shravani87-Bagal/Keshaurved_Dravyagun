@@ -1,0 +1,423 @@
+/* =========================================
+   HERB DETAIL PAGE
+========================================= */
+
+.herb-detail-layout {
+    min-height: 100vh;
+    background: #f8f7f2;
+    color: #17352a;
+  }
+  
+  .herb-detail-body {
+    min-height: calc(100vh - 72px);
+    display: flex;
+    margin-left: 232px;
+  }
+  
+  .herb-detail-content {
+    flex: 1;
+    min-width: 0;
+    background: #f8f7f2;
+  }
+  
+  .herb-detail-inner {
+    width: min(1050px, calc(100% - 80px));
+    margin: 0 auto;
+    padding: 34px 0 60px;
+    box-sizing: border-box;
+  }
+  
+  
+  /* =========================================
+     BACK BUTTON
+  ========================================= */
+  
+  .detail-back-button {
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin-bottom: 28px;
+  
+    color: #527263;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  
+  .detail-back-button:hover {
+    color: #245a48;
+  }
+  
+  
+  /* =========================================
+     HEADER
+  ========================================= */
+  
+  .herb-detail-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 30px;
+  
+    padding-bottom: 28px;
+    border-bottom: 1px solid #d9ded7;
+  }
+  
+  .herb-detail-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  
+  .herb-detail-icon-wrapper {
+    width: 64px;
+    height: 64px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    border-radius: 12px;
+    background: #dfeadf;
+    color: #28664f;
+  }
+  
+  .detail-leaf-icon {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .detail-leaf-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .herb-detail-breadcrumb {
+    margin: 3px 0 9px;
+  
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    color: #66806f;
+  }
+  
+  .herb-detail-heading h1 {
+    margin: 0;
+  
+    font-size: 34px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #17352a;
+  }
+  
+  .herb-detail-heading em {
+    display: block;
+    margin-top: 6px;
+  
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 13px;
+    color: #78857d;
+  }
+  
+  
+  /* =========================================
+     FAVORITE BUTTON
+  ========================================= */
+  
+  .herb-favorite-button {
+    min-width: 175px;
+    height: 44px;
+  
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+  
+    padding: 0 18px;
+    box-sizing: border-box;
+  
+    border: 1px solid #b8cdbb;
+    border-radius: 9px;
+  
+    background: #ffffff;
+    color: #28664f;
+  
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+  
+    white-space: nowrap;
+    cursor: pointer;
+  
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  
+  .herb-favorite-button:hover {
+    background: #eef4ec;
+    border-color: #28664f;
+    color: #174a32;
+  
+    transform: translateY(-1px);
+  
+    box-shadow: 0 4px 12px rgba(23, 74, 50, 0.08);
+  }
+  
+  .favorite-heart {
+    width: 18px;
+    height: 18px;
+  
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  
+    font-size: 18px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  
+  .herb-favorite-button.favorite-active {
+    background: #28664f;
+    border-color: #28664f;
+    color: #ffffff;
+  }
+  
+  .herb-favorite-button.favorite-active:hover {
+    background: #174a32;
+    border-color: #174a32;
+    color: #ffffff;
+  }
+  
+  
+  /* =========================================
+     DESCRIPTION
+  ========================================= */
+  
+  .herb-detail-description-card {
+    margin-top: 24px;
+    padding: 22px 24px;
+  
+    border: 1px solid #d9e2d7;
+    border-radius: 10px;
+  
+    background: #ffffff;
+  }
+  
+  .detail-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  
+    min-height: 25px;
+    padding: 0 10px;
+  
+    border-radius: 14px;
+    background: #e3f1e5;
+  
+    color: #287052;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  
+  .detail-status span {
+    font-size: 11px;
+  }
+  
+  .herb-detail-description-card p {
+    max-width: 850px;
+  
+    margin: 15px 0 0;
+  
+    font-size: 14px;
+    line-height: 1.7;
+    color: #5e7064;
+  }
+  
+  
+  /* =========================================
+     SECTION
+  ========================================= */
+  
+  .herb-properties-section {
+    margin-top: 34px;
+  }
+  
+  .detail-section-heading p {
+    margin: 0 0 8px;
+  
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #66806f;
+  }
+  
+  .detail-section-heading h2 {
+    margin: 0 0 18px;
+  
+    font-size: 22px;
+    font-weight: 500;
+    color: #17352a;
+  }
+  
+  
+  /* =========================================
+     PROPERTY GRID
+  ========================================= */
+  
+  .herb-properties-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+  
+  .property-card {
+    min-height: 95px;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  
+    padding: 17px;
+  
+    border: 1px solid #d5dfd4;
+    border-radius: 9px;
+  
+    background: #eef4ec;
+    box-sizing: border-box;
+  }
+  
+  .property-card span {
+    margin-bottom: 8px;
+  
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: #6b8173;
+  }
+  
+  .property-card strong {
+    font-size: 13px;
+    line-height: 1.5;
+    font-weight: 600;
+    color: #285b47;
+  }
+  
+  
+  /* =========================================
+     KNOWLEDGE NOTE
+  ========================================= */
+  
+  .herb-detail-note {
+    margin-top: 28px;
+  
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  
+    padding: 18px;
+  
+    border: 1px solid #ded4c0;
+    border-radius: 9px;
+  
+    background: #f3eedf;
+  }
+  
+  .herb-detail-note > span {
+    width: 22px;
+    height: 22px;
+  
+    flex-shrink: 0;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    border-radius: 50%;
+  
+    background: #d9cba9;
+    color: #675a3e;
+  
+    font-size: 11px;
+    font-weight: 700;
+  }
+  
+  .herb-detail-note strong {
+    display: block;
+  
+    font-size: 12px;
+    color: #5f5135;
+  }
+  
+  .herb-detail-note p {
+    margin: 5px 0 0;
+  
+    font-size: 11px;
+    line-height: 1.6;
+    color: #81745c;
+  }
+  
+  
+  /* =========================================
+     RESPONSIVE
+  ========================================= */
+  
+  @media (max-width: 900px) {
+    .herb-properties-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  
+    .herb-detail-inner {
+      width: min(100% - 50px, 1050px);
+    }
+  }
+  
+  
+  @media (max-width: 700px) {
+    .herb-detail-body {
+      margin-left: 200px;
+    }
+  
+    .herb-detail-inner {
+      width: calc(100% - 30px);
+      padding-top: 26px;
+    }
+  
+    .herb-detail-header {
+      flex-direction: column;
+    }
+  
+    .herb-detail-heading h1 {
+      font-size: 29px;
+    }
+  
+    .herb-favorite-button {
+      min-width: 175px;
+      width: auto;
+    }
+  }
+  
+  
+  @media (max-width: 520px) {
+    .herb-properties-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .herb-detail-heading {
+      gap: 12px;
+    }
+  
+    .herb-detail-icon-wrapper {
+      width: 54px;
+      height: 54px;
+    }
+  
+    .herb-favorite-button {
+      width: 100%;
+      min-width: 0;
+    }
+  }

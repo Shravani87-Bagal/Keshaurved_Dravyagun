@@ -1,0 +1,733 @@
+/* =========================================
+   SEARCH RESULTS LAYOUT
+   ========================================= */
+
+   .search-results-layout {
+    min-height: 100vh;
+    background: #f8f7f2;
+    color: #17352a;
+  }
+  
+  /* =========================================
+     RESULTS BODY
+     ========================================= */
+  
+  .search-results-body {
+    display: flex;
+    min-height: calc(100vh - 72px);
+    margin-left: 232px;
+  }
+  
+  /* =========================================
+     MAIN RESULTS PAGE
+     ========================================= */
+  
+  .search-results-page {
+    flex: 1;
+    min-width: 0;
+    min-height: calc(100vh - 72px);
+    background: #f8f7f2;
+    color: #17352a;
+    box-sizing: border-box;
+  }
+  
+  /* =========================================
+     RESULTS CONTENT
+     ========================================= */
+  
+  .search-results-content {
+    width: min(1000px, calc(100% - 70px));
+    margin: 0 auto;
+    padding: 32px 0 60px;
+    box-sizing: border-box;
+  }
+  
+  /* =========================================
+     RESULTS HEADER
+     ========================================= */
+  
+  .results-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 35px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #d9ded7;
+  }
+  
+  .results-header-left {
+    min-width: 0;
+  }
+  
+  .results-label {
+    margin: 0 0 9px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #66806f;
+  }
+  
+  .results-header h1 {
+    margin: 0;
+    font-size: 30px;
+    line-height: 1.25;
+    font-weight: 500;
+    color: #17352a;
+  }
+  
+  .results-count {
+    margin: 27px 0 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #68786f;
+  }
+  
+  /* =========================================
+     HEADER ACTIONS
+     ========================================= */
+  
+  .results-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 19px;
+    flex-shrink: 0;
+  }
+  
+  .results-filter-button {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 15px;
+    border: 1px solid #b9cdbd;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #285c47;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .results-filter-button span {
+    font-size: 17px;
+  }
+  
+  .results-filter-button:hover {
+    background: #f0f5ef;
+  }
+  
+  .results-sort-button {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 0 5px;
+    border: none;
+    background: transparent;
+    color: #17352a;
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  
+  .results-sort-button span {
+    font-size: 17px;
+    color: #315d49;
+  }
+  
+  /* =========================================
+     RESULTS META
+     ========================================= */
+  
+  .results-meta-row {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 2px 15px;
+  }
+  
+  .results-meta-row span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #61756a;
+  }
+
+
+/* =========================================
+   SEARCH RESULTS PAGE
+   ========================================= */
+
+   .search-results-page {
+    min-height: 100vh;
+  
+    background: #f8f7f2;
+    color: #17352a;
+  
+    box-sizing: border-box;
+  }
+  
+  
+  /* =========================================
+     MAIN CONTENT
+     ========================================= */
+  
+  .search-results-content {
+    width: min(1000px, calc(100% - 70px));
+  
+    margin: 0 auto;
+    padding: 32px 0 60px;
+  
+    box-sizing: border-box;
+  }
+  
+  
+  /* =========================================
+     RESULTS HEADER
+     ========================================= */
+  
+  .results-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  
+    gap: 35px;
+  
+    padding-bottom: 20px;
+  
+    border-bottom: 1px solid #d9ded7;
+  }
+  
+  
+  .results-header-left {
+    min-width: 0;
+  }
+  
+  
+  .results-label {
+    margin: 0 0 9px;
+  
+    font-size: 11px;
+    font-weight: 700;
+  
+    letter-spacing: 1.5px;
+  
+    color: #66806f;
+  }
+  
+  
+  .results-header h1 {
+    margin: 0;
+  
+    font-size: 30px;
+    line-height: 1.25;
+  
+    font-weight: 500;
+  
+    color: #17352a;
+  }
+  
+  
+  /* =========================================
+     RESULT COUNT
+     ========================================= */
+  
+  .results-count {
+    margin: 27px 0 0;
+  
+    font-size: 13px;
+    line-height: 1.5;
+  
+    color: #68786f;
+  }
+  
+  
+  /* =========================================
+     HEADER ACTIONS
+     ========================================= */
+  
+  .results-header-actions {
+    display: flex;
+    align-items: center;
+  
+    gap: 12px;
+  
+    padding-top: 19px;
+  
+    flex-shrink: 0;
+  }
+  
+  
+  .results-filter-button {
+    height: 40px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    gap: 8px;
+  
+    padding: 0 15px;
+  
+    border: 1px solid #b9cdbd;
+    border-radius: 8px;
+  
+    background: #ffffff;
+  
+    color: #285c47;
+  
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+  
+    cursor: pointer;
+  }
+  
+  
+  .results-filter-button span {
+    font-size: 17px;
+  }
+  
+  
+  .results-filter-button:hover {
+    background: #f0f5ef;
+  }
+  
+  
+  .results-sort-button {
+    height: 40px;
+  
+    display: flex;
+    align-items: center;
+  
+    gap: 18px;
+  
+    padding: 0 5px;
+  
+    border: none;
+  
+    background: transparent;
+  
+    color: #17352a;
+  
+    font-family: inherit;
+    font-size: 12px;
+  
+    cursor: pointer;
+  }
+  
+  
+  .results-sort-button span {
+    font-size: 17px;
+    color: #315d49;
+  }
+  
+  
+  /* =========================================
+     RESULTS META
+     ========================================= */
+  
+  .results-meta-row {
+    display: flex;
+    justify-content: flex-end;
+  
+    padding: 0 2px 15px;
+  }
+  
+  
+  .results-meta-row span {
+    display: flex;
+    align-items: center;
+  
+    gap: 6px;
+  
+    font-size: 11px;
+    color: #61756a;
+  }
+  
+  
+  /* =========================================
+     RESPONSIVE
+     ========================================= */
+  
+  @media (max-width: 800px) {
+  
+    .search-results-content {
+      width: min(100% - 40px, 1000px);
+    }
+  
+    .results-header {
+      flex-direction: column;
+      gap: 15px;
+    }
+  
+    .results-header-actions {
+      padding-top: 0;
+    }
+  
+    .results-meta-row {
+      justify-content: flex-start;
+    }
+  
+  }
+  
+  
+  @media (max-width: 600px) {
+  
+    .search-results-content {
+      width: calc(100% - 30px);
+      padding-top: 24px;
+    }
+  
+    .results-header h1 {
+      font-size: 25px;
+    }
+  
+    .results-header-actions {
+      width: 100%;
+    }
+  
+    .results-filter-button {
+      flex: 1;
+    }
+  
+    .results-sort-button {
+      flex: 1;
+      justify-content: center;
+    }
+  
+  }
+
+  /* =========================================
+   HERB RESULTS LIST
+   ========================================= */
+
+.herb-results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  
+  /* =========================================
+     HERB RESULT CARD
+     ========================================= */
+  
+  .herb-result-card {
+    display: flex;
+    min-height: 214px;
+  
+    overflow: hidden;
+  
+    border: 1px solid #d9ded7;
+    border-radius: 9px;
+  
+    background: #ffffff;
+  
+    box-sizing: border-box;
+  }
+  
+  
+  /* =========================================
+     HERB VISUAL
+     ========================================= */
+  
+  .herb-result-visual {
+    width: 105px;
+    flex-shrink: 0;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    color: #315d49;
+  }
+  
+  
+  .herb-result-visual span {
+    font-size: 45px;
+    font-weight: 300;
+  }
+  
+  
+  /* =========================================
+     HERB INFORMATION
+     ========================================= */
+  
+  .herb-result-info {
+    flex: 1;
+    min-width: 0;
+  
+    padding: 20px 20px 16px;
+    box-sizing: border-box;
+  }
+  
+  
+  .herb-result-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  
+    gap: 20px;
+  }
+  
+  
+  .herb-result-top h2 {
+    margin: 0;
+  
+    font-size: 18px;
+    line-height: 1.3;
+    font-weight: 500;
+  
+    color: #17352a;
+  }
+  
+  
+  .herb-result-top em {
+    display: block;
+  
+    margin-top: 4px;
+  
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 11px;
+  
+    color: #7b877f;
+  }
+  
+  
+  .herb-favorite-button {
+    width: 32px;
+    height: 32px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    border: none;
+    background: transparent;
+  
+    color: #75917f;
+  
+    font-size: 23px;
+    font-weight: 300;
+  
+    cursor: pointer;
+  }
+  
+  
+  .herb-favorite-button:hover {
+    color: #2f6044;
+  }
+  
+  
+  /* =========================================
+     MATCH ROW
+     ========================================= */
+  
+  .herb-match-row {
+    display: flex;
+    align-items: center;
+  
+    gap: 7px;
+  
+    margin-top: 13px;
+  }
+  
+  
+  .herb-match-row strong {
+    font-size: 20px;
+    line-height: 1;
+  
+    font-weight: 600;
+  
+    color: #176b4d;
+  }
+  
+  
+  .herb-match-row > span:not(.verification-badge) {
+    font-size: 11px;
+    color: #718078;
+  }
+  
+  
+  /* =========================================
+     VERIFICATION BADGE
+     ========================================= */
+  
+  .verification-badge {
+    display: inline-flex;
+    align-items: center;
+  
+    margin-left: 7px;
+  
+    min-height: 24px;
+  
+    padding: 0 9px;
+  
+    border-radius: 13px;
+  
+    font-size: 10px;
+    font-weight: 600;
+  }
+  
+  
+  .verification-badge.verified {
+    background: #e3f1e5;
+    color: #287052;
+  }
+  
+  
+  .verification-badge.reviewed {
+    background: #f2ead7;
+    color: #9a763b;
+  }
+  
+  
+  /* =========================================
+     AYURVEDIC TAGS
+     ========================================= */
+  
+  .herb-result-tags {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  
+    gap: 6px;
+  
+    margin-top: 12px;
+  }
+  
+  
+  .herb-result-tags span {
+    min-height: 24px;
+  
+    display: inline-flex;
+    align-items: center;
+  
+    padding: 0 9px;
+  
+    border-radius: 13px;
+  
+    background: #edf2ed;
+  
+    color: #61766a;
+  
+    font-size: 10px;
+  }
+  
+  
+  /* =========================================
+     DESCRIPTION
+     ========================================= */
+  
+  .herb-result-description {
+    max-width: 800px;
+  
+    margin: 11px 0 0;
+  
+    font-size: 12px;
+    line-height: 1.55;
+  
+    color: #5f7067;
+  }
+  
+  
+  /* =========================================
+     CARD ACTIONS
+     ========================================= */
+  
+  .herb-result-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    margin-top: 9px;
+  }
+  
+  
+  .view-profile-button,
+  .compare-herb-button {
+    display: flex;
+    align-items: center;
+  
+    gap: 6px;
+  
+    border: none;
+    background: transparent;
+  
+    font-family: inherit;
+    font-size: 11px;
+  
+    cursor: pointer;
+  }
+  
+  
+  .view-profile-button {
+    padding: 0;
+  
+    color: #175f47;
+  }
+  
+  
+  .view-profile-button span {
+    font-size: 18px;
+  }
+  
+  
+  .view-profile-button:hover {
+    color: #0f4634;
+  }
+  
+  
+  .compare-herb-button {
+    padding: 5px 2px;
+  
+    color: #718078;
+  }
+  
+  
+  .compare-herb-button span {
+    font-size: 14px;
+  }
+  
+  
+  .compare-herb-button:hover {
+    color: #2f6044;
+  }
+  
+  
+  /* =========================================
+     RESPONSIVE
+     ========================================= */
+  
+  @media (max-width: 650px) {
+  
+    .herb-result-card {
+      flex-direction: column;
+    }
+  
+  
+    .herb-result-visual {
+      width: 100%;
+      height: 65px;
+    }
+  
+  
+    .herb-result-visual span {
+      font-size: 30px;
+    }
+  
+  
+    .herb-result-info {
+      padding: 18px;
+    }
+  
+  
+    .herb-result-actions {
+      margin-top: 12px;
+    }
+  
+  }

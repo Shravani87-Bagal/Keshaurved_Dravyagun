@@ -1,0 +1,1163 @@
+
+/* =========================================
+   PUBLIC LANDING PAGE
+   PREMIUM GREEN + IVORY THEME
+========================================= */
+
+.landing-page {
+  position: relative;
+  min-height: 100vh;
+  background: #FAF8F0;
+  overflow: hidden;
+}
+
+.landing-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* =========================================
+   NAVBAR
+========================================= */
+
+.landing-navbar {
+  height: 68px;
+  padding: 0 7.5%;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #d9e2d7;
+  background: #F3EEDF;
+}
+
+
+/* ---------- Brand ---------- */
+
+.landing-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 17px;
+  font-weight: 600;
+
+  color: #174a32;
+}
+
+.landing-brand-icon {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #174a32;
+  color: #ffffff;
+
+  font-size: 20px;
+}
+
+
+/* ---------- Navigation ---------- */
+
+.landing-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 38px;
+}
+
+.landing-nav-links a {
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #3f5949;
+
+  transition: color 0.2s ease;
+}
+
+.landing-nav-links a:hover {
+  color: #2f7d4a;
+}
+
+
+/* ---------- Authentication Buttons ---------- */
+
+.landing-auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.login-button,
+.signup-button {
+  height: 36px;
+  padding: 0 18px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+
+  text-decoration: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Login */
+
+.login-button {
+  background: transparent;
+
+  border: 1px solid #2f7d4a;
+
+  color: #2f7d4a;
+}
+
+.login-button:hover {
+  background: #eaf3e9;
+}
+
+
+/* Sign Up */
+
+.signup-button {
+  background: #174a32;
+
+  border: 1px solid #174a32;
+
+  color: #ffffff;
+
+  font-weight: 600;
+}
+
+.signup-button:hover {
+  background: #2f7d4a;
+  border-color: #2f7d4a;
+}
+
+
+/* =========================================
+   HERO SECTION
+========================================= */
+
+.landing-hero {
+  min-height: 620px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 80px 20px 100px;
+
+  box-sizing: border-box;
+
+  background-image:
+    linear-gradient(
+      rgba(250, 248, 240, 0.72),
+      rgba(250, 248, 240, 0.72)
+    ),
+    url("https://images.stockcake.com/public/a/0/d/a0d4aa80-4ebc-490d-92b5-cf8b20008001_large/botanical-minimalist-design-stockcake.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+/* ---------- Hero Badge ---------- */
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 6px 13px;
+
+  border: 1px solid #cbdcca;
+  border-radius: 20px;
+
+  background: #eaf3e9;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  letter-spacing: 0.8px;
+
+  color: #2f6b46;
+}
+
+.hero-badge span {
+  font-size: 9px;
+  color: #58a96b;
+}
+
+
+/* ---------- Hero Heading ---------- */
+
+.landing-hero h1 {
+  margin: 38px 0 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(48px, 6vw, 72px);
+
+  line-height: 1.05;
+
+  letter-spacing: -2px;
+
+  font-weight: 600;
+
+  color: #174a32;
+}
+
+.landing-hero h1 em {
+  color: #2f7d4a;
+
+  font-style: italic;
+
+  font-weight: 500;
+}
+
+
+/* ---------- Hero Description ---------- */
+
+.landing-hero-description {
+  max-width: 650px;
+
+  margin: 28px auto 0;
+
+  font-size: 17px;
+
+  line-height: 1.7;
+
+  color: #5e7064;
+}
+
+
+/* ---------- Hero Buttons ---------- */
+
+.hero-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-top: 38px;
+}
+
+.primary-hero-button,
+.secondary-hero-button {
+  min-width: 145px;
+
+  height: 46px;
+
+  padding: 0 22px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+
+  text-decoration: none;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+
+/* Primary */
+
+.primary-hero-button {
+  border: 1px solid #174a32;
+
+  background: #174a32;
+
+  color: #ffffff;
+}
+
+.primary-hero-button:hover {
+  background: #2f7d4a;
+
+  border-color: #2f7d4a;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 6px 18px rgba(23, 74, 50, 0.15);
+}
+
+
+/* Secondary */
+
+.secondary-hero-button {
+  border: 1px solid #cbd8c8;
+
+  background: transparent;
+
+  color: #2f6044;
+}
+
+.secondary-hero-button:hover {
+  background: #f3eedf;
+
+  border-color: #b9cdb9;
+}
+
+
+/* =========================================
+   ABOUT SECTION
+========================================= */
+
+.landing-about {
+  max-width: 1100px;
+  margin: 70px auto;
+  padding: 65px 70px 60px;
+
+  box-sizing: border-box;
+
+  background: #F3EEDF;
+  border: 1px solid #D9E2D7;
+  border-radius: 24px;
+
+  box-shadow: 0 8px 30px rgba(23, 74, 50, 0.06);
+}
+
+/* ---------- About Top Content ---------- */
+
+.about-section-content {
+  max-width: 100%;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 70px;
+  align-items: start;
+}
+
+
+/* ---------- About Label ---------- */
+
+.about-section-label {
+  max-width: 100%;
+  margin: 0 0 28px;
+
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+
+  color: #2F7D4A;
+}
+
+
+
+/* ---------- About Heading ---------- */
+
+.about-section-heading h2 {
+  margin: 0;
+
+  max-width: 520px;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(36px, 3.8vw, 50px);
+
+  line-height: 1.12;
+
+  letter-spacing: -1px;
+
+  font-weight: 600;
+
+  color: #174a32;
+}
+
+.about-section-heading h2 em {
+  color: #2f7d4a;
+
+  font-style: italic;
+
+  font-weight: 500;
+}
+
+
+/* ---------- About Text ---------- */
+
+.about-section-text {
+  max-width: 520px;
+}
+
+.about-section-text p {
+  margin: 0 0 20px;
+
+  font-size: 13px;
+
+  line-height: 1.75;
+
+  color: #5e7064;
+}
+
+.about-section-text p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* ---------- About Highlights ---------- */
+
+.about-highlights {
+  max-width: 1100px;
+
+  margin: 70px auto 0;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 16px;
+}
+
+
+/* ---------- Highlight Card ---------- */
+
+.about-highlight-card {
+  padding: 25px 22px 5px;
+
+  border-top: 1px solid #d9e2d7;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 18px;
+}
+
+
+/* ---------- Highlight Number ---------- */
+
+.highlight-number {
+  flex-shrink: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  color: #58a96b;
+}
+
+
+/* ---------- Highlight Content ---------- */
+
+.about-highlight-card h3 {
+  margin: 0 0 10px;
+
+  font-size: 14px;
+
+  line-height: 1.3;
+
+  font-weight: 700;
+
+  color: #234936;
+}
+
+.about-highlight-card p {
+  margin: 0;
+
+  font-size: 11px;
+
+  line-height: 1.65;
+
+  color: #6b7c71;
+}
+
+
+/* =========================================
+   ABOUT RESPONSIVE
+========================================= */
+
+@media (max-width: 850px) {
+
+  .landing-about {
+    margin: 50px 25px;
+    padding: 50px 40px;
+  }
+
+  .about-section-content {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .about-section-heading h2 {
+    max-width: 600px;
+  }
+
+  .about-section-text {
+    max-width: 650px;
+  }
+
+  .about-highlights {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 45px;
+  }
+
+  .about-highlight-card {
+    padding: 22px 0;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .landing-about {
+    margin: 35px 15px;
+    padding: 40px 25px;
+    border-radius: 18px;
+  }
+
+  .about-section-label {
+    margin-bottom: 22px;
+  }
+
+  .about-section-heading h2 {
+    font-size: 36px;
+  }
+}
+
+
+/* =========================================
+   FEATURES SECTION
+========================================= */
+
+.landing-features {
+  padding: 85px 7.5% 90px;
+
+  background: #f3eedf;
+
+  border-top: 1px solid #dddccc;
+}
+
+
+/* ---------- Features Header ---------- */
+
+.features-header {
+  max-width: 1100px;
+
+  margin: 0 auto 45px;
+
+  text-align: left;
+}
+
+.features-label {
+  margin-bottom: 14px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.2px;
+
+  color: #2f7d4a;
+}
+
+.features-header h2 {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(34px, 3.5vw, 46px);
+
+  line-height: 1.15;
+
+  letter-spacing: -0.8px;
+
+  font-weight: 600;
+
+  color: #174a32;
+
+  white-space: nowrap;
+}
+
+.features-header h2 em {
+  color: #2f7d4a;
+
+  font-style: italic;
+
+  font-weight: 500;
+}
+
+
+/* ---------- Features Grid ---------- */
+
+.features-grid {
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 16px;
+}
+
+
+/* ---------- Feature Card ---------- */
+
+.feature-card {
+  min-height: 245px;
+
+  padding: 24px 22px;
+
+  background: #faf8f0;
+
+  border: 1px solid #d9e2d7;
+
+  border-radius: 18px;
+
+  transition: all 0.25s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-3px);
+
+  border-color: #b9ceb9;
+
+  box-shadow: 0 8px 22px rgba(23, 74, 50, 0.09);
+}
+
+
+/* ---------- Feature Number ---------- */
+
+.feature-number {
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  color: #58a96b;
+}
+
+
+/* ---------- Feature Icon ---------- */
+
+.feature-icon {
+  width: 38px;
+
+  height: 38px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  margin-top: 25px;
+
+  margin-bottom: 18px;
+
+  border: 1px solid #c5d7c5;
+
+  border-radius: 11px;
+
+  background: #eaf3e9;
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+  color: #2f7d4a;
+}
+
+
+/* ---------- Feature Title ---------- */
+
+.feature-card h3 {
+  margin: 0 0 10px;
+
+  font-size: 15px;
+
+  line-height: 1.35;
+
+  font-weight: 700;
+
+  color: #234936;
+}
+
+
+/* ---------- Feature Description ---------- */
+
+.feature-card p {
+  margin: 0;
+
+  font-size: 12px;
+
+  line-height: 1.65;
+
+  color: #6b7c71;
+}
+
+
+/* =========================================
+   FEATURES RESPONSIVE
+========================================= */
+
+@media (max-width: 950px) {
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .landing-features {
+    padding: 65px 20px 70px;
+  }
+
+  .features-header {
+    width: 100%;
+
+    padding: 32px 40px;
+
+    margin-bottom: 35px;
+
+    background: #faf8f0;
+
+    border: 1px solid #d9e2d7;
+
+    border-radius: 14px;
+
+    text-align: center;
+  }
+
+  .features-header h2 {
+    white-space: normal;
+
+    font-size: 34px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+  }
+
+  .feature-card {
+    min-height: auto;
+
+    padding: 23px 20px;
+  }
+
+  .feature-icon {
+    margin-top: 22px;
+  }
+}
+
+
+/* =========================================
+   STATISTICS SECTION
+========================================= */
+
+.landing-stats {
+  padding: 55px 7.5%;
+
+  background: #faf8f0;
+
+  border-top: 1px solid #d9e2d7;
+
+  border-bottom: 1px solid #d9e2d7;
+}
+
+.stats-container {
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  align-items: center;
+}
+
+
+/* ---------- Stat Item ---------- */
+
+.stat-item {
+  min-height: 90px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 5px 25px;
+
+  border-right: 1px solid #d9e2d7;
+}
+
+.stat-item:last-child {
+  border-right: none;
+}
+
+
+/* ---------- Stat Number ---------- */
+
+.stat-number {
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 32px;
+
+  line-height: 1;
+
+  font-weight: 600;
+
+  letter-spacing: -0.5px;
+
+  color: #2f7d4a;
+}
+
+
+/* ---------- Stat Label ---------- */
+
+.stat-label {
+  margin-top: 10px;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+
+  text-align: center;
+
+  color: #627367;
+}
+
+
+/* =========================================
+   STATISTICS RESPONSIVE
+========================================= */
+
+@media (max-width: 750px) {
+
+  .landing-stats {
+    padding: 45px 20px;
+  }
+
+  .stats-container {
+    grid-template-columns: repeat(2, 1fr);
+
+    row-gap: 25px;
+  }
+
+  .stat-item:nth-child(2) {
+    border-right: none;
+  }
+
+  .stat-item:nth-child(-n + 2) {
+    border-bottom: 1px solid #d9e2d7;
+
+    padding-bottom: 25px;
+  }
+}
+
+
+@media (max-width: 500px) {
+
+  .stats-container {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-item {
+    border-right: none;
+
+    border-bottom: 1px solid #d9e2d7;
+
+    padding: 20px 10px;
+  }
+
+  .stat-item:nth-child(-n + 2) {
+    border-bottom: 1px solid #d9e2d7;
+
+    padding-bottom: 20px;
+  }
+
+  .stat-item:last-child {
+    border-bottom: none;
+  }
+
+  .stat-number {
+    font-size: 30px;
+  }
+}
+
+
+/* =========================================
+   OLD CTA RESPONSIVE
+   Kept because it existed in your original CSS.
+========================================= */
+
+@media (max-width: 600px) {
+
+  .landing-cta {
+    padding: 55px 20px 60px;
+  }
+
+  .cta-content h2 {
+    font-size: 36px;
+  }
+
+  .cta-content h2 br {
+    display: none;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+
+    width: 100%;
+  }
+
+  .cta-primary-button,
+  .cta-secondary-button {
+    width: 100%;
+
+    max-width: 210px;
+  }
+}
+
+
+/* =========================================
+   CONTACT SECTION
+========================================= */
+
+.landing-contact {
+  padding: 65px 20px;
+
+  background: #f3eedf;
+
+  border-top: 1px solid #dddccc;
+
+  border-bottom: 1px solid #dddccc;
+}
+
+.contact-content {
+  text-align: center;
+}
+
+.contact-label {
+  margin-bottom: 18px;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.3px;
+
+  color: #2f7d4a;
+}
+
+.contact-text {
+  margin: 0;
+
+  font-size: 17px;
+
+  line-height: 1.6;
+
+  color: #4f6858;
+}
+
+.contact-text a {
+  color: #2f7d4a;
+
+  text-decoration: underline;
+
+  text-underline-offset: 2px;
+}
+
+.contact-text a:hover {
+  color: #174a32;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.landing-footer {
+  padding: 40px 7.5% 30px;
+  background: #174A32;
+  color: #FFFFFF;
+}
+
+
+/* ---------- Footer Main ---------- */
+
+.footer-main {
+  max-width: 1100px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding-bottom: 24px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+
+/* ---------- Footer Brand ---------- */
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  color: #FFFFFF;
+}
+
+.footer-brand-icon {
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #58A96B;
+  color: #FFFFFF;
+
+  font-size: 13px;
+}
+
+
+/* ---------- Footer Links ---------- */
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 25px;
+
+  margin-top: 20px;
+}
+
+.footer-links a {
+  text-decoration: none;
+
+  font-size: 11px;
+  font-weight: 400;
+
+  color: #D8E6DA;
+
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #FFFFFF;
+}
+
+
+/* ---------- Footer Information ---------- */
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 4px;
+
+  margin-top: 18px;
+
+  font-size: 10px;
+  line-height: 1.4;
+
+  color: #C6D9CA;
+}
+
+
+/* ---------- Disclaimer ---------- */
+
+.footer-disclaimer {
+  max-width: 1100px;
+
+  margin: 16px auto 0;
+
+  text-align: center;
+
+  font-size: 10px;
+  line-height: 1.5;
+
+  color: #BCD1C1;
+}
+
+
+
+/* =========================================
+   FOOTER RESPONSIVE
+========================================= */
+
+@media (max-width: 500px) {
+
+  .landing-footer {
+    padding: 32px 20px 25px;
+  }
+
+  .footer-links {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-size: 10px;
+  }
+
+  .footer-disclaimer {
+    font-size: 9px;
+  }
+}

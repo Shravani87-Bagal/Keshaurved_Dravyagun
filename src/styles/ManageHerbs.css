@@ -1,0 +1,416 @@
+/* =========================================
+   MANAGE HERBS PAGE CONTENT
+   ========================================= */
+
+   .manage-herbs-page-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 34px;
+  }
+  
+  .manage-herbs-page-heading h1 {
+    margin: 0;
+    color: #151c17;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  
+  .manage-herbs-page-heading p {
+    margin: 7px 0 0;
+    color: #667069;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  
+  .manage-herbs-add-button {
+    min-width: 148px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 0 15px;
+    border: none;
+    border-radius: 5px;
+    background: #17552f;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .manage-herbs-add-button span {
+    font-size: 16px;
+  }
+  
+  
+  /* =========================================
+     SEARCH + FILTER CARD
+     ========================================= */
+  
+  .manage-herbs-filter-card {
+    min-height: 69px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 12px 13px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #ddd9d0;
+    border-radius: 7px;
+    box-shadow: 0 1px 3px rgba(25, 42, 31, 0.05);
+  }
+  
+  .manage-herbs-search-box {
+    height: 40px;
+    flex: 1;
+    min-width: 220px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 11px;
+    box-sizing: border-box;
+    border: 1px solid #ddd9d0;
+    border-radius: 5px;
+    background: #ffffff;
+  }
+  
+  .manage-herbs-search-box > span {
+    color: #8b918d;
+    font-size: 19px;
+  }
+  
+  .manage-herbs-search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #26342c;
+    font-family: inherit;
+    font-size: 13px;
+  }
+  
+  .manage-herbs-search-box input::placeholder {
+    color: #9a9e9a;
+  }
+  
+  .manage-herbs-filter-button {
+    width: 125px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 11px;
+    border: 1px solid #ddd9d0;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #354139;
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  
+  .manage-herbs-filter-button > span:last-child {
+    color: #1c2921;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .manage-herbs-count {
+    min-width: 60px;
+    color: #8a918b;
+    font-size: 12px;
+    text-align: right;
+  }
+  
+  
+  /* =========================================
+     STATUS TABS
+     ========================================= */
+  
+  .manage-herbs-status-tabs {
+    height: 47px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  
+  .manage-herbs-status-tab {
+    height: 35px;
+    padding: 0 16px;
+    border: none;
+    border-radius: 18px;
+    background: transparent;
+    color: #6c766f;
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  
+  .manage-herbs-status-tab.active {
+    background: #142419;
+    color: #ffffff;
+    box-shadow: 0 0 0 2px #d8ddd7;
+  }
+  
+  
+  /* =========================================
+     TABLE
+     ========================================= */
+  
+  .manage-herbs-table-card {
+    width: 100%;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #ddd9d0;
+    border-radius: 7px;
+    box-shadow: 0 1px 3px rgba(25, 42, 31, 0.05);
+  }
+  
+  .manage-herbs-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .manage-herbs-table {
+    width: 100%;
+    min-width: 1250px;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  
+  .manage-herbs-table th {
+    height: 46px;
+    padding: 0 9px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd9d0;
+    background: #faf9f6;
+    color: #727c75;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+  }
+  
+  .manage-herbs-table td {
+    height: 68px;
+    padding: 9px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e8e4dc;
+    color: #536058;
+    font-size: 13px;
+    line-height: 1.45;
+    vertical-align: middle;
+  }
+  
+  .manage-herbs-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .manage-herbs-table tbody tr:hover {
+    background: #fcfbf8;
+  }
+  
+  
+  /* =========================================
+     TABLE COLUMN WIDTHS
+     ========================================= */
+  
+  .manage-herbs-table th:nth-child(1),
+  .manage-herbs-table td:nth-child(1) {
+    width: 125px;
+  }
+  
+  .manage-herbs-table th:nth-child(2),
+  .manage-herbs-table td:nth-child(2) {
+    width: 165px;
+  }
+  
+  .manage-herbs-table th:nth-child(3),
+  .manage-herbs-table td:nth-child(3) {
+    width: 95px;
+  }
+  
+  .manage-herbs-table th:nth-child(4),
+  .manage-herbs-table td:nth-child(4) {
+    width: 75px;
+  }
+  
+  .manage-herbs-table th:nth-child(5),
+  .manage-herbs-table td:nth-child(5) {
+    width: 85px;
+  }
+  
+  .manage-herbs-table th:nth-child(6),
+  .manage-herbs-table td:nth-child(6) {
+    width: 85px;
+  }
+  
+  .manage-herbs-table th:nth-child(7),
+  .manage-herbs-table td:nth-child(7) {
+    width: 105px;
+  }
+  
+  .manage-herbs-table th:nth-child(8),
+  .manage-herbs-table td:nth-child(8) {
+    width: 135px;
+  }
+  
+  .manage-herbs-table th:nth-child(9),
+  .manage-herbs-table td:nth-child(9) {
+    width: 120px;
+  }
+  
+  .manage-herbs-table th:nth-child(10),
+  .manage-herbs-table td:nth-child(10) {
+    width: 65px;
+  }
+  
+  
+  /* =========================================
+     TABLE TEXT
+     ========================================= */
+  
+  .herb-name {
+    color: #17251d !important;
+    font-size: 13px !important;
+    font-weight: 600;
+  }
+  
+  .botanical-name {
+    color: #66716a !important;
+    font-family: Georgia, "Times New Roman", serif;
+    font-style: italic;
+    font-size: 12px !important;
+  }
+  
+  .herb-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 66px;
+    padding: 6px 8px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .herb-status.verified {
+    background: #dceee2;
+    color: #3d7050;
+  }
+  
+  .herb-status.reviewed {
+    background: #fff0c7;
+    color: #a36a20;
+  }
+  
+  .herb-status.draft {
+    background: #edf0f2;
+    color: #687782;
+  }
+  
+  .herb-action {
+    color: #7c8780 !important;
+    font-size: 17px !important;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  
+  /* =========================================
+     RESPONSIVE
+     ========================================= */
+  
+  @media (max-width: 850px) {
+  
+    .manage-herbs-filter-card {
+      flex-wrap: wrap;
+      padding: 11px;
+    }
+  
+    .manage-herbs-search-box {
+      flex-basis: 100%;
+    }
+  
+    .manage-herbs-count {
+      margin-left: auto;
+    }
+  }
+  
+  
+  @media (max-width: 650px) {
+  
+    .manage-herbs-page-heading {
+      flex-direction: column;
+      gap: 15px;
+    }
+  
+    .manage-herbs-filter-card {
+      align-items: stretch;
+    }
+  
+    .manage-herbs-filter-button {
+      flex: 1;
+      width: auto;
+    }
+  }
+
+  .manage-herbs-empty-state {
+    height: 220px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .manage-herbs-empty-state strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 15px;
+    color: #24352a;
+  }
+  
+  .manage-herbs-empty-state p {
+    margin: 0;
+    font-size: 13px;
+    color: #68746c;
+  }
+
+  /* =========================
+   HERB ACTION BUTTONS
+========================= */
+
+.manage-herbs-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.manage-herbs-action-button {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #dfe5dc;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #526158;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.manage-herbs-action-button:hover {
+  background: #f1f5ef;
+  border-color: #b8c6b8;
+  color: #24352a;
+}
+
+.manage-herbs-action-button:active {
+  transform: scale(0.96);
+}

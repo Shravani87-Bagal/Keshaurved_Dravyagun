@@ -1,0 +1,415 @@
+/* =========================================
+   UPGRADE MODAL
+========================================= */
+
+.upgrade-modal {
+    position: relative;
+  
+    width: min(1080px, calc(100vw - 70px));
+    max-height: calc(100vh - 60px);
+  
+    background: #ffffff;
+  
+    border: 1px solid #d5ddd4;
+    border-radius: 12px;
+  
+    padding: 34px 30px 20px;
+  
+    box-sizing: border-box;
+  
+    overflow-y: auto;
+  
+    box-shadow:
+      0 24px 60px rgba(18, 48, 34, 0.22),
+      0 8px 20px rgba(18, 48, 34, 0.10);
+  
+    animation: upgradeModalIn 0.18s ease-out;
+  }
+  
+  
+  @keyframes upgradeModalIn {
+    from {
+      opacity: 0;
+      transform: scale(0.98) translateY(5px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+  
+  
+  /* =========================================
+     HEADER
+  ========================================= */
+  
+  .upgrade-header {
+    padding: 5px 42px 22px 5px;
+  
+    border-bottom: 1px solid #e3e7e2;
+  }
+  
+  .upgrade-label {
+    margin: 0 0 6px;
+  
+    font-size: 10px;
+    font-weight: 700;
+  
+    letter-spacing: 1.4px;
+  
+    color: #66806f;
+  }
+  
+  .upgrade-header h1 {
+    margin: 0;
+  
+    font-size: 22px;
+    font-weight: 600;
+  
+    color: #304238;
+  }
+  
+  .upgrade-header p:not(.upgrade-label) {
+    margin: 6px 0 0;
+  
+    font-size: 11px;
+  
+    color: #7a8780;
+  }
+  
+  
+  /* =========================================
+     PLANS
+  ========================================= */
+  
+  .upgrade-plans {
+    display: grid;
+  
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  
+    gap: 14px;
+  
+    padding-top: 20px;
+  }
+  
+  
+  /* =========================================
+     PLAN CARD
+  ========================================= */
+  
+  .upgrade-plan-card {
+    position: relative;
+  
+    min-width: 0;
+  
+    padding: 20px 18px 18px;
+  
+    background: #fbfcfa;
+  
+    border: 1px solid #d9e0d8;
+    border-radius: 9px;
+  
+    box-sizing: border-box;
+  }
+  
+  
+  /* Recommended card */
+  
+  .upgrade-plan-card.featured {
+    background: #f2f6f0;
+  
+    border-color: #91a998;
+  
+    box-shadow:
+      0 4px 15px rgba(23, 74, 50, 0.07);
+  }
+  
+  
+  /* =========================================
+     BADGE
+  ========================================= */
+  
+  .upgrade-badge {
+    position: absolute;
+  
+    top: 12px;
+    right: 12px;
+  
+    padding: 4px 7px;
+  
+    border-radius: 5px;
+  
+    background: #dfeae0;
+  
+    color: #28664f;
+  
+    font-size: 8px;
+    font-weight: 700;
+  
+    letter-spacing: 0.7px;
+  }
+  
+  
+  /* =========================================
+     PLAN ICON
+  ========================================= */
+  
+  .upgrade-plan-icon {
+    width: 38px;
+    height: 38px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    margin-bottom: 15px;
+  
+    border-radius: 8px;
+  
+    background: #e9eee8;
+  
+    color: #347457;
+  
+    font-size: 20px;
+  }
+  
+  
+  /* =========================================
+     PLAN NAME
+  ========================================= */
+  
+  .upgrade-plan-card h2 {
+    margin: 0;
+  
+    font-size: 18px;
+    font-weight: 600;
+  
+    color: #304238;
+  }
+  
+  
+  /* =========================================
+     SUBTITLE
+  ========================================= */
+  
+  .upgrade-plan-subtitle {
+    min-height: 28px;
+  
+    margin: 4px 0 0;
+  
+    font-size: 10px;
+  
+    line-height: 1.4;
+  
+    color: #7a8780;
+  }
+  
+  
+  /* =========================================
+     PRICE
+  ========================================= */
+  
+  .upgrade-price {
+    margin-top: 17px;
+  
+    color: #17352a;
+  
+    font-size: 25px;
+    font-weight: 600;
+  }
+  
+  .upgrade-price span {
+    margin-left: 4px;
+  
+    font-size: 10px;
+    font-weight: 400;
+  
+    color: #7a8780;
+  }
+  
+  
+  /* =========================================
+     BUTTON
+  ========================================= */
+  
+  .upgrade-plan-button {
+    width: 100%;
+    height: 36px;
+  
+    margin-top: 15px;
+  
+    border-radius: 6px;
+  
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease,
+      transform 0.18s ease;
+  }
+  
+  
+  .upgrade-plan-button.primary {
+    border: 1px solid #3d735b;
+  
+    background: #3d735b;
+  
+    color: #ffffff;
+  }
+  
+  .upgrade-plan-button.primary:hover {
+    background: #315f4b;
+  
+    border-color: #315f4b;
+  
+    transform: translateY(-1px);
+  }
+  
+  
+  .upgrade-plan-button.secondary {
+    border: 1px solid #cfd8cf;
+  
+    background: #eef1ed;
+  
+    color: #65736a;
+  }
+  
+  .upgrade-plan-button.secondary:hover {
+    background: #e5eae4;
+  }
+  
+  
+  /* =========================================
+     DIVIDER
+  ========================================= */
+  
+  .upgrade-divider {
+    height: 1px;
+  
+    margin: 17px 0 14px;
+  
+    background: #e0e5df;
+  }
+  
+  
+  /* =========================================
+     INCLUDES
+  ========================================= */
+  
+  .upgrade-includes {
+    margin: 0 0 8px;
+  
+    font-size: 10px;
+    font-weight: 600;
+  
+    color: #536259;
+  }
+  
+  
+  /* =========================================
+     FEATURES
+  ========================================= */
+  
+  .upgrade-plan-card ul {
+    margin: 0;
+  
+    padding: 0;
+  
+    list-style: none;
+  }
+  
+  .upgrade-plan-card li {
+    display: flex;
+  
+    gap: 7px;
+  
+    margin-bottom: 8px;
+  
+    font-size: 10px;
+  
+    line-height: 1.4;
+  
+    color: #56645b;
+  }
+  
+  .upgrade-plan-card li span {
+    flex-shrink: 0;
+  
+    color: #6c8375;
+  
+    font-size: 10px;
+  }
+  
+  
+  /* =========================================
+     FOOTER
+  ========================================= */
+  
+  .upgrade-footer {
+    padding-top: 17px;
+  
+    text-align: center;
+  
+    font-size: 10px;
+  
+    color: #8a948e;
+  }
+  
+  
+  /* =========================================
+     SCROLLBAR
+  ========================================= */
+  
+  .upgrade-modal::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  .upgrade-modal::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .upgrade-modal::-webkit-scrollbar-thumb {
+    background: #c5cec6;
+    border-radius: 10px;
+  }
+  
+  
+  /* =========================================
+     RESPONSIVE
+  ========================================= */
+  
+  @media (max-width: 850px) {
+  
+    .upgrade-modal {
+      width: calc(100vw - 40px);
+  
+      padding: 28px 20px 18px;
+    }
+  
+    .upgrade-plans {
+      grid-template-columns: 1fr;
+    }
+  
+    .upgrade-plan-card {
+      padding: 18px;
+    }
+  }
+  
+  
+  @media (max-width: 600px) {
+  
+    .upgrade-modal {
+      width: calc(100vw - 20px);
+      max-height: calc(100vh - 20px);
+    }
+  
+    .upgrade-header h1 {
+      font-size: 19px;
+    }
+  }

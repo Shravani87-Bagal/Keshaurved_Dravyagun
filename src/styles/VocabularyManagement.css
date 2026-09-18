@@ -1,0 +1,733 @@
+/* =========================================
+   VOCABULARY MANAGEMENT PAGE
+   ========================================= */
+
+   .vocabulary-page {
+    width: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+    color: #17251d;
+  }
+  
+  
+  /* =========================================
+     PAGE HEADER
+     ========================================= */
+  
+  .vocabulary-page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 25px;
+    margin-bottom: 28px;
+  }
+  
+  .vocabulary-label {
+    margin: 0 0 7px;
+    color: #718078;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  
+  .vocabulary-page-header h1 {
+    margin: 0;
+    color: #17251d;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  
+  .vocabulary-description {
+    margin: 8px 0 0;
+    color: #69746d;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .vocabulary-add-button {
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 0 17px;
+    margin-top: 17px;
+    border: 1px solid #17552f;
+    border-radius: 5px;
+    background: #17552f;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .vocabulary-add-button span {
+    font-size: 16px;
+  }
+  
+  
+  /* =========================================
+     CATEGORY TABS
+     ========================================= */
+  
+  .vocabulary-category-tabs {
+    width: fit-content;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 4px;
+    margin-bottom: 13px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    background: #ffffff;
+    border: 1px solid #ddd9d0;
+    border-radius: 6px;
+  }
+  
+  .vocabulary-category-tab {
+    height: 30px;
+    padding: 0 12px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #536058;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  
+  .vocabulary-category-tab:hover {
+    background: #f2f5f2;
+    color: #245c38;
+  }
+  
+  .vocabulary-category-tab.active {
+    background: #183c25;
+    color: #ffffff;
+    box-shadow: 0 1px 2px rgba(20, 36, 25, 0.12);
+  }
+  
+  
+  /* =========================================
+     TABLE CARD
+     ========================================= */
+  
+  .vocabulary-table-card {
+    width: 100%;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #ddd9d0;
+    border-radius: 7px;
+    box-shadow: 0 1px 3px rgba(25, 42, 31, 0.05);
+  }
+  
+  
+  /* =========================================
+     SEARCH ROW
+     ========================================= */
+  
+  .vocabulary-search-row {
+    min-height: 67px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e2dfd7;
+  }
+  
+  .vocabulary-search-box {
+    height: 39px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 0 11px;
+    box-sizing: border-box;
+    border: 1px solid #d8d8d1;
+    border-radius: 5px;
+    background: #ffffff;
+  }
+  
+  .vocabulary-search-box > span {
+    color: #858d87;
+    font-size: 19px;
+    line-height: 1;
+  }
+  
+  .vocabulary-search-box input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #26342c;
+    font-family: inherit;
+    font-size: 14px;
+  }
+  
+  .vocabulary-search-box input::placeholder {
+    color: #9a9f9b;
+  }
+  
+  .vocabulary-term-count {
+    min-width: 120px;
+    color: #718078;
+    font-size: 13px;
+    white-space: nowrap;
+    text-align: right;
+  }
+  
+  
+  /* =========================================
+     TABLE
+     ========================================= */
+  
+  .vocabulary-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .vocabulary-table {
+    width: 100%;
+    min-width: 1050px;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  
+  .vocabulary-table th {
+    height: 43px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd9d0;
+    background: #faf9f6;
+    color: #6f7972;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: left;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  
+  .vocabulary-table td {
+    min-height: 59px;
+    padding: 11px 12px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e7e4dd;
+    color: #526057;
+    font-size: 13px;
+    line-height: 1.4;
+    vertical-align: middle;
+  }
+  
+  .vocabulary-table tbody tr:hover {
+    background: #fcfcfa;
+  }
+  
+  .vocabulary-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  
+  
+  /* =========================================
+     TABLE COLUMN WIDTHS
+     ========================================= */
+  
+  .vocabulary-table th:nth-child(1),
+  .vocabulary-table td:nth-child(1) {
+    width: 95px;
+  }
+  
+  .vocabulary-table th:nth-child(2),
+  .vocabulary-table td:nth-child(2) {
+    width: 105px;
+  }
+  
+  .vocabulary-table th:nth-child(3),
+  .vocabulary-table td:nth-child(3) {
+    width: 125px;
+  }
+  
+  .vocabulary-table th:nth-child(4),
+  .vocabulary-table td:nth-child(4) {
+    width: 95px;
+  }
+  
+  .vocabulary-table th:nth-child(5),
+  .vocabulary-table td:nth-child(5) {
+    width: 190px;
+  }
+  
+  .vocabulary-table th:nth-child(6),
+  .vocabulary-table td:nth-child(6) {
+    width: 75px;
+  }
+  
+  .vocabulary-table th:nth-child(7),
+  .vocabulary-table td:nth-child(7) {
+    width: 90px;
+  }
+  
+  .vocabulary-table th:nth-child(8),
+  .vocabulary-table td:nth-child(8) {
+    width: 180px;
+  }
+  
+  
+  /* =========================================
+     TABLE CONTENT
+     ========================================= */
+  
+  .vocabulary-term {
+    color: #17251d !important;
+    font-size: 13px !important;
+    font-weight: 600;
+  }
+  
+  .vocabulary-sanskrit {
+    color: #326044 !important;
+    font-size: 14px !important;
+  }
+  
+  .vocabulary-description-cell {
+    color: #68736c !important;
+  }
+  
+  .vocabulary-usage {
+    color: #25332b !important;
+    font-weight: 600;
+  }
+  
+  
+  /* =========================================
+     CATEGORY BADGE
+     ========================================= */
+  
+  .vocabulary-category-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 7px;
+    border-radius: 4px;
+    background: #edf4ef;
+    color: #376247;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  
+  
+  /* =========================================
+     STATUS
+     ========================================= */
+  
+  .vocabulary-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 9px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  
+  .vocabulary-status.active {
+    background: #dceee2;
+    color: #3d7050;
+  }
+
+  .vocabulary-status.inactive {
+    background: #f1f1ef;
+    color: #6d726e;
+    border: 1px solid #d9dbd7;
+  }
+  
+  
+  /* =========================================
+     ACTIONS
+     ========================================= */
+  
+  .vocabulary-actions {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    white-space: nowrap;
+  }
+  
+  .vocabulary-action-button {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #8a938d;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  
+  .vocabulary-action-button:hover {
+    color: #245c38;
+  }
+  
+  .vocabulary-action-text {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #737c76;
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  
+  .vocabulary-action-text:hover {
+    color: #245c38;
+    text-decoration: underline;
+  }
+  
+  
+  /* =========================================
+     EMPTY STATE
+     ========================================= */
+  
+  .vocabulary-empty-state {
+    height: 150px;
+    color: #78827b !important;
+    font-size: 14px !important;
+    text-align: center !important;
+  }
+  
+  
+  /* =========================================
+     RESPONSIVE
+     ========================================= */
+  
+  @media (max-width: 900px) {
+  
+    .vocabulary-page-header {
+      flex-direction: column;
+    }
+  
+    .vocabulary-add-button {
+      margin-top: 0;
+    }
+  
+    .vocabulary-category-tabs {
+      width: 100%;
+    }
+  }
+  
+  
+  @media (max-width: 650px) {
+  
+    .vocabulary-page-header h1 {
+      font-size: 26px;
+    }
+  
+    .vocabulary-search-row {
+      align-items: stretch;
+      flex-direction: column;
+    }
+  
+    .vocabulary-search-box {
+      width: 100%;
+    }
+  
+    .vocabulary-term-count {
+      width: 100%;
+      text-align: left;
+    }
+  }
+
+  /* =========================================
+   ADD VOCABULARY TERM MODAL
+   ========================================= */
+
+.vocabulary-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  box-sizing: border-box;
+  background: rgba(23, 37, 29, 0.32);
+}
+
+.vocabulary-modal {
+  width: min(620px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 26px;
+  background: #ffffff;
+  border: 1px solid #ddd9d0;
+  border-radius: 10px;
+  box-shadow: 0 18px 50px rgba(23, 37, 29, 0.18);
+}
+
+.vocabulary-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.vocabulary-modal-label {
+  margin: 0 0 6px;
+  color: #718078;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.vocabulary-modal-header h2 {
+  margin: 0;
+  color: #17251d;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.vocabulary-modal-header p:last-child {
+  margin: 7px 0 0;
+  color: #69746d;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.vocabulary-modal-close {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #68736c;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.vocabulary-modal-close:hover {
+  background: #f2f5f2;
+  color: #17251d;
+}
+
+
+/* FORM */
+
+.vocabulary-term-form {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.vocabulary-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.vocabulary-form-field label {
+  color: #34423a;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.vocabulary-form-field label span {
+  color: #a34c43;
+}
+
+.vocabulary-form-field input,
+.vocabulary-form-field select,
+.vocabulary-form-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d7d9d4;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #26342c;
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+}
+
+.vocabulary-form-field input,
+.vocabulary-form-field select {
+  height: 40px;
+  padding: 0 11px;
+}
+
+.vocabulary-form-field textarea {
+  min-height: 95px;
+  padding: 10px 11px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.vocabulary-form-field input::placeholder,
+.vocabulary-form-field textarea::placeholder {
+  color: #9a9f9b;
+}
+
+.vocabulary-form-field input:focus,
+.vocabulary-form-field select:focus,
+.vocabulary-form-field textarea:focus {
+  border-color: #6d9478;
+  box-shadow: 0 0 0 3px rgba(109, 148, 120, 0.10);
+}
+
+.vocabulary-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+
+/* MODAL ACTIONS */
+
+.vocabulary-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 8px;
+  margin-top: 4px;
+  border-top: 1px solid #e5e2db;
+}
+
+.vocabulary-cancel-button,
+.vocabulary-save-button {
+  height: 38px;
+  padding: 0 17px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.vocabulary-cancel-button {
+  border: 1px solid #d7d9d4;
+  background: #ffffff;
+  color: #526057;
+}
+
+.vocabulary-cancel-button:hover {
+  background: #f6f7f4;
+}
+
+.vocabulary-save-button {
+  border: 1px solid #17552f;
+  background: #17552f;
+  color: #ffffff;
+}
+
+.vocabulary-save-button:hover {
+  background: #124526;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 650px) {
+
+  .vocabulary-modal-overlay {
+    padding: 15px;
+  }
+
+  .vocabulary-modal {
+    padding: 20px;
+  }
+
+  .vocabulary-form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.vocabulary-merge-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.vocabulary-merge-source,
+.vocabulary-merge-target-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 15px;
+  border: 1px solid #dfe5dc;
+  border-radius: 8px;
+  background: #f8faf7;
+}
+
+.vocabulary-merge-source strong,
+.vocabulary-merge-target-preview strong {
+  color: #17251d;
+  font-size: 17px;
+}
+
+.vocabulary-merge-source span:not(.vocabulary-merge-label),
+.vocabulary-merge-target-preview span:not(.vocabulary-merge-label) {
+  color: #68736c;
+  font-size: 12px;
+}
+
+.vocabulary-merge-source small,
+.vocabulary-merge-target-preview small {
+  color: #7b857f;
+  font-size: 12px;
+}
+
+.vocabulary-merge-label {
+  color: #718078;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.vocabulary-merge-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6d9478;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.vocabulary-merge-warning {
+  padding: 13px 15px;
+  border: 1px solid #e4dfd1;
+  border-radius: 7px;
+  background: #faf8f2;
+}
+
+.vocabulary-merge-warning strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #4a514b;
+  font-size: 13px;
+}
+
+.vocabulary-merge-warning p {
+  margin: 0;
+  color: #6f766f;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.vocabulary-save-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+

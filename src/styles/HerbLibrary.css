@@ -1,0 +1,653 @@
+/* =========================================
+   HERB LIBRARY PAGE
+   ========================================= */
+
+   .herb-library-layout {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #f8f7f2;
+    color: #17352a;
+  }
+  
+  .herb-library-body {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    overflow: hidden;
+    margin-left: 232px;
+  }
+  
+  .herb-library-content {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #f8f7f2;
+  }
+  
+  .herb-library-inner {
+    width: min(1000px, calc(100% - 70px));
+    margin: 0 auto;
+    padding: 38px 0 55px;
+    box-sizing: border-box;
+  }
+  
+  
+  /* =========================================
+     HEADER
+     ========================================= */
+  
+  .herb-library-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 18px;
+  }
+  
+  .herb-library-breadcrumb {
+    margin: 0 0 9px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #66806f;
+  }
+  
+  .herb-library-header h1 {
+    margin: 0;
+    font-size: 32px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #17352a;
+  }
+  
+  .library-selected-count {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #315d49;
+    white-space: nowrap;
+  }
+  
+  .selection-network-icon {
+    font-size: 18px;
+    color: #48715d;
+  }
+  
+  
+  /* =========================================
+     SELECTION BANNER
+     ========================================= */
+  
+  .selection-banner {
+    min-height: 82px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    padding: 15px 18px;
+    margin-bottom: 17px;
+    box-sizing: border-box;
+    border: 1px solid #d2dfd0;
+    border-radius: 9px;
+    background: #edf4e9;
+  }
+  
+  .selection-banner-text {
+    min-width: 0;
+  }
+  
+  .selection-banner-text p {
+    margin: 0 0 8px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #597166;
+  }
+  
+  .selection-banner-text strong {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #285d49;
+  }
+  
+  .selection-banner-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  
+  .clear-selection-button {
+    border: none;
+    background: transparent;
+    color: #75897e;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  .clear-selection-button:hover:not(:disabled) {
+    color: #315d49;
+  }
+  
+  .clear-selection-button:disabled {
+    opacity: 0.55;
+    cursor: default;
+  }
+  
+  .compare-selected-button {
+    min-width: 145px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 15px;
+    border: none;
+    border-radius: 7px;
+    background: #28664f;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .compare-selected-button span {
+    font-size: 19px;
+    line-height: 1;
+  }
+  
+  .compare-selected-button:hover:not(:disabled) {
+    background: #205640;
+  }
+  
+  .compare-selected-button:disabled {
+    background: #b9c7bd;
+    color: #f4f6f3;
+    cursor: not-allowed;
+  }
+  
+  
+  /* =========================================
+     SEARCH
+     ========================================= */
+  
+  .herb-library-search {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 14px;
+    margin-bottom: 17px;
+    box-sizing: border-box;
+    border: 1px solid #cbd8cd;
+    border-radius: 8px;
+    background: #ffffff;
+  }
+  
+  .library-search-icon {
+    font-size: 21px;
+    line-height: 1;
+    color: #789087;
+  }
+  
+  .herb-library-search input {
+    flex: 1;
+    width: 100%;
+    height: 38px;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #26382d;
+    font-family: inherit;
+    font-size: 12px;
+  }
+  
+  .herb-library-search input::placeholder {
+    color: #8a9991;
+  }
+  
+  
+  /* =========================================
+     HERB GRID
+     ========================================= */
+  
+  .herb-library-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 13px;
+  }
+  
+  
+  /* =========================================
+     HERB CARD
+     ========================================= */
+  
+  .herb-library-card {
+    min-width: 0;
+    min-height: 184px;
+    padding: 14px 14px 13px;
+    box-sizing: border-box;
+    border: 1px solid #d7dfd6;
+    border-radius: 9px;
+    background: #fbfaf6;
+    cursor: pointer;
+  
+    transition:
+      border-color 0.2s ease,
+      background 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  
+  .herb-library-card:hover {
+    border-color: #b9cdbb;
+    background: #ffffff;
+    box-shadow: 0 5px 16px rgba(23, 74, 50, 0.05);
+  }
+  
+  .herb-library-card.selected {
+    border-color: #5d8b6c;
+    background: #f3f8f1;
+    box-shadow: 0 0 0 1px rgba(47, 125, 74, 0.12);
+  }
+  
+  .herb-card-main {
+    display: grid;
+    grid-template-columns: 20px 48px minmax(0, 1fr);
+    align-items: start;
+    gap: 10px;
+  }
+  
+  
+  /* =========================================
+     CHECKBOX
+     ========================================= */
+  
+  .herb-checkbox {
+    width: 19px;
+    height: 19px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    padding: 0;
+    margin-top: 1px;
+  
+    border: 1px solid #b9cec0;
+    border-radius: 5px;
+  
+    background: #ffffff;
+    color: #ffffff;
+  
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+  
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+  
+  .herb-checkbox:hover {
+    border-color: #789d84;
+  }
+  
+  .herb-checkbox.checked {
+    border-color: #28664f;
+    background: #28664f;
+  }
+  
+  
+  /* =========================================
+     LEAF ICON
+     ========================================= */
+  
+  .herb-leaf-icon {
+    width: 48px;
+    height: 48px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    border-radius: 8px;
+  
+    box-sizing: border-box;
+  
+    color: #355f49;
+  }
+  
+  .herb-leaf-icon svg {
+    width: 34px;
+    height: 34px;
+  }
+  
+  .herb-leaf-icon.green {
+    background: #a9b99d;
+  }
+  
+  .herb-leaf-icon.sage {
+    background: #91a987;
+  }
+  
+  .herb-leaf-icon.cream {
+    background: #d4c292;
+  }
+  
+  
+  /* =========================================
+     HERB INFORMATION
+     ========================================= */
+  
+  .herb-card-information {
+    min-width: 0;
+  }
+  
+  .herb-card-information h2 {
+    margin: 1px 0 3px;
+  
+    font-size: 15px;
+    line-height: 1.3;
+  
+    font-weight: 600;
+  
+    color: #17352a;
+  }
+  
+  .herb-card-information em {
+    display: block;
+  
+    margin-bottom: 8px;
+  
+    font-family: Georgia, "Times New Roman", serif;
+  
+    font-size: 9px;
+    font-style: italic;
+  
+    color: #78857d;
+  }
+  
+  .herb-card-information p {
+    min-height: 48px;
+  
+    margin: 0 0 10px;
+  
+    font-size: 10px;
+    line-height: 1.55;
+  
+    color: #51645a;
+  }
+  
+  
+  /* =========================================
+     VIEW INFORMATION BUTTON
+     ========================================= */
+  
+  .herb-view-information {
+    margin-top: 12px;
+  
+    min-height: 32px;
+  
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+  
+    padding: 0 12px;
+  
+    box-sizing: border-box;
+  
+    border: 1px solid #b9cec0;
+    border-radius: 7px;
+  
+    background: #eef4ec;
+    color: #28664f;
+  
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 600;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  
+  .herb-view-information span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  
+    font-size: 15px;
+    line-height: 1;
+  
+    transition: transform 0.2s ease;
+  }
+  
+  .herb-view-information:hover {
+    background: #e1ecdf;
+    border-color: #7f9f88;
+    color: #174a32;
+  
+    transform: translateY(-1px);
+  
+    box-shadow: 0 3px 8px rgba(23, 74, 50, 0.08);
+  }
+  
+  .herb-view-information:hover span {
+    transform: translateX(2px);
+  }
+  
+  
+  /* =========================================
+     STATUS
+     ========================================= */
+  
+  .herb-status {
+    min-height: 30px;
+  
+    display: flex;
+    align-items: center;
+  
+    gap: 6px;
+  
+    padding: 0 9px;
+  
+    box-sizing: border-box;
+  
+    border-radius: 16px;
+  
+    font-size: 9px;
+    font-weight: 500;
+  }
+  
+  .herb-status span {
+    width: 13px;
+    height: 13px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    border: 1px solid currentColor;
+    border-radius: 50%;
+  
+    font-size: 8px;
+  }
+  
+  .herb-status.verified {
+    background: #e2f0e2;
+    color: #347052;
+  }
+  
+  .herb-status.reviewed {
+    background: #f3ead6;
+    color: #766849;
+  }
+  
+  
+  /* =========================================
+     NO RESULTS
+     ========================================= */
+  
+  .herb-library-no-results {
+    padding: 50px 20px;
+  
+    text-align: center;
+  
+    border: 1px dashed #ccd7ce;
+    border-radius: 9px;
+  
+    background: #fbfaf6;
+  }
+  
+  .herb-library-no-results h2 {
+    margin: 0 0 7px;
+  
+    font-size: 17px;
+    font-weight: 600;
+  
+    color: #315d49;
+  }
+  
+  .herb-library-no-results p {
+    margin: 0;
+  
+    font-size: 12px;
+  
+    color: #7a8981;
+  }
+  
+  
+  /* =========================================
+     FOOTER / PAGINATION
+     ========================================= */
+  
+  .herb-library-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    margin-top: 18px;
+  
+    font-size: 11px;
+    color: #718078;
+  }
+  
+  .library-pagination {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  
+  .library-pagination button {
+    width: 34px;
+    height: 34px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    border: 1px solid #d7dfd7;
+    border-radius: 7px;
+  
+    background: #f8f7f2;
+    color: #65786d;
+  
+    font-family: inherit;
+    font-size: 16px;
+  
+    cursor: pointer;
+  }
+  
+  .library-pagination button.active {
+    border-color: #28664f;
+    background: #28664f;
+    color: #ffffff;
+  }
+  
+  .library-pagination button:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  
+  
+  /* =========================================
+     RESPONSIVE
+     ========================================= */
+  
+  @media (max-width: 1000px) {
+    .herb-library-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  
+  @media (max-width: 750px) {
+    .herb-library-header {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 12px;
+    }
+  
+    .selection-banner {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  
+    .selection-banner-actions {
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
+  
+  @media (max-width: 650px) {
+    .herb-library-inner {
+      width: calc(100% - 30px);
+      padding-top: 28px;
+    }
+  
+    .herb-library-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .herb-library-header h1 {
+      font-size: 27px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .selection-banner-actions {
+      align-items: stretch;
+      flex-direction: column;
+    }
+  
+    .compare-selected-button {
+      width: 100%;
+    }
+  
+    .clear-selection-button {
+      align-self: flex-end;
+    }
+  
+    .herb-library-footer {
+      align-items: flex-start;
+      gap: 15px;
+      flex-direction: column;
+    }
+  }

@@ -1,0 +1,1566 @@
+/* =========================================
+   ADD HERB PAGE
+   ========================================= */
+
+   .add-herb-page {
+    width: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+    color: #17251d;
+  }
+  
+  
+  /* =========================================
+     PAGE HEADER
+     ========================================= */
+  
+  .add-herb-page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 25px;
+    margin-bottom: 28px;
+  }
+  
+  .add-herb-label {
+    margin: 0 0 7px;
+    color: #718078;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  
+  .add-herb-page-header h1 {
+    margin: 0;
+    color: #17251d;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  
+  .add-herb-description {
+    margin: 8px 0 0;
+    color: #69746d;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .add-herb-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding-top: 17px;
+  }
+  
+  .add-herb-cancel-button,
+  .add-herb-draft-button,
+  .add-herb-submit-button {
+    height: 38px;
+    padding: 0 17px;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .add-herb-cancel-button {
+    border: 1px solid #d7d6cf;
+    background: #ffffff;
+    color: #536058;
+  }
+  
+  .add-herb-draft-button {
+    border: 1px solid #cdd8d0;
+    background: #edf2ee;
+    color: #365641;
+  }
+  
+  .add-herb-submit-button {
+    border: 1px solid #17552f;
+    background: #17552f;
+    color: #ffffff;
+  }
+  
+  .add-herb-cancel-button:hover,
+  .add-herb-draft-button:hover,
+  .add-herb-submit-button:hover {
+    opacity: 0.92;
+  }
+  
+  
+  /* =========================================
+     HERB IMAGE CARD
+     ========================================= */
+  
+  .add-herb-image-card {
+    padding: 22px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #ddd9d0;
+    border-radius: 7px;
+    box-shadow: 0 1px 3px rgba(25, 42, 31, 0.05);
+  }
+  
+  .add-herb-image-card h2 {
+    margin: 0 0 16px;
+    color: #1c2820;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  
+  .add-herb-upload-area {
+    min-height: 145px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border: 1px dashed #b8c4bb;
+    border-radius: 6px;
+    background: #fafbf9;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  
+  .add-herb-upload-area:hover {
+    background: #f5f8f5;
+    border-color: #8da797;
+  }
+  
+  .add-herb-upload-icon {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 9px;
+    border-radius: 50%;
+    background: #e8f0ea;
+    color: #29613b;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .add-herb-upload-area h3 {
+    max-width: 90%;
+    margin: 0;
+    color: #29372e;
+    font-size: 14px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+  
+  .add-herb-upload-area p {
+    margin: 7px 0 0;
+    color: #7b857f;
+    font-size: 13px;
+  }
+  
+  
+  /* =========================================
+     AYURVEDIC SECTIONS
+     ========================================= */
+  
+  .add-herb-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .add-herb-section {
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #ddd9d0;
+    border-radius: 7px;
+    box-shadow: 0 1px 2px rgba(25, 42, 31, 0.04);
+  }
+  
+  .add-herb-section.open {
+    border-color: #c5d1c8;
+  }
+  
+  .add-herb-section-header {
+    width: 100%;
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 19px;
+    border: none;
+    background: #ffffff;
+    color: #17251d;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  
+  .add-herb-section-header:hover {
+    background: #fafbf9;
+  }
+  
+  .add-herb-section-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .add-herb-section-number {
+    color: #718078;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  .add-herb-section-arrow {
+    color: #7b847e;
+    font-size: 18px;
+    line-height: 1;
+  }
+  
+  .add-herb-section.open .add-herb-section-arrow {
+    color: #245c38;
+  }
+  
+  
+  /* =========================================
+     OPEN SECTION CONTENT
+     ========================================= */
+  
+  .add-herb-section-body {
+    padding: 5px 20px 22px;
+    border-top: 1px solid #e8e5de;
+    background: #fcfcfa;
+  }
+  
+  .add-herb-section-body > p {
+    margin: 15px 0 17px;
+    color: #66716a;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  
+  
+  /* =========================================
+     COMMON FORM FIELD
+     ========================================= */
+  
+  .add-herb-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  
+  .add-herb-field label {
+    color: #303d35;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  
+  .add-herb-field input,
+  .add-herb-field select,
+  .add-herb-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #d7d8d2;
+    border-radius: 5px;
+    outline: none;
+    background: #ffffff;
+    color: #28362d;
+    font-family: inherit;
+    font-size: 14px;
+  }
+  
+  .add-herb-field input,
+  .add-herb-field select {
+    height: 42px;
+    padding: 0 12px;
+  }
+  
+  .add-herb-field textarea {
+    min-height: 108px;
+    padding: 11px 12px;
+    resize: vertical;
+    line-height: 1.5;
+  }
+  
+  .add-herb-field input:focus,
+  .add-herb-field select:focus,
+  .add-herb-field textarea:focus {
+    border-color: #6d9679;
+    box-shadow: 0 0 0 2px rgba(66, 112, 79, 0.1);
+  }
+  
+  .add-herb-field input::placeholder,
+  .add-herb-field textarea::placeholder {
+    color: #9aa19c;
+  }
+  
+  
+  /* =========================================
+     SECTION 01 — BASIC INFORMATION
+     ========================================= */
+  
+  .add-herb-basic-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 19px 16px;
+  }
+  
+  .add-herb-field-full {
+    grid-column: 1 / -1;
+  }
+  
+  
+  /* =========================================
+     SECTION 02 — IDENTIFICATION
+     ========================================= */
+  
+  .add-herb-identification-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  
+  .add-herb-identification-fields textarea {
+    min-height: 95px;
+  }
+  
+  
+  /* =========================================
+     MULTI-SELECTION SECTIONS
+     RASA / GUNA / DHATU / MALA / SROTAS
+     ========================================= */
+  
+  .add-herb-selection-section {
+    width: 100%;
+  }
+  
+  .add-herb-selection-description {
+    margin: 15px 0 17px;
+    color: #66716a;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  
+  .add-herb-option-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  
+  .add-herb-option-card {
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    border: 1px solid #ddd9d0;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #202d25;
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color 0.18s ease, background 0.18s ease;
+  }
+  
+  .add-herb-option-card:hover {
+    border-color: #aabdaf;
+    background: #f8faf8;
+  }
+  
+  .add-herb-option-card input {
+    width: 15px;
+    height: 15px;
+    margin: 0;
+    flex-shrink: 0;
+    accent-color: #17552f;
+    cursor: pointer;
+  }
+  
+  .add-herb-option-card span {
+    line-height: 1.35;
+  }
+  
+  
+  /* =========================================
+     SECTION 05 — VIRYA
+     ========================================= */
+  
+  .add-herb-single-selection {
+    width: 100%;
+  }
+  
+  .add-herb-single-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .add-herb-single-options .add-herb-option-card {
+    min-height: 52px;
+  }
+  
+  
+  /* =========================================
+     SECTION 06 — VIPAKA
+     ========================================= */
+  
+  .add-herb-single-selection .add-herb-single-options {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  
+  /* =========================================
+     SECTION 07 — PRABHAVA
+     ========================================= */
+  
+  .add-herb-text-section {
+    width: 100%;
+  }
+  
+  .add-herb-large-textarea {
+    min-height: 150px !important;
+  }
+  
+  
+  /* =========================================
+     SECTION 08 — DOSHA AFFINITY
+     ========================================= */
+  
+  .add-herb-dosha-section {
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+  }
+  
+  .add-herb-dosha-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  
+  .add-herb-dosha-grid .add-herb-field select {
+    cursor: pointer;
+  }
+  
+  
+  /* =========================================
+     SECTION 09 — DHATU AFFINITY
+     ========================================= */
+  
+  .add-herb-selection-section .add-herb-option-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  
+  /* =========================================
+     SECTION 10 — MALA AFFINITY
+     ========================================= */
+  
+  .add-herb-selection-section .add-herb-option-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  
+  /* =========================================
+     SECTION 11 — SROTAS AFFINITY
+     ========================================= */
+  
+  .add-herb-section-body
+    .add-herb-selection-section
+    .add-herb-option-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  
+  /* =========================================
+     SECTION 12 — THERAPEUTIC ACTIONS
+     ========================================= */
+  
+  .add-herb-therapeutic-section {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  
+  .add-herb-therapeutic-section textarea {
+    min-height: 120px;
+  }
+  
+  
+  /* =========================================
+     SECTION 13 — CLASSICAL REFERENCES
+     ========================================= */
+  
+  .add-herb-reference-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .add-herb-reference-block {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e2db;
+  }
+  
+  .add-herb-reference-block:last-of-type {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  
+  .add-herb-reference-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  
+  .add-herb-reference-block textarea {
+    min-height: 105px;
+  }
+  
+  .add-herb-add-reference-button {
+    align-self: flex-start;
+    padding: 4px 0;
+    border: none;
+    background: transparent;
+    color: #24623a;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .add-herb-add-reference-button:hover {
+    color: #174b2b;
+    text-decoration: underline;
+  }
+  
+  
+  /* =========================================
+     VERIFICATION CARD
+     ========================================= */
+  
+  .add-herb-verification-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    padding: 21px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    background: #ffffff;
+    border: 1px solid #ddd9d0;
+    border-radius: 7px;
+    box-shadow: 0 1px 3px rgba(25, 42, 31, 0.05);
+  }
+  
+  .add-herb-verification-column {
+    padding-right: 20px;
+    border-right: 1px solid #e4e1d9;
+  }
+  
+  .add-herb-verification-card h2 {
+    margin: 0 0 14px;
+    color: #202d25;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  
+  .add-herb-verification-select {
+    width: 100%;
+    height: 42px;
+    padding: 0 11px;
+    border: 1px solid #d5d6d0;
+    border-radius: 5px;
+    outline: none;
+    background: #ffffff;
+    color: #28362d;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .add-herb-verification-select:focus {
+    border-color: #6d9679;
+    box-shadow: 0 0 0 2px rgba(66, 112, 79, 0.1);
+  }
+  
+  .add-herb-verification-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-top: 10px;
+    padding: 10px 11px;
+    box-sizing: border-box;
+    border: 1px solid #efd27b;
+    border-radius: 5px;
+    background: #fff4c9;
+  }
+  
+  .add-herb-verification-warning > span {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #d69f27;
+    border-radius: 50%;
+    color: #a46c17;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  
+  .add-herb-verification-warning p {
+    margin: 0;
+    color: #795b20;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  
+  
+  /* =========================================
+     VERIFICATION HISTORY
+     ========================================= */
+  
+  .add-herb-history-column {
+    padding-left: 0;
+  }
+  
+  .add-herb-history-row {
+    min-height: 37px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    border-bottom: 1px solid #e7e3da;
+  }
+  
+  .add-herb-history-row:last-child {
+    border-bottom: none;
+  }
+  
+  .add-herb-history-row span {
+    color: #748078;
+    font-size: 13px;
+  }
+  
+  .add-herb-history-row strong {
+    color: #26342b;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  
+  
+  /* =========================================
+     BOTTOM ACTIONS
+     ========================================= */
+  
+  .add-herb-bottom-actions {
+    min-height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 10px 0 4px;
+    box-sizing: border-box;
+  }
+  
+  .add-herb-bottom-left {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  
+  .add-herb-save-button,
+  .add-herb-review-button,
+  .add-herb-bottom-draft-button,
+  .add-herb-bottom-cancel {
+    height: 38px;
+    padding: 0 16px;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .add-herb-save-button {
+    border: 1px solid #17552f;
+    background: #17552f;
+    color: #ffffff;
+  }
+  
+  .add-herb-review-button {
+    border: 1px solid #c8d5cc;
+    background: #edf2ee;
+    color: #365641;
+  }
+  
+  .add-herb-bottom-draft-button {
+    border: 1px solid #d2ddd5;
+    background: #f0f4f1;
+    color: #49604f;
+  }
+  
+  .add-herb-bottom-cancel {
+    border: none;
+    background: transparent;
+    color: #536058;
+  }
+  
+  .add-herb-save-button:hover,
+  .add-herb-review-button:hover,
+  .add-herb-bottom-draft-button:hover {
+    opacity: 0.92;
+  }
+  
+  .add-herb-bottom-cancel:hover {
+    color: #1f3828;
+  }
+  
+  
+  /* =========================================
+     RESPONSIVE — TABLET
+     ========================================= */
+  
+  @media (max-width: 900px) {
+  
+    .add-herb-page-header {
+      flex-direction: column;
+    }
+  
+    .add-herb-header-actions {
+      padding-top: 0;
+    }
+  
+    .add-herb-basic-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .add-herb-field-full {
+      grid-column: auto;
+    }
+  
+    .add-herb-option-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .add-herb-single-options,
+    .add-herb-single-selection .add-herb-single-options {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .add-herb-dosha-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .add-herb-reference-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .add-herb-verification-card {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  
+    .add-herb-verification-column {
+      padding-right: 0;
+      padding-bottom: 20px;
+      border-right: none;
+      border-bottom: 1px solid #e4e1d9;
+    }
+  }
+  
+  
+  /* =========================================
+     RESPONSIVE — MOBILE
+     ========================================= */
+  
+  @media (max-width: 650px) {
+  
+    .add-herb-page-header h1 {
+      font-size: 26px;
+    }
+  
+    .add-herb-header-actions {
+      width: 100%;
+      flex-wrap: wrap;
+    }
+  
+    .add-herb-cancel-button,
+    .add-herb-draft-button,
+    .add-herb-submit-button {
+      flex: 1;
+    }
+  
+    .add-herb-section-header {
+      min-height: 54px;
+      padding: 0 14px;
+    }
+  
+    .add-herb-section-title {
+      gap: 9px;
+      font-size: 13px;
+    }
+  
+    .add-herb-section-body {
+      padding: 5px 14px 18px;
+    }
+  
+    .add-herb-option-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .add-herb-single-options,
+    .add-herb-single-selection .add-herb-single-options {
+      grid-template-columns: 1fr;
+    }
+  
+    .add-herb-verification-card {
+      padding: 16px;
+    }
+  
+    .add-herb-bottom-actions {
+      align-items: stretch;
+      flex-direction: column;
+    }
+  
+    .add-herb-bottom-left {
+      width: 100%;
+      flex-wrap: wrap;
+    }
+  
+    .add-herb-save-button,
+    .add-herb-review-button,
+    .add-herb-bottom-draft-button {
+      flex: 1;
+    }
+  }
+
+  /* ================================
+   Herb Image Upload
+================================ */
+
+.add-herb-upload-area {
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.add-herb-upload-area:hover {
+  border-color: #29613b;
+  background: #f6faf7;
+}
+
+.add-herb-upload-area.dragging {
+  border-color: #29613b;
+  background: #eef6f0;
+}
+
+.add-herb-upload-area.has-image {
+  min-height: 240px;
+  padding: 18px;
+}
+
+.add-herb-image-preview {
+  width: 180px;
+  height: 135px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #d7ded9;
+  margin-bottom: 12px;
+}
+
+.add-herb-image-file-name {
+  margin: 0 0 5px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #24352a;
+  word-break: break-word;
+  max-width: 90%;
+  text-align: center;
+}
+
+.add-herb-image-change {
+  margin: 0;
+  font-size: 12px;
+  color: #637168;
+}
+
+.add-herb-sections {
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.add-herb-sections:disabled {
+  opacity: 1;
+}
+
+.add-herb-sections:disabled input,
+.add-herb-sections:disabled textarea,
+.add-herb-sections:disabled select {
+  cursor: not-allowed;
+}
+.add-herb-sections {
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.add-herb-sections.read-only-mode input,
+.add-herb-sections.read-only-mode textarea,
+.add-herb-sections.read-only-mode select {
+  pointer-events: none;
+  cursor: default;
+}
+
+.add-herb-sections.read-only-mode input,
+.add-herb-sections.read-only-mode textarea,
+.add-herb-sections.read-only-mode select {
+  opacity: 0.85;
+}
+
+.add-herb-add-term-button:hover {
+  background: #eef4ed;
+  border-color: #6d8d72;
+  color: #294532;
+}
+
+/* =========================================================
+   COMMON VOCABULARY TERM MODAL
+   Used by: Rasa, Guna, Dhatu, Mala, Srotas
+   ========================================================= */
+
+   .add-herb-term-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(24, 35, 27, 0.45);
+    box-sizing: border-box;
+  }
+  
+  .add-herb-term-modal {
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #ffffff;
+    border: 1px solid #dfe5dc;
+    border-radius: 14px;
+    box-shadow: 0 20px 50px rgba(34, 48, 38, 0.18);
+    box-sizing: border-box;
+  }
+  
+  /* ---------- Modal Header ---------- */
+  
+  .add-herb-term-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 24px 18px;
+    border-bottom: 1px solid #e7ebe5;
+  }
+  
+  .add-herb-term-modal-label {
+    margin: 0 0 6px;
+    color: #6d8d72;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+  
+  .add-herb-term-modal-header h2 {
+    margin: 0;
+    color: #24352a;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  
+  .add-herb-term-modal-header p:last-child {
+    margin: 7px 0 0;
+    color: #69756c;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  
+  .add-herb-term-modal-close {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border: 1px solid #dfe5dc;
+    border-radius: 8px;
+    background: #f7faf5;
+    color: #526158;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .add-herb-term-modal-close:hover {
+    background: #eef4ed;
+    border-color: #b8c6b8;
+    color: #294532;
+  }
+  
+  /* ---------- Modal Form ---------- */
+  
+  .add-herb-term-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 22px 24px;
+  }
+  
+  .add-herb-term-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  
+  .add-herb-term-field label {
+    color: #34443a;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  
+  .add-herb-term-field input,
+  .add-herb-term-field textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cfd8ce;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #26372c;
+    font-family: inherit;
+    font-size: 13px;
+    outline: none;
+    box-sizing: border-box;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  
+  .add-herb-term-field input {
+    height: 38px;
+  }
+  
+  .add-herb-term-field textarea {
+    min-height: 90px;
+    resize: vertical;
+    line-height: 1.5;
+  }
+  
+  .add-herb-term-field input:focus,
+  .add-herb-term-field textarea:focus {
+    border-color: #7d9b82;
+    box-shadow: 0 0 0 3px rgba(109, 141, 114, 0.12);
+  }
+  
+  .add-herb-term-field input::placeholder,
+  .add-herb-term-field textarea::placeholder {
+    color: #9aa59d;
+  }
+  
+  /* ---------- Modal Actions ---------- */
+  
+  .add-herb-term-modal-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 16px 24px 20px;
+    border-top: 1px solid #e7ebe5;
+  }
+  
+  .add-herb-term-cancel-button,
+  .add-herb-term-save-button {
+    min-width: 100px;
+    height: 38px;
+    padding: 0 16px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+  
+  .add-herb-term-cancel-button {
+    border: 1px solid #d2dbd1;
+    background: #ffffff;
+    color: #526158;
+  }
+  
+  .add-herb-term-save-button {
+    border: 1px solid #48664f;
+    background: #48664f;
+    color: #ffffff;
+  }
+  
+  .add-herb-term-cancel-button:hover {
+    background: #f4f7f3;
+    border-color: #b8c6b8;
+    color: #304238;
+  }
+  
+  .add-herb-term-save-button:hover {
+    background: #3c5943;
+    border-color: #3c5943;
+  }
+  
+  /* ---------- Common Add New Term Button ---------- */
+  /* Used by Rasa, Guna, Dhatu, Mala and Srotas */
+  
+  .add-herb-add-term-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: 170px;
+    height: 38px;
+    margin-top: 16px;
+    padding: 0 16px;
+    box-sizing: border-box;
+    border: 1px solid #b8c6b8;
+    border-radius: 8px;
+    background: #f7faf5;
+    color: #2f4a35;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.1s ease;
+  }
+  
+  .add-herb-add-term-button:hover {
+    background: #eef4ed;
+    border-color: #6d8d72;
+    color: #294532;
+  }
+  
+  .add-herb-add-term-button:active {
+    transform: scale(0.98);
+  }
+
+ /* =========================================================
+    VIRYA VOCABULARY MODAL
+    Separate CSS used only by Virya
+    ========================================================= */
+
+    .add-herb-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(24, 35, 27, 0.45);
+      box-sizing: border-box;
+    }
+    
+    .add-herb-modal {
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: #ffffff;
+      border: 1px solid #dfe5dc;
+      border-radius: 14px;
+      box-shadow: 0 20px 50px rgba(34, 48, 38, 0.18);
+      box-sizing: border-box;
+    }
+    
+    /* ---------- Virya Modal Header ---------- */
+    
+    .add-herb-modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 24px 18px;
+      border-bottom: 1px solid #e7ebe5;
+    }
+    
+    .add-herb-modal-label {
+      margin: 0 0 6px;
+      color: #6d8d72;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+    
+    .add-herb-modal-header h2 {
+      margin: 0;
+      color: #24352a;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    
+    .add-herb-modal-header p:last-child {
+      margin: 7px 0 0;
+      color: #69756c;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    
+    .add-herb-modal-close {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+      border: 1px solid #dfe5dc;
+      border-radius: 8px;
+      background: #f7faf5;
+      color: #526158;
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .add-herb-modal-close:hover {
+      background: #eef4ed;
+      border-color: #b8c6b8;
+      color: #294532;
+    }
+    
+    /* ---------- Virya Modal Form ---------- */
+    
+    .add-herb-modal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 22px 24px;
+    }
+    
+    .add-herb-form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    
+    .add-herb-form-field label {
+      color: #34443a;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    
+    .add-herb-form-field input,
+    .add-herb-form-field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cfd8ce;
+      border-radius: 8px;
+      background: #ffffff;
+      color: #26372c;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      box-sizing: border-box;
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+    
+    .add-herb-form-field input {
+      height: 38px;
+    }
+    
+    .add-herb-form-field textarea {
+      min-height: 90px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+    
+    .add-herb-form-field input:focus,
+    .add-herb-form-field textarea:focus {
+      border-color: #7d9b82;
+      box-shadow: 0 0 0 3px rgba(109, 141, 114, 0.12);
+    }
+    
+    .add-herb-form-field input::placeholder,
+    .add-herb-form-field textarea::placeholder {
+      color: #9aa59d;
+    }
+    
+    /* ---------- Virya Modal Actions ---------- */
+    
+    .add-herb-modal-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 16px 24px 20px;
+      border-top: 1px solid #e7ebe5;
+    }
+    
+    .add-herb-modal-cancel,
+    .add-herb-modal-save {
+      min-width: 100px;
+      height: 38px;
+      padding: 0 16px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+    
+    .add-herb-modal-cancel {
+      border: 1px solid #d2dbd1;
+      background: #ffffff;
+      color: #526158;
+    }
+    
+    .add-herb-modal-save {
+      border: 1px solid #48664f;
+      background: #48664f;
+      color: #ffffff;
+    }
+    
+    .add-herb-modal-cancel:hover {
+      background: #f4f7f3;
+      border-color: #b8c6b8;
+      color: #304238;
+    }
+    
+    .add-herb-modal-save:hover {
+      background: #3c5943;
+      border-color: #3c5943;
+    }
+
+    /* =========================================================
+   VIPAKA VOCABULARY MODAL
+   ========================================================= */
+
+.add-herb-vipaka-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  background: rgba(22, 35, 27, 0.45);
+}
+
+.add-herb-vipaka-modal {
+  width: min(520px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border: 1px solid #dfe6dc;
+  border-radius: 14px;
+  box-shadow: 0 20px 55px rgba(28, 45, 34, 0.18);
+}
+
+.add-herb-vipaka-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px 24px 16px;
+  border-bottom: 1px solid #edf1eb;
+}
+
+.add-herb-vipaka-modal-label {
+  margin: 0 0 6px;
+  color: #6d806f;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.add-herb-vipaka-modal-header h2 {
+  margin: 0;
+  color: #26382c;
+  font-size: 20px;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.add-herb-vipaka-modal-header p:last-child {
+  margin: 6px 0 0;
+  color: #718075;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.add-herb-vipaka-modal-close {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #dfe5dc;
+  border-radius: 8px;
+  background: #f8faf7;
+  color: #56645a;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-herb-vipaka-modal-close:hover {
+  background: #eef4ed;
+  border-color: #bdcbbd;
+  color: #294532;
+}
+
+.add-herb-vipaka-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 24px;
+}
+
+.add-herb-vipaka-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.add-herb-vipaka-form-field label {
+  color: #34453a;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.add-herb-vipaka-form-field input,
+.add-herb-vipaka-form-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d6ded4;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #2d3c32;
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.add-herb-vipaka-form-field input {
+  height: 38px;
+  padding: 0 11px;
+}
+
+.add-herb-vipaka-form-field textarea {
+  min-height: 88px;
+  padding: 10px 11px;
+  resize: vertical;
+}
+
+.add-herb-vipaka-form-field input:focus,
+.add-herb-vipaka-form-field textarea:focus {
+  border-color: #78927d;
+  box-shadow: 0 0 0 3px rgba(120, 146, 125, 0.12);
+}
+
+.add-herb-vipaka-form-field input::placeholder,
+.add-herb-vipaka-form-field textarea::placeholder {
+  color: #a2ada4;
+}
+
+.add-herb-vipaka-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 24px 22px;
+  border-top: 1px solid #edf1eb;
+}
+
+.add-herb-vipaka-modal-cancel,
+.add-herb-vipaka-modal-save {
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add-herb-vipaka-modal-cancel {
+  border: 1px solid #d6ded4;
+  background: #ffffff;
+  color: #526158;
+}
+
+.add-herb-vipaka-modal-save {
+  border: 1px solid #496a50;
+  background: #496a50;
+  color: #ffffff;
+}
+
+.add-herb-vipaka-modal-cancel:hover {
+  background: #f5f7f4;
+  border-color: #bdc8bd;
+  color: #304136;
+}
+
+.add-herb-vipaka-modal-save:hover {
+  background: #3e5d45;
+  border-color: #3e5d45;
+}
+
+@media (max-width: 640px) {
+  .add-herb-vipaka-modal-overlay {
+    padding: 14px;
+  }
+
+  .add-herb-vipaka-modal-header,
+  .add-herb-vipaka-modal-form,
+  .add-herb-vipaka-modal-actions {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .add-herb-vipaka-modal-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .add-herb-vipaka-modal-cancel,
+  .add-herb-vipaka-modal-save {
+    width: 100%;
+  }
+}

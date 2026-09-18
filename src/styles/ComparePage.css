@@ -1,0 +1,401 @@
+
+.compare-page-layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #f8f7f2;
+  color: #17352a;
+}
+
+/* =========================================
+   PAGE BODY
+   ========================================= */
+
+.compare-page-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  overflow: hidden;
+  margin-left: 232px;
+}
+
+/* =========================================
+   MAIN CONTENT
+   ========================================= */
+
+.compare-page-content {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  background: #f8f7f2;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+  .compare-content-inner {
+    width: min(1000px, calc(100% - 70px));
+    margin: 0 auto;
+    padding: 42px 0 60px;
+    box-sizing: border-box;
+  }
+  
+  /* =========================================
+     HEADER
+     ========================================= */
+  
+  .compare-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 28px;
+  }
+  
+  .compare-breadcrumb {
+    margin: 0 0 9px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #66806f;
+  }
+  
+  .compare-header h1 {
+    margin: 0;
+    font-size: 34px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #17352a;
+  }
+  
+  /* =========================================
+     ADD HERB BUTTON
+     ========================================= */
+  
+  .add-herb-button {
+    height: 40px;
+    padding: 0 17px;
+    border: none;
+    border-radius: 8px;
+    background: #24654f;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .add-herb-button:hover {
+    background: #1d5743;
+  }
+  
+  /* =========================================
+     INFORMATION BANNER
+     ========================================= */
+  
+  .compare-info-banner {
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 0 18px;
+    margin-bottom: 20px;
+    border: 1px solid #d4dfd0;
+    border-radius: 8px;
+    background: #edf4e9;
+    box-sizing: border-box;
+    color: #285d49;
+    font-size: 13px;
+  }
+  
+  .compare-info-icon {
+    font-size: 20px;
+    color: #386d55;
+  }
+  
+  /* =========================================
+     COMPARISON TABLE
+     ========================================= */
+  
+  .comparison-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #d8ddd5;
+    border-radius: 9px;
+    background: #ffffff;
+    box-sizing: border-box;
+  }
+  
+  .comparison-table {
+    min-width: 760px;
+  }
+  
+  /* =========================================
+     TABLE ROW
+     ========================================= */
+  
+  .comparison-row {
+    display: grid;
+    grid-template-columns: 145px repeat(2, minmax(0, 1fr));
+    min-height: 72px;
+    border-bottom: 1px solid #d9ded7;
+  }
+  
+  .comparison-row:last-child {
+    border-bottom: none;
+  }
+  
+  /* =========================================
+     ATTRIBUTE COLUMN
+     ========================================= */
+  
+  .comparison-attribute {
+    padding: 19px 17px;
+    border-right: 1px solid #d9ded7;
+    box-sizing: border-box;
+    color: #285d49;
+  }
+  
+  .comparison-attribute strong {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #597a68;
+  }
+  
+  .comparison-attribute span {
+    display: block;
+    margin-top: 7px;
+    font-size: 10px;
+    color: #829088;
+  }
+  
+  /* =========================================
+     HERB HEADER
+     ========================================= */
+  
+  .comparison-header-row {
+    min-height: 150px;
+  }
+  
+  .comparison-herb-header {
+    padding: 17px 17px;
+    border-right: 1px solid #d9ded7;
+    box-sizing: border-box;
+  }
+  
+  .comparison-herb-header:last-child {
+    border-right: none;
+  }
+  
+  .comparison-herb-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .comparison-herb-icon {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    background: #a8b79a;
+    color: #47654e;
+    font-size: 23px;
+  }
+  
+  .comparison-herb-header:nth-child(3) .comparison-herb-icon {
+    background: #91a57d;
+  }
+  
+  .comparison-herb-header h2 {
+    margin: 11px 0 0;
+    font-size: 16px;
+    line-height: 1.3;
+    font-weight: 600;
+    color: #17352a;
+  }
+  
+  .comparison-herb-header em {
+    display: block;
+    margin-top: 5px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 10px;
+    color: #78857d;
+  }
+  
+  /* =========================================
+     REMOVE BUTTON
+     ========================================= */
+  
+  .remove-herb-button {
+    border: none;
+    background: transparent;
+    color: #a16c5c;
+    font-family: inherit;
+    font-size: 11px;
+    cursor: pointer;
+  }
+  
+  .remove-herb-button:hover {
+    color: #7e4638;
+  }
+  
+  /* =========================================
+     COMPARISON VALUES
+     ========================================= */
+  
+  .comparison-value {
+    display: flex;
+    align-items: center;
+    padding: 17px;
+    border-right: 1px solid #d9ded7;
+    box-sizing: border-box;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #245b48;
+  }
+  
+  .comparison-value:last-child {
+    border-right: none;
+  }
+  
+  /* =========================================
+     STATUS
+     ========================================= */
+  
+  .comparison-status {
+    display: inline-flex;
+    align-items: center;
+    min-height: 26px;
+    padding: 0 10px;
+    border-radius: 13px;
+    background: #e3f1e5;
+    color: #287052;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  
+  /* =========================================
+     RESPONSIVE
+     ========================================= */
+  
+  @media (max-width: 800px) {
+  
+    .compare-content-inner {
+      width: min(100% - 40px, 1000px);
+    }
+  
+    .compare-header h1 {
+      font-size: 30px;
+    }
+  }
+  
+  @media (max-width: 600px) {
+  
+    .compare-content-inner {
+      width: calc(100% - 30px);
+      padding-top: 28px;
+    }
+  
+    .compare-header h1 {
+      font-size: 27px;
+    }
+  
+    .compare-breadcrumb {
+      font-size: 10px;
+    }
+  
+    .add-herb-button {
+      flex-shrink: 0;
+      font-size: 12px;
+    }
+  
+    .compare-info-banner {
+      font-size: 12px;
+    }
+  }
+
+  /* =========================================
+   EMPTY COMPARE STATE
+   ========================================= */
+
+.compare-empty-state {
+  min-height: 305px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 45px 30px;
+  box-sizing: border-box;
+
+  border: 1px dashed #c9d5ca;
+  border-radius: 9px;
+  background: #faf9f5;
+
+  text-align: center;
+}
+
+.compare-empty-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 15px;
+
+  color: #71887b;
+  font-size: 27px;
+}
+
+.compare-empty-state h2 {
+  margin: 0 0 9px;
+
+  font-size: 20px;
+  line-height: 1.4;
+  font-weight: 500;
+
+  color: #174a32;
+}
+
+.compare-empty-state p {
+  max-width: 420px;
+
+  margin: 0;
+
+  font-size: 13px;
+  line-height: 1.7;
+
+  color: #718078;
+}
+
+.empty-add-herb-button {
+  min-height: 38px;
+
+  margin-top: 24px;
+  padding: 0 17px;
+
+  border: none;
+  border-radius: 7px;
+
+  background: #24654f;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.empty-add-herb-button:hover {
+  background: #1d5743;
+}

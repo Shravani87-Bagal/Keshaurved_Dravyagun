@@ -1,0 +1,268 @@
+/* =========================================
+   LANGUAGE MODAL
+   The overlay itself comes from SettingsPage.css
+========================================= */
+
+.language-modal {
+    position: relative;
+  
+    width: min(620px, calc(100vw - 80px));
+    height: min(430px, calc(100vh - 60px));
+  
+    background: #ffffff;
+  
+    border: 1px solid #d5ddd4;
+    border-radius: 12px;
+  
+    overflow: hidden;
+  
+    box-shadow:
+      0 24px 60px rgba(18, 48, 34, 0.22),
+      0 8px 20px rgba(18, 48, 34, 0.10);
+  
+    animation: languageModalIn 0.18s ease-out;
+  }
+  
+  
+  @keyframes languageModalIn {
+    from {
+      opacity: 0;
+      transform: scale(0.98) translateY(5px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+  
+  
+  /* =========================================
+     LANGUAGE CONTENT
+  ========================================= */
+  
+  .language-modal-content {
+    width: 100%;
+    height: 100%;
+  
+    padding: 58px 32px 35px;
+  
+    box-sizing: border-box;
+  
+    overflow-y: auto;
+  }
+  
+  
+  /* =========================================
+     HEADER
+  ========================================= */
+  
+  .language-header {
+    padding-right: 40px;
+  
+    padding-bottom: 24px;
+  
+    border-bottom: 1px solid #e5e8e3;
+  }
+  
+  .language-label {
+    margin: 0 0 7px;
+  
+    font-size: 10px;
+    font-weight: 700;
+  
+    letter-spacing: 1.4px;
+  
+    color: #66806f;
+  }
+  
+  .language-header h1 {
+    margin: 0;
+  
+    font-size: 16px;
+    line-height: 1.3;
+  
+    font-weight: 600;
+  
+    color: #304238;
+  }
+  
+  .language-description {
+    max-width: 560px;
+  
+    margin: 6px 0 0;
+  
+    font-size: 11px;
+    line-height: 1.55;
+  
+    color: #7a8780;
+  }
+  
+  
+  /* =========================================
+     LANGUAGE OPTIONS
+  ========================================= */
+  
+  .language-options {
+    width: 100%;
+  
+    padding-top: 10px;
+  }
+  
+  
+  /* =========================================
+     LANGUAGE OPTION
+  ========================================= */
+  
+  .language-option {
+    width: 100%;
+    min-height: 68px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    padding: 0 10px;
+  
+    border: none;
+    border-bottom: 1px solid #e5e8e3;
+  
+    background: transparent;
+  
+    text-align: left;
+  
+    font-family: inherit;
+  
+    cursor: pointer;
+  
+    box-sizing: border-box;
+  
+    transition:
+      background 0.18s ease,
+      border-radius 0.18s ease;
+  }
+  
+  
+  .language-option:last-child {
+    border-bottom: none;
+  }
+  
+  
+  /* =========================================
+     HOVER
+  ========================================= */
+  
+  .language-option:hover {
+    background: #f4f6f2;
+  
+    border-radius: 7px;
+  }
+  
+  
+  /* =========================================
+     LANGUAGE NAME
+  ========================================= */
+  
+  .language-option h2 {
+    margin: 0;
+  
+    font-size: 12px;
+  
+    font-weight: 600;
+  
+    color: #35483e;
+  }
+  
+  
+  /* =========================================
+     LANGUAGE DESCRIPTION
+  ========================================= */
+  
+  .language-option p {
+    margin: 4px 0 0;
+  
+    font-size: 10px;
+  
+    color: #7b877f;
+  }
+  
+  
+  /* =========================================
+     SELECTED LANGUAGE
+  ========================================= */
+  
+  .language-option.selected {
+    background: #e8efe5;
+  
+    border-radius: 7px;
+  }
+  
+  .language-option.selected h2 {
+    color: #174a32;
+  
+    font-weight: 600;
+  }
+  
+  
+  /* =========================================
+     RADIO CIRCLE
+  ========================================= */
+  
+  .language-radio {
+    width: 22px;
+    height: 22px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    flex-shrink: 0;
+  
+    border: 1px solid #bdcabe;
+  
+    border-radius: 50%;
+  
+    color: #ffffff;
+  
+    font-size: 12px;
+    font-weight: 700;
+  
+    box-sizing: border-box;
+  }
+  
+  
+  .language-option.selected .language-radio {
+    background: #3d735b;
+  
+    border-color: #3d735b;
+  }
+  
+  
+  /* =========================================
+     RESPONSIVE
+  ========================================= */
+  
+  @media (max-width: 700px) {
+  
+    .language-modal {
+      width: calc(100vw - 40px);
+      height: calc(100vh - 40px);
+    }
+  
+    .language-modal-content {
+      padding: 50px 25px 30px;
+    }
+  }
+  
+  
+  @media (max-width: 500px) {
+  
+    .language-modal {
+      width: calc(100vw - 20px);
+      height: calc(100vh - 20px);
+    }
+  
+    .language-modal-content {
+      padding: 45px 20px 25px;
+    }
+  }
