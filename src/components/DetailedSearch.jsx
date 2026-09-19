@@ -172,40 +172,35 @@ function DetailedSearch() {
       </div>
 
       <div className="parameter-grid">
-        {parameters.map((parameter) => (
-          <fieldset className="parameter-card" key={parameter.title}>
-            <legend>{parameter.title}</legend>
+      {parameters.map((parameter) => (
+  <div className="parameter-wrapper" key={parameter.title}>
+    <h3 className="parameter-title">{parameter.title}</h3>
 
-            <p className="parameter-subtitle">
-              {parameter.subtitle}
-            </p>
+    <fieldset className="parameter-card">
+      <p className="parameter-subtitle">{parameter.subtitle}</p>
 
-            <div className="parameter-options">
-              {parameter.options.map((option) => {
-                const isSelected =
-                  selectedParameters[parameter.title]?.includes(option)
+      <div className="parameter-options">
+        {parameter.options.map((option) => {
+          const isSelected =
+            selectedParameters[parameter.title]?.includes(option)
 
-                return (
-                  <button
-                    key={option}
-                    type="button"
-                    className={`parameter-chip ${
-                      isSelected ? "selected" : ""
-                    }`}
-                    onClick={() =>
-                      handleParameterSelect(
-                        parameter.title,
-                        option
-                      )
-                    }
-                  >
-                    {option}
-                  </button>
-                )
-              })}
-            </div>
-          </fieldset>
-        ))}
+          return (
+            <button
+              key={option}
+              type="button"
+              className={`parameter-chip ${isSelected ? "selected" : ""}`}
+              onClick={() =>
+                handleParameterSelect(parameter.title, option)
+              }
+            >
+              {option}
+            </button>
+          )
+        })}
+      </div>
+    </fieldset>
+  </div>
+))}
       </div>
     </section>
   )
