@@ -1,6 +1,4 @@
-/* =========================================
-   SEARCH PAGE LAYOUT
-   ========================================= */
+
 /* =========================================
    SEARCH PAGE LAYOUT
    ========================================= */
@@ -11,7 +9,7 @@
     flex-direction: column;
     overflow: hidden;
 
-    background: #f8f7f2;
+    background: #f4f1ea;
     color: #17352a;
 }
 
@@ -523,5 +521,4 @@
     .clinical-nuance-card {
       padding-right: 40px;
     }
-  
   }

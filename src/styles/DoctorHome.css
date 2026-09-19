@@ -19,8 +19,8 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #174A32;
-  border-right: 1px solid #123d2a;
+  background: #142419;
+  border-right: 1px solid #26372b;
   box-sizing: border-box;
   z-index: 5000;
   pointer-events: auto;
