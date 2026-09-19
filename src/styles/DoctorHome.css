@@ -1,7 +1,4 @@
-/* =========================================
-   DOCTOR DASHBOARD
-========================================= */
-
+/* DOCTOR DASHBOARD */
 .doctor-layout {
   height: 100vh;
   width: 100%;
@@ -12,9 +9,7 @@
   color: #17352a;
 }
 
-/* =========================================
-   SIDEBAR
-========================================= */
+/* SIDEBAR */
 .sidebar {
   position: fixed;
   top: 0;
@@ -32,10 +27,7 @@
   overflow: visible;
 }
 
-
-/* =========================================
-   DASHBOARD RIGHT AREA
-========================================= */
+/* DASHBOARD RIGHT AREA */
 
 .dashboard-body {
   flex: 1;
@@ -45,9 +37,7 @@
   overflow: visible;
 }
 
-/* =========================================
-   BRAND
-========================================= */
+/* BRAND */
 
 .sidebar-brand {
   display: flex;
@@ -89,9 +79,7 @@
   color: #c6d9ca;
 }
 
-/* =========================================
-   NAVIGATION
-========================================= */
+/* NAVIGATION */
 .sidebar-nav {
   flex: 1;
   padding: 0 14px;
@@ -108,9 +96,7 @@
   color: #a9c7b2;
 }
 
-/* =========================================
-   NAV ITEMS
-========================================= */
+/* NAV ITEMS */
 
 .nav-item {
   width: 100%;
@@ -154,17 +140,13 @@
   color: #ffffff;
 }
 
-/* =========================================
-   ACCOUNT SECTION
-========================================= */
+/* ACCOUNT SECTION*/
 
 .account-section {
   margin-top: 10px;
 }
 
-/* =========================================
-   BOTTOM AREA
-========================================= */
+/* BOTTOM AREA*/
 
 .sidebar-bottom {
   position: relative;
@@ -174,9 +156,7 @@
   pointer-events: auto;
 }
 
-/* =========================================
-   SIDEBAR PROFILE
-========================================= */
+/* SIDEBAR PROFILE */
 
 .sidebar-profile-wrapper {
   position: relative;
@@ -245,9 +225,7 @@
   color: #c2d6c7;
 }
 
-/* =========================================
-   MAIN CONTENT
-========================================= */
+/* MAIN CONTENT */
 
 .main-content {
   flex: 1;
@@ -257,9 +235,7 @@
   overflow-x: hidden;
 }
 
-/* =========================================
-   DASHBOARD NAVBAR
-========================================= */
+/* DASHBOARD NAVBAR */
 
 .dashboard-navbar {
   height: 72px;
@@ -276,10 +252,7 @@
   z-index: 900;
 }
 
-
-/* =========================================
-   BREADCRUMB
-========================================= */
+/* BREADCRUMB*/
 
 .breadcrumb {
   display: flex;
@@ -299,9 +272,7 @@
   font-size: 17px;
 }
 
-/* =========================================
-   NAVBAR ACTIONS
-========================================= */
+/* NAVBAR ACTIONS */
 
 .navbar-actions {
   display: flex;
@@ -309,9 +280,7 @@
   gap: 20px;
 }
 
-/* =========================================
-   NOTIFICATION
-========================================= */
+/* NOTIFICATION  */
 
 .notification-button {
   width: 38px;
@@ -331,9 +300,7 @@
   background: #f2f5ef;
 }
 
-/* =========================================
-   NAVBAR PROFILE
-========================================= */
+/* NAVBAR PROFILE */
 
 .navbar-profile-wrapper {
   position: relative;
@@ -390,9 +357,7 @@
   color: #7a8780;
 }
 
-/* =========================================
-   NAVBAR PROFILE ARROW
-========================================= */
+/* NAVBAR PROFILE ARROW */
 
 .profile-dropdown-arrow {
   margin-left: 3px;
@@ -409,9 +374,7 @@
   transform: rotate(180deg);
 }
 
-/* =========================================
-   PROFILE DROPDOWN
-========================================= */
+/* PROFILE DROPDOWN */
 
 .profile-dropdown {
   position: absolute;
@@ -438,12 +401,9 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
+  } }
 
-/* =========================================
-   DROPDOWN HEADER
-========================================= */
+/* DROPDOWN HEADER */
 
 .profile-dropdown-header {
   padding: 11px 11px 12px;
@@ -473,9 +433,7 @@
   color: #8a958e;
 }
 
-/* =========================================
-   DROPDOWN MENU
-========================================= */
+/* DROPDOWN MENU */
 
 .profile-dropdown-menu {
   padding: 6px 0;
@@ -508,9 +466,7 @@
   color: #174a32;
 }
 
-/* =========================================
-   DROPDOWN ICONS
-========================================= */
+/* DROPDOWN ICONS */
 
 .profile-menu-icon {
   width: 19px;
@@ -527,9 +483,7 @@
   color: #28664f;
 }
 
-/* =========================================
-   LEARN MORE ARROW
-========================================= */
+/* LEARN MORE ARROW */
 
 .profile-menu-arrow {
   margin-left: auto;
