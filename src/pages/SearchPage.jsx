@@ -63,10 +63,6 @@ function SearchPage() {
 
             <div className="search-header-text">
 
-              <p className="search-page-label">
-                SEARCH
-              </p>
-
               {mode === "detailed" ? (
 
                 <>
