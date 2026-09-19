@@ -21,6 +21,30 @@ function ComparePage() {
     navigate("/herb-library")
   }
 
+  const toggleCompareHerb = (herb) => {
+    const alreadySelected = selectedHerbs.some(
+      (selectedHerb) => selectedHerb.id === herb.id
+    )
+
+    if (alreadySelected) {
+      removeHerb(herb.id)
+      return
+    }
+
+    if (selectedHerbs.length >= MAX_COMPARE_HERBS) {
+      return
+    }
+
+    const updatedHerbs = [...selectedHerbs, herb]
+
+    setSelectedHerbs(updatedHerbs)
+
+    localStorage.setItem(
+      "selectedCompareHerbs",
+      JSON.stringify(updatedHerbs)
+    )
+  }
+
   const removeHerb = (herbId) => {
     const updatedHerbs = selectedHerbs.filter(
       (herb) => herb.id !== herbId
@@ -71,18 +95,77 @@ function ComparePage() {
 
             </section>
 
-            {/* INFORMATION BANNER */}
-            <div className="compare-info-banner">
+            {/* HERB SELECTOR */}
 
-              <span className="compare-info-icon">
-                ♧
-              </span>
+<section className="compare-herb-selector">
 
-              <span>
-                Compare two or more Ayurvedic herb profiles side by side.
-              </span>
+<div className="compare-selector-header">
 
-            </div>
+  <div>
+    <p className="compare-selector-label">
+      SELECTED HERBS ({selectedHerbs.length}/{MAX_COMPARE_HERBS})
+    </p>
+
+    <div className="selected-herb-chips">
+
+      {selectedHerbs.length === 0 && (
+        <span className="no-selected-herbs">
+          No herbs selected
+        </span>
+      )}
+
+      {selectedHerbs.map((herb) => (
+        <button
+          key={herb.id}
+          type="button"
+          className="selected-herb-chip"
+          onClick={() => toggleCompareHerb(herb)}
+        >
+          {herb.name}
+          <span>×</span>
+        </button>
+      ))}
+
+    </div>
+  </div>
+
+</div>
+
+
+<div className="compare-available-herbs">
+
+  {availableHerbs.map((herb) => {
+    const isSelected = selectedHerbs.some(
+      (selectedHerb) => selectedHerb.id === herb.id
+    )
+
+    const maxReached =
+      selectedHerbs.length >= MAX_COMPARE_HERBS &&
+      !isSelected
+
+    return (
+      <button
+        key={herb.id}
+        type="button"
+        className={`compare-herb-option ${
+          isSelected ? "selected" : ""
+        } ${maxReached ? "disabled" : ""}`}
+        onClick={() => toggleCompareHerb(herb)}
+        disabled={maxReached}
+      >
+        {herb.name}
+      </button>
+    )
+  })}
+
+</div>
+
+
+<p className="compare-selector-hint">
+  Select up to 4 herbs. Choose at least 2 herbs to compare.
+</p>
+
+</section>
 
             {/* =========================================
                 EMPTY STATE
@@ -456,5 +539,127 @@ function ComparePage() {
     </div>
   )
 }
+
+const MAX_COMPARE_HERBS = 4
+
+const availableHerbs = [
+  {
+    id: 1,
+    name: "Ashwagandha",
+    scientificName: "Withania somnifera",
+    dosha: "Vata ↓ · Kapha ↓",
+    dhatu: "Mamsa · Majja",
+    rasa: "Bitter · Sweet",
+    guna: "Light · Unctuous",
+    virya: "Heating",
+    vipaka: "Sweet",
+    karma: "Balya · Rasayana",
+    status: "Verified",
+  },
+  {
+    id: 2,
+    name: "Guduchi",
+    scientificName: "Tinospora cordifolia",
+    dosha: "Tridoshic",
+    dhatu: "Rasa · Rakta",
+    rasa: "Bitter",
+    guna: "Light · Unctuous",
+    virya: "Heating",
+    vipaka: "Sweet",
+    karma: "Rasayana",
+    status: "Verified",
+  },
+  {
+    id: 3,
+    name: "Shatavari",
+    scientificName: "Asparagus racemosus",
+    dosha: "Vata ↓ · Pitta ↓",
+    dhatu: "Rasa · Shukra",
+    rasa: "Sweet · Bitter",
+    guna: "Heavy · Unctuous",
+    virya: "Cooling",
+    vipaka: "Sweet",
+    karma: "Rasayana",
+    status: "Reviewed",
+  },
+  {
+    id: 4,
+    name: "Tulsi",
+    scientificName: "Ocimum tenuiflorum",
+    dosha: "Kapha ↓ · Vata ↓",
+    dhatu: "Rasa · Rakta",
+    rasa: "Pungent",
+    guna: "Light · Dry",
+    virya: "Heating",
+    vipaka: "Pungent",
+    karma: "Deepana · Pachana",
+    status: "Verified",
+  },
+  {
+    id: 5,
+    name: "Yashtimadhu",
+    scientificName: "Glycyrrhiza glabra",
+    dosha: "Vata ↓ · Pitta ↓",
+    dhatu: "Rasa · Rakta",
+    rasa: "Sweet",
+    guna: "Heavy · Unctuous",
+    virya: "Cooling",
+    vipaka: "Sweet",
+    karma: "Brimhana · Rasayana",
+    status: "Reviewed",
+  },
+  {
+    id: 6,
+    name: "Neem",
+    scientificName: "Azadirachta indica",
+    dosha: "Pitta ↓ · Kapha ↓",
+    dhatu: "Rakta · Mamsa",
+    rasa: "Bitter · Astringent",
+    guna: "Light · Dry",
+    virya: "Cooling",
+    vipaka: "Pungent",
+    karma: "Krimighna · Kandughna",
+    status: "Verified",
+  },
+  {
+    id: 7,
+    name: "Haritaki",
+    scientificName: "Terminalia chebula",
+    dosha: "Tridoshic · Vata ↓",
+    dhatu: "Rasa · Mamsa",
+    rasa: "Astringent · Sweet",
+    guna: "Light · Dry",
+    virya: "Heating",
+    vipaka: "Sweet",
+    karma: "Rasayana · Anulomana",
+    status: "Verified",
+  },
+  {
+    id: 8,
+    name: "Amalaki",
+    scientificName: "Phyllanthus emblica",
+    dosha: "Tridoshic · Pitta ↓",
+    dhatu: "Rasa · Rakta",
+    rasa: "Sour · Sweet",
+    guna: "Light · Dry",
+    virya: "Cooling",
+    vipaka: "Sweet",
+    karma: "Rasayana · Chakshushya",
+    status: "Verified",
+  },
+  {
+    id: 9,
+    name: "Turmeric",
+    scientificName: "Curcuma longa",
+    dosha: "Kapha ↓ · Vata ↓",
+    dhatu: "Rakta · Mamsa",
+    rasa: "Bitter · Pungent",
+    guna: "Light · Dry",
+    virya: "Heating",
+    vipaka: "Pungent",
+    karma: "Kaphaghna · Varnya",
+    status: "Verified",
+  },
+]
 
 export default ComparePage

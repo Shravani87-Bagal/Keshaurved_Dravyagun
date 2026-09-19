@@ -54,7 +54,7 @@
   
   .compare-breadcrumb {
     margin: 0 0 9px;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 1.5px;
     color: #66806f;
@@ -62,7 +62,7 @@
   
   .compare-header h1 {
     margin: 0;
-    font-size: 34px;
+    font-size: 38px;
     line-height: 1.2;
     font-weight: 500;
     color: #17352a;
@@ -112,6 +112,26 @@
     font-size: 20px;
     color: #386d55;
   }
+  .clear-comparison-button {
+    min-height: 40px;
+    padding: 0 17px;
+    border: none;
+    border-radius: 8px;
+    background: #24654f;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .clear-comparison-button:hover {
+    background: #1d5743;
+  }
+  .comparison-section-header {
+    margin-bottom: 18px;
+  }
   
   /* =========================================
      COMPARISON TABLE
@@ -158,7 +178,7 @@
   
   .comparison-attribute strong {
     display: block;
-    font-size: 10px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 1.5px;
     color: #597a68;
@@ -167,7 +187,7 @@
   .comparison-attribute span {
     display: block;
     margin-top: 7px;
-    font-size: 10px;
+    font-size: 13px;
     color: #829088;
   }
   
@@ -205,7 +225,7 @@
     border-radius: 7px;
     background: #a8b79a;
     color: #47654e;
-    font-size: 23px;
+    font-size: 25px;
   }
   
   .comparison-herb-header:nth-child(3) .comparison-herb-icon {
@@ -214,7 +234,7 @@
   
   .comparison-herb-header h2 {
     margin: 11px 0 0;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.3;
     font-weight: 600;
     color: #17352a;
@@ -224,7 +244,7 @@
     display: block;
     margin-top: 5px;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 10px;
+    font-size: 13px;
     color: #78857d;
   }
   
@@ -255,7 +275,7 @@
     padding: 17px;
     border-right: 1px solid #d9ded7;
     box-sizing: border-box;
-    font-size: 13px;
+    font-size: 15px;
     line-height: 1.5;
     color: #245b48;
   }
@@ -276,7 +296,7 @@
     border-radius: 13px;
     background: #e3f1e5;
     color: #287052;
-    font-size: 10px;
+    font-size: 13px;
     font-weight: 600;
   }
   
@@ -351,13 +371,13 @@
   margin-bottom: 15px;
 
   color: #71887b;
-  font-size: 27px;
+  font-size: 28px;
 }
 
 .compare-empty-state h2 {
   margin: 0 0 9px;
 
-  font-size: 20px;
+  font-size: 22px;
   line-height: 1.4;
   font-weight: 500;
 
@@ -369,7 +389,7 @@
 
   margin: 0;
 
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.7;
 
   color: #718078;
@@ -388,7 +408,7 @@
   color: #ffffff;
 
   font-family: inherit;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
 
   cursor: pointer;
@@ -399,3 +419,156 @@
 .empty-add-herb-button:hover {
   background: #1d5743;
 }
+
+/* =========================================
+   HERB SELECTOR
+   ========================================= */
+
+   .compare-herb-selector {
+    width: 100%;
+    padding: 18px 15px 15px;
+    margin-bottom: 24px;
+  
+    border: 1px solid #d8e1d5;
+    border-radius: 9px;
+  
+    background: #f3f7ef;
+    box-sizing: border-box;
+  }
+  
+  
+  /* SELECTED HERBS */
+  
+  .compare-selector-header {
+    margin-bottom: 13px;
+  }
+  
+  .compare-selector-label {
+    margin: 0 0 10px;
+  
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+  
+    color: #597a68;
+  }
+  
+  .selected-herb-chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+  }
+  
+  .selected-herb-chip {
+    min-height: 32px;
+  
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  
+    padding: 0 11px;
+  
+    border: 1px solid #28664f;
+    border-radius: 7px;
+  
+    background: #28664f;
+    color: #ffffff;
+  
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease;
+  }
+  
+  .selected-herb-chip span {
+    font-size: 15px;
+    line-height: 1;
+  }
+  
+  .selected-herb-chip:hover {
+    background: #205640;
+    border-color: #205640;
+  }
+  
+  .no-selected-herbs {
+    font-size: 13px;
+    color: #829088;
+  }
+  
+  
+  /* AVAILABLE HERBS */
+  
+  .compare-available-herbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  
+    padding-top: 3px;
+  }
+  
+  .compare-herb-option {
+    min-height: 34px;
+  
+    padding: 0 13px;
+  
+    border: 1px solid #cbd8cd;
+    border-radius: 7px;
+  
+    background: #ffffff;
+    color: #4e6659;
+  
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s ease;
+  }
+  
+  .compare-herb-option:hover {
+    border-color: #6e9980;
+    background: #eaf2e7;
+    color: #28664f;
+    transform: translateY(-1px);
+  }
+  
+  .compare-herb-option.selected {
+    border-color: #28664f;
+    background: #28664f;
+    color: #ffffff;
+    font-weight: 600;
+  }
+  
+  .compare-herb-option.selected:hover {
+    background: #205640;
+    border-color: #205640;
+  }
+  
+  .compare-herb-option.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  
+  /* HINT */
+  
+  .compare-selector-hint {
+    margin: 12px 0 0;
+  
+    font-size: 12px;
+    line-height: 1.5;
+  
+    color: #718078;
+  }

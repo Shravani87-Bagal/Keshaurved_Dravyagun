@@ -1,7 +1,6 @@
 /* =========================================
    HERB LIBRARY PAGE
    ========================================= */
-
    .herb-library-layout {
     height: 100vh;
     display: flex;
@@ -36,9 +35,9 @@
   }
   
   
-  /* =========================================
+  /* =========================
      HEADER
-     ========================================= */
+  ========================= */
   
   .herb-library-header {
     display: flex;
@@ -49,41 +48,34 @@
   }
   
   .herb-library-breadcrumb {
-    margin: 0 0 9px;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 1.5px;
     color: #66806f;
   }
   
   .herb-library-header h1 {
-    margin: 0;
-    font-size: 32px;
+    font-size: 34px;
     line-height: 1.2;
     font-weight: 500;
     color: #17352a;
   }
   
   .library-selected-count {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding-bottom: 5px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     color: #315d49;
-    white-space: nowrap;
   }
   
   .selection-network-icon {
-    font-size: 18px;
+    font-size: 20px;
     color: #48715d;
   }
   
   
-  /* =========================================
+  /* =========================
      SELECTION BANNER
-     ========================================= */
+  ========================= */
   
   .selection-banner {
     min-height: 82px;
@@ -93,27 +85,19 @@
     gap: 25px;
     padding: 15px 18px;
     margin-bottom: 17px;
-    box-sizing: border-box;
     border: 1px solid #d2dfd0;
     border-radius: 9px;
     background: #edf4e9;
   }
   
-  .selection-banner-text {
-    min-width: 0;
-  }
-  
   .selection-banner-text p {
-    margin: 0 0 8px;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.5;
     color: #597166;
   }
   
   .selection-banner-text strong {
-    display: block;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 14px;
     color: #285d49;
   }
   
@@ -121,15 +105,13 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    flex-shrink: 0;
   }
   
   .clear-selection-button {
     border: none;
     background: transparent;
     color: #75897e;
-    font-family: inherit;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 500;
     cursor: pointer;
   }
@@ -154,17 +136,10 @@
     border: none;
     border-radius: 7px;
     background: #28664f;
-    color: #ffffff;
-    font-family: inherit;
-    font-size: 11px;
+    color: #fff;
+    font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s ease;
-  }
-  
-  .compare-selected-button span {
-    font-size: 19px;
-    line-height: 1;
   }
   
   .compare-selected-button:hover:not(:disabled) {
@@ -178,51 +153,49 @@
   }
   
   
-  /* =========================================
+  /* =========================
      SEARCH
-     ========================================= */
+  ========================= */
   
   .herb-library-search {
     width: 100%;
-    height: 40px;
+    height: 42px;
     display: flex;
     align-items: center;
     gap: 10px;
     padding: 0 14px;
     margin-bottom: 17px;
-    box-sizing: border-box;
     border: 1px solid #cbd8cd;
     border-radius: 8px;
-    background: #ffffff;
+    background: #fff;
   }
   
   .library-search-icon {
-    font-size: 21px;
-    line-height: 1;
+    font-size: 23px;
     color: #789087;
   }
   
   .herb-library-search input {
     flex: 1;
     width: 100%;
-    height: 38px;
+    height: 40px;
     padding: 0;
     border: none;
     outline: none;
     background: transparent;
     color: #26382d;
-    font-family: inherit;
-    font-size: 12px;
+    font-size: 14px;
   }
   
   .herb-library-search input::placeholder {
     color: #8a9991;
+    font-size: 14px;
   }
   
   
-  /* =========================================
+  /* =========================
      HERB GRID
-     ========================================= */
+  ========================= */
   
   .herb-library-grid {
     display: grid;
@@ -231,20 +204,21 @@
   }
   
   
-  /* =========================================
+  /* =========================
      HERB CARD
-     ========================================= */
+  ========================= */
   
   .herb-library-card {
     min-width: 0;
     min-height: 184px;
-    padding: 14px 14px 13px;
-    box-sizing: border-box;
+    padding: 16px 15px 14px;
     border: 1px solid #d7dfd6;
     border-radius: 9px;
-    background: #fbfaf6;
-    cursor: pointer;
   
+    /* Light color added to the herb information box */
+    background: #f5f8ef;
+  
+    cursor: pointer;
     transition:
       border-color 0.2s ease,
       background 0.2s ease,
@@ -253,49 +227,42 @@
   
   .herb-library-card:hover {
     border-color: #b9cdbb;
-    background: #ffffff;
+    background: #fafcf7;
     box-shadow: 0 5px 16px rgba(23, 74, 50, 0.05);
   }
   
   .herb-library-card.selected {
     border-color: #5d8b6c;
-    background: #f3f8f1;
+    background: #edf5e9;
     box-shadow: 0 0 0 1px rgba(47, 125, 74, 0.12);
   }
   
+  
+  /* =========================
+     HERB CARD CONTENT
+  ========================= */
+  
   .herb-card-main {
     display: grid;
-    grid-template-columns: 20px 48px minmax(0, 1fr);
+    grid-template-columns: 20px 58px minmax(0, 1fr);
     align-items: start;
-    gap: 10px;
+    gap: 11px;
   }
-  
-  
-  /* =========================================
-     CHECKBOX
-     ========================================= */
   
   .herb-checkbox {
     width: 19px;
     height: 19px;
-  
     display: flex;
     align-items: center;
     justify-content: center;
-  
     padding: 0;
-    margin-top: 1px;
-  
+    margin-top: 2px;
     border: 1px solid #b9cec0;
     border-radius: 5px;
-  
-    background: #ffffff;
-    color: #ffffff;
-  
-    font-family: inherit;
-    font-size: 12px;
+    background: #fff;
+    color: #fff;
+    font-size: 13px;
     font-weight: 700;
-  
     cursor: pointer;
     box-sizing: border-box;
   }
@@ -310,28 +277,23 @@
   }
   
   
-  /* =========================================
+  /* =========================
      LEAF ICON
-     ========================================= */
+  ========================= */
   
   .herb-leaf-icon {
-    width: 48px;
-    height: 48px;
-  
+    width: 58px;
+    height: 58px;
     display: flex;
     align-items: center;
     justify-content: center;
-  
-    border-radius: 8px;
-  
-    box-sizing: border-box;
-  
+    border-radius: 9px;
     color: #355f49;
   }
   
   .herb-leaf-icon svg {
-    width: 34px;
-    height: 34px;
+    width: 42px;
+    height: 42px;
   }
   
   .herb-leaf-icon.green {
@@ -347,147 +309,89 @@
   }
   
   
-  /* =========================================
+  /* =========================
      HERB INFORMATION
-     ========================================= */
-  
-  .herb-card-information {
-    min-width: 0;
-  }
+  ========================= */
   
   .herb-card-information h2 {
-    margin: 1px 0 3px;
-  
-    font-size: 15px;
+    font-size: 17px;
     line-height: 1.3;
-  
     font-weight: 600;
-  
     color: #17352a;
   }
   
   .herb-card-information em {
-    display: block;
-  
-    margin-bottom: 8px;
-  
     font-family: Georgia, "Times New Roman", serif;
-  
-    font-size: 9px;
+    font-size: 11px;
     font-style: italic;
-  
     color: #78857d;
   }
   
   .herb-card-information p {
     min-height: 48px;
-  
-    margin: 0 0 10px;
-  
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.55;
-  
     color: #51645a;
   }
   
   
-  /* =========================================
+  /* =========================
      VIEW INFORMATION BUTTON
-     ========================================= */
+  ========================= */
   
   .herb-view-information {
     margin-top: 12px;
-  
-    min-height: 32px;
-  
+    min-height: 34px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 7px;
-  
-    padding: 0 12px;
-  
-    box-sizing: border-box;
-  
+    padding: 0 13px;
     border: 1px solid #b9cec0;
     border-radius: 7px;
-  
     background: #eef4ec;
     color: #28664f;
-  
-    font-family: inherit;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 600;
-  
     cursor: pointer;
-  
-    transition:
-      background 0.2s ease,
-      border-color 0.2s ease,
-      color 0.2s ease,
-      transform 0.2s ease,
-      box-shadow 0.2s ease;
-  }
-  
-  .herb-view-information span {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  
-    font-size: 15px;
-    line-height: 1;
-  
-    transition: transform 0.2s ease;
   }
   
   .herb-view-information:hover {
     background: #e1ecdf;
     border-color: #7f9f88;
     color: #174a32;
-  
     transform: translateY(-1px);
-  
     box-shadow: 0 3px 8px rgba(23, 74, 50, 0.08);
   }
   
-  .herb-view-information:hover span {
-    transform: translateX(2px);
+  .herb-view-information span {
+    font-size: 16px;
   }
   
   
-  /* =========================================
+  /* =========================
      STATUS
-     ========================================= */
+  ========================= */
   
   .herb-status {
     min-height: 30px;
-  
     display: flex;
     align-items: center;
-  
     gap: 6px;
-  
     padding: 0 9px;
-  
-    box-sizing: border-box;
-  
     border-radius: 16px;
-  
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 500;
   }
   
   .herb-status span {
     width: 13px;
     height: 13px;
-  
     display: flex;
     align-items: center;
     justify-content: center;
-  
     border: 1px solid currentColor;
     border-radius: 50%;
-  
     font-size: 8px;
   }
   
@@ -502,95 +406,67 @@
   }
   
   
-  /* =========================================
+  /* =========================
      NO RESULTS
-     ========================================= */
+  ========================= */
   
-  .herb-library-no-results {
-    padding: 50px 20px;
-  
+  .no-results {
+    padding: 40px 20px;
     text-align: center;
-  
-    border: 1px dashed #ccd7ce;
+    border: 1px solid #d7dfd6;
     border-radius: 9px;
-  
-    background: #fbfaf6;
-  }
-  
-  .herb-library-no-results h2 {
-    margin: 0 0 7px;
-  
-    font-size: 17px;
-    font-weight: 600;
-  
-    color: #315d49;
-  }
-  
-  .herb-library-no-results p {
-    margin: 0;
-  
-    font-size: 12px;
-  
-    color: #7a8981;
+    background: #f5f8ef;
+    color: #61746a;
+    font-size: 14px;
   }
   
   
-  /* =========================================
-     FOOTER / PAGINATION
-     ========================================= */
+  /* =========================
+     FOOTER
+  ========================= */
   
   .herb-library-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-  
+    gap: 20px;
     margin-top: 18px;
-  
-    font-size: 11px;
-    color: #718078;
+    font-size: 13px;
+    color: #75877d;
   }
   
-  .library-pagination {
+  .herb-library-pagination {
     display: flex;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
   }
   
-  .library-pagination button {
-    width: 34px;
-    height: 34px;
-  
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  
-    border: 1px solid #d7dfd7;
-    border-radius: 7px;
-  
-    background: #f8f7f2;
-    color: #65786d;
-  
-    font-family: inherit;
-    font-size: 16px;
-  
+  .herb-library-pagination button {
+    min-width: 32px;
+    height: 32px;
+    border: 1px solid #ccd8ce;
+    border-radius: 6px;
+    background: #fff;
+    color: #50675a;
+    font-size: 12px;
     cursor: pointer;
   }
   
-  .library-pagination button.active {
+  .herb-library-pagination button:hover {
+    border-color: #8eaa96;
+    color: #28664f;
+  }
+  
+  .herb-library-pagination button.active {
     border-color: #28664f;
     background: #28664f;
-    color: #ffffff;
-  }
-  
-  .library-pagination button:disabled {
-    opacity: 0.5;
-    cursor: default;
+    color: #fff;
   }
   
   
-  /* =========================================
+  /* =========================
      RESPONSIVE
-     ========================================= */
+  ========================= */
   
   @media (max-width: 1000px) {
     .herb-library-grid {
@@ -602,7 +478,7 @@
     .herb-library-header {
       align-items: flex-start;
       flex-direction: column;
-      gap: 12px;
+      gap: 8px;
     }
   
     .selection-banner {
@@ -612,14 +488,12 @@
   
     .selection-banner-actions {
       width: 100%;
-      justify-content: flex-end;
     }
   }
   
   @media (max-width: 650px) {
     .herb-library-inner {
       width: calc(100% - 30px);
-      padding-top: 28px;
     }
   
     .herb-library-grid {
@@ -627,14 +501,14 @@
     }
   
     .herb-library-header h1 {
-      font-size: 27px;
+      font-size: 29px;
     }
   }
   
   @media (max-width: 480px) {
     .selection-banner-actions {
-      align-items: stretch;
       flex-direction: column;
+      align-items: stretch;
     }
   
     .compare-selected-button {
@@ -647,7 +521,6 @@
   
     .herb-library-footer {
       align-items: flex-start;
-      gap: 15px;
       flex-direction: column;
     }
   }
