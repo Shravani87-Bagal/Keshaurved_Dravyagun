@@ -3,15 +3,6 @@ function DashboardWelcome() {
       <section className="dashboard-welcome">
   
         <div className="welcome-content">
-  
-          <p className="welcome-label">
-            AYURVEDIC HERB INTELLIGENCE
-          </p>
-  
-          <h1>
-            Good to see here, Doctor.
-          </h1>
-  
           <h2>
             What are you researching today?
           </h2>

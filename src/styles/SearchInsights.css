@@ -1,0 +1,243 @@
+/* =========================================
+   SEARCH INSIGHTS
+========================================= */
+
+.search-insights {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  
+    background: #ffffff;
+  
+    border: 1px solid #d9ded7;
+    border-radius: 8px;
+  
+    overflow: hidden;
+  }
+  
+  
+  /* =========================================
+     HEADER
+  ========================================= */
+  
+  .search-insights-header {
+    min-height: 68px;
+  
+    display: flex;
+    align-items: center;
+  
+    padding: 12px 18px;
+  
+    box-sizing: border-box;
+  
+    border-bottom: 1px solid #e5e9e5;
+  
+    background: #ffffff;
+  }
+  
+  .search-insights-header h2 {
+    margin: 0;
+  
+    color: #17352a;
+  
+    font-size: 16px;
+    font-weight: 600;
+  
+    line-height: 1.3;
+  }
+  
+  .search-insights-header p {
+    margin: 4px 0 0;
+  
+    color: #82908a;
+  
+    font-size: 12px;
+  
+    line-height: 1.4;
+  }
+  
+  
+  /* =========================================
+     CONTENT
+  ========================================= */
+  
+  .search-insights-content {
+    padding: 14px 18px 18px;
+  
+    box-sizing: border-box;
+  
+    background: #ffffff;
+  }
+  
+  
+  /* =========================================
+     INSIGHT LIST
+  ========================================= */
+  
+  .search-insights-list {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+  }
+  
+  .search-insight-item {
+    width: 100%;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    gap: 14px;
+  
+    box-sizing: border-box;
+  }
+  
+  .search-insight-info {
+    min-width: 0;
+  
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .search-insight-label {
+    color: #769080;
+  
+    font-size: 11px;
+    font-weight: 500;
+  
+    letter-spacing: 0.7px;
+  
+    line-height: 1.3;
+  }
+  
+  .search-insight-value {
+    color: #17352a;
+  
+    font-size: 13px;
+    font-weight: 500;
+  
+    line-height: 1.35;
+  }
+  
+  
+  /* =========================================
+     COUNT BADGE
+  ========================================= */
+  
+  .search-insight-count {
+    flex-shrink: 0;
+  
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  
+    min-height: 25px;
+  
+    padding: 0 9px;
+  
+    border-radius: 7px;
+  
+    background: #eaf8f5;
+  
+    color: #008c8c;
+  
+    font-size: 11px;
+    font-weight: 500;
+  
+    white-space: nowrap;
+  }
+  
+  
+  /* =========================================
+     RECENT DOSHA COMBINATIONS
+  ========================================= */
+  
+  .recent-dosha-combinations {
+    margin-top: 18px;
+  
+    padding: 14px 16px;
+  
+    box-sizing: border-box;
+  
+    border: 1px solid #e5ebee;
+  
+    border-radius: 8px;
+  
+    background: #f7f9fb;
+  }
+  
+  .recent-dosha-combinations > p {
+    margin: 0 0 10px;
+  
+    color: #54718b;
+  
+    font-size: 11px;
+    font-weight: 500;
+  
+    letter-spacing: 0.6px;
+  }
+  
+  
+  /* =========================================
+     DOSHA BUTTONS
+  ========================================= */
+  
+  .dosha-combination-list {
+    display: flex;
+    flex-wrap: wrap;
+  
+    gap: 7px;
+  }
+  
+  .dosha-combination {
+    min-height: 27px;
+  
+    padding: 0 9px;
+  
+    border: 1px solid #d6e0e7;
+  
+    border-radius: 7px;
+  
+    background: #ffffff;
+  
+    color: #4c6679;
+  
+    font-family: inherit;
+  
+    font-size: 11px;
+    font-weight: 500;
+  
+    cursor: pointer;
+  }
+  
+  .dosha-combination:hover {
+    background: #eef4f7;
+  
+    border-color: #b9cbd6;
+  
+    color: #28664f;
+  }
+  
+  
+  /* =========================================
+     RESPONSIVE
+  ========================================= */
+  
+  @media (max-width: 700px) {
+    .search-insights-content {
+      padding: 14px;
+    }
+  
+    .search-insight-item {
+      align-items: flex-start;
+    }
+  
+    .search-insight-count {
+      font-size: 10px;
+    }
+  
+    .recent-dosha-combinations {
+      padding: 12px;
+    }
+  }

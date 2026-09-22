@@ -61,7 +61,7 @@
   
   .results-label {
     margin: 0 0 9px;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 1.5px;
     color: #66806f;
@@ -69,7 +69,7 @@
   
   .results-header h1 {
     margin: 0;
-    font-size: 30px;
+    font-size: 32px;
     line-height: 1.25;
     font-weight: 500;
     color: #17352a;
@@ -77,7 +77,7 @@
   
   .results-count {
     margin: 27px 0 0;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.5;
     color: #68786f;
   }
@@ -106,13 +106,13 @@
     background: #ffffff;
     color: #285c47;
     font-family: inherit;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
   }
   
   .results-filter-button span {
-    font-size: 17px;
+    font-size: 18px;
   }
   
   .results-filter-button:hover {
@@ -129,12 +129,12 @@
     background: transparent;
     color: #17352a;
     font-family: inherit;
-    font-size: 12px;
+    font-size: 14px;
     cursor: pointer;
   }
   
   .results-sort-button span {
-    font-size: 17px;
+    font-size: 18px;
     color: #315d49;
   }
   
@@ -152,7 +152,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 11px;
+    font-size: 13px;
     color: #61756a;
   }
 
@@ -210,7 +210,7 @@
   .results-label {
     margin: 0 0 9px;
   
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 700;
   
     letter-spacing: 1.5px;
@@ -222,7 +222,7 @@
   .results-header h1 {
     margin: 0;
   
-    font-size: 30px;
+    font-size: 32px;
     line-height: 1.25;
   
     font-weight: 500;
@@ -238,7 +238,7 @@
   .results-count {
     margin: 27px 0 0;
   
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.5;
   
     color: #68786f;
@@ -280,7 +280,7 @@
     color: #285c47;
   
     font-family: inherit;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
   
     cursor: pointer;
@@ -288,7 +288,7 @@
   
   
   .results-filter-button span {
-    font-size: 17px;
+    font-size: 18px;
   }
   
   
@@ -314,17 +314,16 @@
     color: #17352a;
   
     font-family: inherit;
-    font-size: 12px;
+    font-size: 14px;
   
     cursor: pointer;
   }
   
   
   .results-sort-button span {
-    font-size: 17px;
+    font-size: 18px;
     color: #315d49;
   }
-  
   
   /* =========================================
      RESULTS META
@@ -333,7 +332,6 @@
   .results-meta-row {
     display: flex;
     justify-content: flex-end;
-  
     padding: 0 2px 15px;
   }
   
@@ -341,10 +339,8 @@
   .results-meta-row span {
     display: flex;
     align-items: center;
-  
     gap: 6px;
-  
-    font-size: 11px;
+    font-size: 13px;
     color: #61756a;
   }
   
@@ -371,9 +367,7 @@
     .results-meta-row {
       justify-content: flex-start;
     }
-  
   }
-  
   
   @media (max-width: 600px) {
   
@@ -393,12 +387,10 @@
     .results-filter-button {
       flex: 1;
     }
-  
     .results-sort-button {
       flex: 1;
       justify-content: center;
     }
-  
   }
 
   /* =========================================
@@ -411,7 +403,6 @@
     gap: 12px;
   }
   
-  
   /* =========================================
      HERB RESULT CARD
      ========================================= */
@@ -419,39 +410,45 @@
   .herb-result-card {
     display: flex;
     min-height: 214px;
-  
     overflow: hidden;
-  
     border: 1px solid #d9ded7;
     border-radius: 9px;
-  
     background: #ffffff;
-  
     box-sizing: border-box;
   }
-  
   
   /* =========================================
      HERB VISUAL
      ========================================= */
   
   .herb-result-visual {
-    width: 105px;
+    width: 170px;
     flex-shrink: 0;
-  
     display: flex;
     align-items: center;
     justify-content: center;
-  
-    color: #315d49;
+    color: #28664f;
+  }
+
+  .herb-leaf-box {
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: transparent;
   }
   
+  .herb-leaf-icon {
+    width: 42px;
+    height: 42px;
+  }
   
   .herb-result-visual span {
-    font-size: 45px;
+    font-size: 46px;
     font-weight: 300;
   }
-  
   
   /* =========================================
      HERB INFORMATION
@@ -460,68 +457,60 @@
   .herb-result-info {
     flex: 1;
     min-width: 0;
-  
     padding: 20px 20px 16px;
     box-sizing: border-box;
   }
-  
   
   .herb-result-top {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-  
     gap: 20px;
   }
   
-  
   .herb-result-top h2 {
     margin: 0;
-  
-    font-size: 18px;
+    font-size: 19px;
     line-height: 1.3;
     font-weight: 500;
-  
     color: #17352a;
   }
   
-  
   .herb-result-top em {
     display: block;
-  
     margin-top: 4px;
-  
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 11px;
-  
+    font-size: 13px;
     color: #7b877f;
   }
   
-  
   .herb-favorite-button {
-    width: 32px;
-    height: 32px;
-  
+    width: 42px;
+    height: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
-  
     border: none;
     background: transparent;
-  
     color: #75917f;
-  
-    font-size: 23px;
+    font-size: 38px;
+    line-height: 1;
     font-weight: 300;
-  
     cursor: pointer;
+    padding: 0;
   }
-  
   
   .herb-favorite-button:hover {
     color: #2f6044;
   }
+
+  .herb-favorite-button.favorite-active {
+    color: #c43d3d;
+  }
   
+  .herb-favorite-button.favorite-active:hover {
+    color: #a92f2f;
+  }
   
   /* =========================================
      MATCH ROW
@@ -530,28 +519,21 @@
   .herb-match-row {
     display: flex;
     align-items: center;
-  
     gap: 7px;
-  
     margin-top: 13px;
   }
   
-  
   .herb-match-row strong {
-    font-size: 20px;
+    font-size: 22px;
     line-height: 1;
-  
     font-weight: 600;
-  
     color: #176b4d;
   }
   
-  
   .herb-match-row > span:not(.verification-badge) {
-    font-size: 11px;
+    font-size: 13px;
     color: #718078;
   }
-  
   
   /* =========================================
      VERIFICATION BADGE
@@ -560,25 +542,18 @@
   .verification-badge {
     display: inline-flex;
     align-items: center;
-  
     margin-left: 7px;
-  
     min-height: 24px;
-  
     padding: 0 9px;
-  
     border-radius: 13px;
-  
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 600;
   }
-  
   
   .verification-badge.verified {
     background: #e3f1e5;
     color: #287052;
   }
-  
   
   .verification-badge.reviewed {
     background: #f2ead7;
@@ -594,30 +569,20 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-  
     gap: 6px;
-  
     margin-top: 12px;
   }
   
-  
   .herb-result-tags span {
     min-height: 24px;
-  
     display: inline-flex;
     align-items: center;
-  
     padding: 0 9px;
-  
     border-radius: 13px;
-  
     background: #edf2ed;
-  
     color: #61766a;
-  
-    font-size: 10px;
+    font-size: 12px;
   }
-  
   
   /* =========================================
      DESCRIPTION
@@ -625,45 +590,33 @@
   
   .herb-result-description {
     max-width: 800px;
-  
     margin: 11px 0 0;
-  
-    font-size: 12px;
+    font-size: 13px;
     line-height: 1.55;
-  
     color: #5f7067;
   }
-  
   
   /* =========================================
      CARD ACTIONS
      ========================================= */
-  
   .herb-result-actions {
     display: flex;
     align-items: center;
     justify-content: space-between;
-  
     margin-top: 9px;
   }
-  
   
   .view-profile-button,
   .compare-herb-button {
     display: flex;
     align-items: center;
-  
     gap: 6px;
-  
     border: none;
     background: transparent;
-  
     font-family: inherit;
-    font-size: 11px;
-  
+    font-size: 13px;
     cursor: pointer;
   }
-  
   
   .view-profile-button {
     padding: 0;
@@ -671,16 +624,13 @@
     color: #175f47;
   }
   
-  
   .view-profile-button span {
-    font-size: 18px;
+    font-size: 19px;
   }
-  
   
   .view-profile-button:hover {
     color: #0f4634;
   }
-  
   
   .compare-herb-button {
     padding: 5px 2px;
@@ -688,11 +638,9 @@
     color: #718078;
   }
   
-  
   .compare-herb-button span {
-    font-size: 14px;
+    font-size: 15px;
   }
-  
   
   .compare-herb-button:hover {
     color: #2f6044;
@@ -709,25 +657,18 @@
       flex-direction: column;
     }
   
-  
     .herb-result-visual {
       width: 100%;
       height: 65px;
     }
-  
-  
+
     .herb-result-visual span {
-      font-size: 30px;
+      font-size: 32px;
     }
-  
-  
     .herb-result-info {
       padding: 18px;
     }
-  
-  
     .herb-result-actions {
       margin-top: 12px;
     }
-  
   }
