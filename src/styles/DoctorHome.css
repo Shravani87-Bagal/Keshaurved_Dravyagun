@@ -1118,40 +1118,53 @@
     padding: 24px 45px 24px 22px;
   } }
 
-  /* =========================================
+ /* =========================================
    DASHBOARD OVERVIEW
 ========================================= */
 
 .dashboard-overview {
   width: 100%;
+
   display: grid;
   grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+
   gap: 14px;
+
   padding: 0 48px 42px;
+
+  margin: 0;
+
   box-sizing: border-box;
+
   align-items: stretch;
 }
 
 .dashboard-overview > * {
   min-width: 0;
   height: 100%;
+  margin: 0;
 }
+
 /* =========================================
    SAVED & INSIGHTS
 ========================================= */
 
 .dashboard-insights {
   width: 100%;
+
   display: grid;
   grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+
   gap: 14px;
 
   padding: 0 48px 42px;
 
   box-sizing: border-box;
+
   align-items: stretch;
 }
 
 .dashboard-insights > * {
   min-width: 0;
+  height: 100%;
 }

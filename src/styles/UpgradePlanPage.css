@@ -53,7 +53,7 @@
   .upgrade-label {
     margin: 0 0 6px;
   
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
   
     letter-spacing: 1.4px;
@@ -64,7 +64,7 @@
   .upgrade-header h1 {
     margin: 0;
   
-    font-size: 22px;
+    font-size: 23px;
     font-weight: 600;
   
     color: #304238;
@@ -73,7 +73,7 @@
   .upgrade-header p:not(.upgrade-label) {
     margin: 6px 0 0;
   
-    font-size: 11px;
+    font-size: 13px;
   
     color: #7a8780;
   }
@@ -145,7 +145,7 @@
   
     color: #28664f;
   
-    font-size: 8px;
+    font-size: 11px;
     font-weight: 700;
   
     letter-spacing: 0.7px;
@@ -172,7 +172,7 @@
   
     color: #347457;
   
-    font-size: 20px;
+    font-size: 21px;
   }
   
   
@@ -183,7 +183,7 @@
   .upgrade-plan-card h2 {
     margin: 0;
   
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 600;
   
     color: #304238;
@@ -199,7 +199,7 @@
   
     margin: 4px 0 0;
   
-    font-size: 10px;
+    font-size: 12px;
   
     line-height: 1.4;
   
@@ -216,14 +216,14 @@
   
     color: #17352a;
   
-    font-size: 25px;
+    font-size: 26px;
     font-weight: 600;
   }
   
   .upgrade-price span {
     margin-left: 4px;
   
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 400;
   
     color: #7a8780;
@@ -243,7 +243,7 @@
     border-radius: 6px;
   
     font-family: inherit;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
   
     cursor: pointer;
@@ -305,7 +305,7 @@
   .upgrade-includes {
     margin: 0 0 8px;
   
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 600;
   
     color: #536259;
@@ -331,7 +331,7 @@
   
     margin-bottom: 8px;
   
-    font-size: 10px;
+    font-size: 12px;
   
     line-height: 1.4;
   
@@ -343,7 +343,7 @@
   
     color: #6c8375;
   
-    font-size: 10px;
+    font-size: 12px;
   }
   
   
@@ -356,7 +356,7 @@
   
     text-align: center;
   
-    font-size: 10px;
+    font-size: 12px;
   
     color: #8a948e;
   }

@@ -3,18 +3,21 @@
 ========================================= */
 
 .search-insights {
-    width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-  
-    background: #ffffff;
-  
-    border: 1px solid #d9ded7;
-    border-radius: 8px;
-  
-    overflow: hidden;
-  }
-  
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #ffffff;
+
+  border: 1px solid #d9ded7;
+  border-radius: 8px;
+
+  overflow: hidden;
+}
   
   /* =========================================
      HEADER
@@ -62,6 +65,8 @@
   ========================================= */
   
   .search-insights-content {
+    flex: 1;
+  
     padding: 14px 18px 18px;
   
     box-sizing: border-box;
