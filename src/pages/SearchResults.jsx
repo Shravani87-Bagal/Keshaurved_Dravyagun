@@ -5,81 +5,205 @@ import HerbResultCard from "../components/HerbResultCard"
 import "../styles/SearchResults.css"
 
 function SearchResults() {
+  /*
+    These are real herb records from the cleaned project dataset.
+
+    The final 176-record dataset will later be connected through the
+    backend/data layer. Match percentage will also be calculated by
+    the scoring system instead of being manually assigned here.
+  */
 
   const herbResults = [
     {
-      name: "Ashwagandha",
-      scientificName: "Withania somnifera",
-      match: 96,
-      status: "Verified",
+      id: "HERB_REC_0001",
+      name: "Guduchi",
+      scientificName: "tinospora cordifolia",
+      match: 0,
+      status: "",
       visualColor: "#a5b195",
       tags: [
-        "Vata-pacifying: strong",
+        "Tikta, Kashay",
+        "Laghu, Snigdha",
+        "Ushna",
         "Rasayana",
-        "Muscle tissue",
+        "Balya",
       ],
       description:
-        "A grounding adaptogen traditionally used to support strength, restorative sleep, and balanced energy.",
+        "Part used: stem. Major diseases/indications: vaatrakt, jwar, kamala, pandu, prameha, kushta, daah, krimirog, visha.",
     },
 
     {
-      name: "Guduchi",
-      scientificName: "Tinospora cordifolia",
-      match: 91,
-      status: "Verified",
+      id: "HERB_REC_0002",
+      name: "Indian Silver Fir",
+      scientificName: "Abies webbiana",
+      match: 0,
+      status: "",
       visualColor: "#91a57d",
       tags: [
-        "Tridoshic",
-        "Immunity",
-        "Bitter",
+        "Madhura, Tikta",
+        "Laghu, Snigdha, Tikshna",
+        "Ushna",
+        "Deepana",
+        "Pachana",
       ],
       description:
-        "A rejuvenating vine with broad traditional applications for vitality and balanced physiological function.",
+        "Part used: Leaves. Major diseases/indications: Aruchi, gulm, agnimandya, aadhman, kaas, shwas, rajyakshma, swarbhed, kshayrog, daurbalya.",
     },
 
     {
-      name: "Shatavari",
-      scientificName: "Asparagus racemosus",
-      match: 87,
-      status: "Reviewed",
+      id: "HERB_REC_0003",
+      name: "Irimed",
+      scientificName: "Acacia ferruginea DC",
+      match: 0,
+      status: "",
       visualColor: "#c9bd8d",
       tags: [
-        "Pitta-pacifying",
-        "Rasayana",
-        "Ojas",
+        "Tikta, Kashay",
+        "Laghu, Ruksha",
+        "Sheeta",
+        "Shothahara",
+        "Kushtaghna",
       ],
       description:
-        "A nourishing root traditionally associated with hydration, vitality, and support of the reproductive tissues.",
+        "Part used: Mainly stem bark, also heartwood/gum. Major diseases/indications: Kustha, pandu, krumi, pradar.",
     },
 
     {
-      name: "Haridra",
-      scientificName: "Curcuma longa",
-      match: 82,
-      status: "Verified",
+      id: "HERB_REC_0004",
+      name: "Pishachkarpaas",
+      scientificName: "Abroma augusta",
+      match: 0,
+      status: "",
       visualColor: "#d4ad4d",
       tags: [
-        "Kapha-pacifying",
-        "Anti-inflammatory",
-        "Pungent",
+        "Katu, Tikta",
+        "Laghu, Ruksha, Tikshna",
+        "Ushna",
+        "Deepana",
+        "Pachana",
       ],
       description:
-        "A bright rhizome used in classical formulations for healthy circulation and clear digestion.",
+        "Part used: Root. Major diseases/indications: Artavutpatti, kashtartav, puymeh, garbhashay bal increase.",
+    },
+
+    {
+      id: "HERB_REC_0005",
+      name: "Aapamarg",
+      scientificName: "Achyranthes aspera",
+      match: 0,
+      status: "",
+      visualColor: "#9caf8d",
+      tags: [
+        "Katu, Tikta",
+        "Snigdha, Ruksha, Tikshna, Sara",
+        "Ushna",
+        "Deepana",
+        "Rechana",
+      ],
+      description:
+        "Part used: Whole plant (Panchanga). Major diseases/indications: Ashmari, Mutrakrichra, Arsha, Krimi, Kandu, Kushta.",
+    },
+
+    {
+      id: "HERB_REC_0006",
+      name: "Gorakshi",
+      scientificName: "Adansonia",
+      match: 0,
+      status: "",
+      visualColor: "#b6aa8d",
+      tags: [
+        "Madhura, Amla",
+        "Guru, Ruksha",
+        "Sheeta",
+        "Balya",
+        "Grahi",
+      ],
+      description:
+        "Part used: Fruit, fruit pulp, bark, leaves and seeds. Major diseases/indications: Atisara, Grahani, Daha, Trishna, Daurbalya.",
+    },
+
+    {
+      id: "HERB_REC_0007",
+      name: "Gunja",
+      scientificName: "Abdus precatorius",
+      match: 0,
+      status: "",
+      visualColor: "#a9b99d",
+      tags: [
+        "Katu, Tikta, Kashay",
+        "Laghu, Ruksha, Tikshna",
+        "Ushna",
+        "Kushtaghna",
+        "Krimighna",
+      ],
+      description:
+        "Part used: Seeds, roots and leaves. Major diseases/indications: Alopecia, skin disorders, daurbalya, mutrakrushra, kushtha, jirnavran.",
+    },
+
+    {
+      id: "HERB_REC_0008",
+      name: "Babbula",
+      scientificName: "Acasia arabica",
+      match: 0,
+      status: "",
+      visualColor: "#c2b997",
+      tags: [
+        "Kashay",
+        "Guru, Ruksha",
+        "Sheeta",
+        "Grahi",
+        "Medohara",
+      ],
+      description:
+        "Part used: Bark, flower and seeds. Major diseases/indications: Atisar, mukharog, shotha, vrana, prameh, dantarog, raktasrav.",
+    },
+
+    {
+      id: "HERB_REC_0009",
+      name: "Vatsanabh",
+      scientificName: "Aconitum ferox",
+      match: 0,
+      status: "",
+      visualColor: "#a4af96",
+      tags: [
+        "Madhura",
+        "Ruksha, Tikshna",
+        "Ushna",
+        "Rasayana",
+        "Deepana",
+      ],
+      description:
+        "Part used: Root. Major diseases/indications: Shir-shul, vran, shotha, aruchi, arsha, kas, kushtha, trushna.",
+    },
+
+    {
+      id: "HERB_REC_0010",
+      name: "Ativisha",
+      scientificName: "Aconitum Heterophyllum",
+      match: 0,
+      status: "",
+      visualColor: "#b0b99f",
+      tags: [
+        "Katu, Tikta",
+        "Laghu, Ruksha",
+        "Ushna",
+        "Deepana",
+        "Pachana",
+      ],
+      description:
+        "Part used: Root. Major diseases/indications: Grahani, vishamjwar, sthanyavikar, shwetatisar, kaphaj kas.",
     },
   ]
 
   return (
     <div className="search-results-layout">
 
-      {/* Top Dashboard Navbar */}
       <DashboardNavbar />
 
       <div className="search-results-body">
 
-        {/* Left Sidebar */}
         <Sidebar />
 
-        {/* Main Results Area */}
         <main className="search-results-page">
 
           <div className="search-results-content">
@@ -94,11 +218,11 @@ function SearchResults() {
                 </p>
 
                 <h1>
-                  Joint pain, cold weather, stiffness
+                  Ayurvedic herb profiles
                 </h1>
 
                 <p className="results-count">
-                  24 herbs matched your description
+                  {herbResults.length} herb profiles currently displayed
                 </p>
 
               </div>
@@ -129,7 +253,7 @@ function SearchResults() {
             <div className="results-meta-row">
 
               <span>
-                ✓ Includes verified profiles
+                ✓ Structured Ayurvedic dataset
               </span>
 
             </div>
@@ -139,7 +263,7 @@ function SearchResults() {
 
               {herbResults.map((herb) => (
                 <HerbResultCard
-                  key={herb.name}
+                  key={herb.id}
                   herb={herb}
                 />
               ))}

@@ -106,16 +106,22 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+  
     min-height: 34px;
     padding: 0 14px;
+  
     border: 1px solid #c8d5c8;
     border-radius: 8px;
+  
     background: #ffffff;
     color: #28664f;
+  
     font-family: inherit;
     font-size: 13px;
     font-weight: 600;
+  
     cursor: pointer;
+  
     transition:
       background 0.2s ease,
       border-color 0.2s ease,
@@ -131,10 +137,6 @@
   
   .clear-all-button:active {
     transform: scale(0.97);
-  }
-  
-  .clear-all-button:hover {
-    color: #2f6044;
   }
   
   
@@ -154,6 +156,27 @@
     border-bottom: 1px solid #d9ded7;
   }
   
+  .parameter-wrapper {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  
+  /* =========================================
+     PARAMETER TITLE
+     ========================================= */
+  
+  .parameter-title {
+    margin: 0 0 7px 7px;
+  
+    font-size: 17px;
+    line-height: 1.3;
+    font-weight: 600;
+  
+    color: #17352a;
+  }
+  
   
   /* =========================================
      PARAMETER CARD
@@ -165,21 +188,19 @@
       margin: 0;
       padding: 19px 14px 14px;
       box-sizing: border-box;
+    
       border: 1px solid #e2d6b8;
       border-radius: 10px;
-      background: #FAEFED;
+      background: #faefed;
+    
+      flex: 1;
     }
   
-  /* Remove default fieldset border spacing */
   
-  .parameter-card legend {
-    padding: 0 7px;
+  /* =========================================
+     PARAMETER SUBTITLE
+     ========================================= */
   
-    font-size: 17px;
-    font-weight: 600;
-  
-    color: #17352a;
-  }
   .parameter-subtitle {
     margin: -1px 7px 14px;
   
@@ -204,15 +225,21 @@
   
   .parameter-chip {
     min-height: 34px;
+  
     padding: 0 13px;
+  
     border: 1px solid #c4d6c5;
     border-radius: 18px;
+  
     background: #f8faf5;
     color: #315d49;
+  
     font-family: inherit;
     font-size: 14px;
     font-weight: 500;
+  
     cursor: pointer;
+  
     transition:
       background 0.2s ease,
       border-color 0.2s ease,
@@ -316,16 +343,17 @@
      ========================================= */
   
   @media (max-width: 1000px) {
-  
     .parameter-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px 14px;
+      padding: 4px 2px 22px;
+      border-bottom: 1px solid #d9ded7;
     }
-  
   }
   
   
   @media (max-width: 700px) {
-  
     .detailed-search-top {
       flex-direction: column;
       gap: 10px;
@@ -343,12 +371,10 @@
     .detailed-search-button {
       width: 100%;
     }
-  
   }
   
   
   @media (max-width: 600px) {
-  
     .detailed-search-section {
       padding-top: 20px;
     }
@@ -366,5 +392,4 @@
       min-height: 29px;
       padding: 0 10px;
     }
-  
   }

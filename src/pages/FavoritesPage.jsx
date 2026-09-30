@@ -212,11 +212,17 @@ function FavoritesPage() {
                           </span>
                         )}
 
-                        {herb.dosha && (
-                          <span>
-                            Dosha: {herb.dosha}
-                          </span>
-                        )}
+{herb.dosha && (
+  <span>
+    Dosha:{" "}
+    {typeof herb.dosha === "object"
+      ? Object.entries(herb.dosha)
+          .filter(([, value]) => value && value !== "—")
+          .map(([key, value]) => `${key}: ${value}`)
+          .join(" · ")
+      : herb.dosha}
+  </span>
+)}
 
                       </div>
 

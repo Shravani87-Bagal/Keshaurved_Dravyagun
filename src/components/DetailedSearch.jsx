@@ -7,76 +7,161 @@ function DetailedSearch() {
     {
       title: "Rasa",
       subtitle: "taste profile",
-      options: ["Sweet", "Sour", "Salty", "Pungent", "Bitter", "Astringent"],
+      options: [
+        "Madhura",
+        "Amla",
+        "Lavana",
+        "Katu",
+        "Tikta",
+        "Kashay",
+      ],
     },
     {
       title: "Guna",
       subtitle: "qualities",
-      options: ["Light", "Heavy", "Dry", "Unctuous", "Sharp", "Stable"],
+      options: [
+        "Guru",
+        "Laghu",
+        "Snigdha",
+        "Ruksha",
+        "Tikshna",
+        "Manda",
+        "Sthira",
+        "Vishada",
+      ],
     },
     {
       title: "Virya",
       subtitle: "potency / action",
-      options: ["Heating", "Cooling"],
+      options: [
+        "Ushna",
+        "Sheeta",
+      ],
     },
     {
       title: "Vipaka",
       subtitle: "post-digestive effect",
-      options: ["Sweet", "Sour", "Pungent"],
+      options: [
+        "Madhura",
+        "Katu",
+        "Amla",
+      ],
     },
-    {
-      title: "Prabhava",
-      subtitle: "specific action",
-      options: ["Rasayana", "Medhya", "Garbhastapana"],
-    },
+    
     {
       title: "Dosha",
-      subtitle: "constitution type",
-      options: ["Vata", "Pitta", "Kapha", "Tridoshic"],
+      subtitle: "dosha action",
+      options: [
+        "Vata · Increases",
+        "Vata · Decreases",
+        "Pitta · Increases",
+        "Pitta · Decreases",
+        "Kapha · Increases",
+        "Kapha · Decreases",
+      ],
     },
     {
       title: "Dhatu",
       subtitle: "tissue system",
-      options: ["Rasa", "Rakta", "Mamsa", "Meda", "Asthi", "Majja"],
+      options: [
+        "Rasa",
+        "Rakta",
+        "Mamsa",
+        "Meda",
+        "Asthi",
+        "Majja",
+        "Shukra",
+      ],
     },
     {
       title: "Mala",
       subtitle: "waste pathways",
-      options: ["Mutra", "Purisha", "Sweda"],
+      options: [
+        "Purisha",
+        "Mutra",
+        "Sweda",
+      ],
     },
     {
       title: "Srotas",
       subtitle: "body channels",
-      options: ["Pranavaha", "Annavaha", "Rasavaha", "Asthivaha"],
+      options: [
+        "Pranavaha",
+        "Annavaha",
+        "Udakavaha",
+        "Rasavaha",
+        "Raktavaha",
+        "Mamsavaha",
+        "Medovaha",
+        "Asthivaha",
+        "Majjavaha",
+        "Shukravaha",
+        "Mutravaha",
+        "Swedavaha",
+        "Purishavaha",
+        "Artavavaha",
+      ],
     },
     {
       title: "Karma",
       subtitle: "therapeutic action",
-      options: ["Deepana", "Pachana", "Balya", "Rasayana", "Medhya"],
-    },
-    {
-      title: "Disease / Indication",
-      subtitle: "clinical concern",
       options: [
-        "Joint discomfort",
-        "Digestive weakness",
-        "Fatigue",
-        "Congestion",
+        "Rasayana",
+        "Balya",
+        "Deepana",
+        "Pachana",
+        "Grahi",
+        "Rechana",
+        "Virechana",
+        "Vamana",
+        "Lekhana",
+        "Medohara",
+        "Shothahara",
+        "Vedanasthapana",
+        "Kandughna",
+        "Kushtaghna",
+        "Krimighna",
+        "Vajikarana",
+        "Mutrala",
+        "Hridya",
+        "Others",
       ],
     },
     {
-      title: "Organ / Avayava",
-      subtitle: "primary system",
-      options: ["Joints", "Stomach", "Liver", "Lungs", "Nervous system"],
+      title: "Major Diseases / Indications",
+      subtitle: "clinical indications",
+      options: [
+        "Agnimandya",
+        "Ajeerna",
+        "Amavata",
+        "Amlapitta",
+        "Arsha",
+        "Ashmari",
+        "Atisara",
+        "Chardi",
+        "Grahani",
+        "Jvara",
+        "Kasa",
+        "Kandu",
+        "Krimi Roga",
+        "Kushta",
+        "Mutra Vikara",
+        "Prameha",
+        "Rakta Pitta",
+        "Sandhi Shoola",
+        "Shotha",
+        "Shwasa",
+        "Udara Roga",
+        "Vataroga",
+        "Vrana",
+      ],
     },
   ]
 
   const navigate = useNavigate()
 
-  // Store selected options
   const [selectedParameters, setSelectedParameters] = useState({})
 
-  // Handle parameter selection
   const handleParameterSelect = (parameterTitle, option) => {
     setSelectedParameters((previous) => {
       const currentSelection = previous[parameterTitle] || []
@@ -99,20 +184,17 @@ function DetailedSearch() {
     })
   }
 
-  // Remove empty parameter groups
   const cleanedSelections = Object.fromEntries(
     Object.entries(selectedParameters).filter(
       ([, options]) => options.length > 0
     )
   )
 
-  // Total number of selected options
   const selectedCount = Object.values(cleanedSelections).reduce(
     (total, options) => total + options.length,
     0
   )
 
-  // Clear all selections
   const handleClearAll = () => {
     setSelectedParameters({})
   }
@@ -172,35 +254,49 @@ function DetailedSearch() {
       </div>
 
       <div className="parameter-grid">
-      {parameters.map((parameter) => (
-  <div className="parameter-wrapper" key={parameter.title}>
-    <h3 className="parameter-title">{parameter.title}</h3>
+        {parameters.map((parameter) => (
+          <div
+            className="parameter-wrapper"
+            key={parameter.title}
+          >
+            <h3 className="parameter-title">
+              {parameter.title}
+            </h3>
 
-    <fieldset className="parameter-card">
-      <p className="parameter-subtitle">{parameter.subtitle}</p>
+            <fieldset className="parameter-card">
+              <p className="parameter-subtitle">
+                {parameter.subtitle}
+              </p>
 
-      <div className="parameter-options">
-        {parameter.options.map((option) => {
-          const isSelected =
-            selectedParameters[parameter.title]?.includes(option)
+              <div className="parameter-options">
+                {parameter.options.map((option) => {
+                  const isSelected =
+                    selectedParameters[parameter.title]?.includes(
+                      option
+                    )
 
-          return (
-            <button
-              key={option}
-              type="button"
-              className={`parameter-chip ${isSelected ? "selected" : ""}`}
-              onClick={() =>
-                handleParameterSelect(parameter.title, option)
-              }
-            >
-              {option}
-            </button>
-          )
-        })}
-      </div>
-    </fieldset>
-  </div>
-))}
+                  return (
+                    <button
+                      key={option}
+                      type="button"
+                      className={`parameter-chip ${
+                        isSelected ? "selected" : ""
+                      }`}
+                      onClick={() =>
+                        handleParameterSelect(
+                          parameter.title,
+                          option
+                        )
+                      }
+                    >
+                      {option}
+                    </button>
+                  )
+                })}
+              </div>
+            </fieldset>
+          </div>
+        ))}
       </div>
     </section>
   )

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useMemo, useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import DashboardNavbar from "../components/DashboardNavbar"
 import Sidebar from "../components/Sidebar"
@@ -54,7 +54,7 @@ function HerbLibrary() {
 
   const herbs = [
     {
-      id: 1,
+      id: "HERB_REC_0001",
       name: "Ashwagandha",
       scientificName: "Withania somnifera",
       description:
@@ -69,9 +69,9 @@ function HerbLibrary() {
       status: "Verified",
       variant: "green",
     },
-  
+
     {
-      id: 2,
+      id: "HERB_REC_0002",
       name: "Guduchi",
       scientificName: "Tinospora cordifolia",
       description:
@@ -86,9 +86,9 @@ function HerbLibrary() {
       status: "Verified",
       variant: "sage",
     },
-  
+
     {
-      id: 3,
+      id: "HERB_REC_0003",
       name: "Shatavari",
       scientificName: "Asparagus racemosus",
       description:
@@ -103,9 +103,9 @@ function HerbLibrary() {
       status: "Reviewed",
       variant: "cream",
     },
-  
+
     {
-      id: 4,
+      id: "HERB_REC_0004",
       name: "Tulsi",
       scientificName: "Ocimum tenuiflorum",
       description:
@@ -120,9 +120,9 @@ function HerbLibrary() {
       status: "Verified",
       variant: "sage",
     },
-  
+
     {
-      id: 5,
+      id: "HERB_REC_0005",
       name: "Yashtimadhu",
       scientificName: "Glycyrrhiza glabra",
       description:
@@ -137,9 +137,9 @@ function HerbLibrary() {
       status: "Reviewed",
       variant: "cream",
     },
-  
+
     {
-      id: 6,
+      id: "HERB_REC_0006",
       name: "Neem",
       scientificName: "Azadirachta indica",
       description:
@@ -154,9 +154,9 @@ function HerbLibrary() {
       status: "Verified",
       variant: "green",
     },
-  
+
     {
-      id: 7,
+      id: "HERB_REC_0007",
       name: "Haritaki",
       scientificName: "Terminalia chebula",
       description:
@@ -171,9 +171,9 @@ function HerbLibrary() {
       status: "Verified",
       variant: "sage",
     },
-  
+
     {
-      id: 8,
+      id: "HERB_REC_0008",
       name: "Amalaki",
       scientificName: "Phyllanthus emblica",
       description:
@@ -188,9 +188,9 @@ function HerbLibrary() {
       status: "Verified",
       variant: "green",
     },
-  
+
     {
-      id: 9,
+      id: "HERB_REC_0009",
       name: "Turmeric",
       scientificName: "Curcuma longa",
       description:
@@ -206,9 +206,42 @@ function HerbLibrary() {
       variant: "cream",
     },
   ]
-  
+
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedHerbs, setSelectedHerbs] = useState([])
+  const [favoriteHerbs, setFavoriteHerbs] = useState([])
+
+useEffect(() => {
+  const savedFavorites =
+    JSON.parse(localStorage.getItem("favoriteHerbs")) || []
+
+  setFavoriteHerbs(savedFavorites)
+}, [])
+
+const isFavorite = (herbId) => {
+  return favoriteHerbs.some((item) => item.id === herbId)
+}
+
+const handleFavorite = (event, herb) => {
+  event.stopPropagation()
+
+  setFavoriteHerbs((previous) => {
+    const alreadyFavorite = previous.some(
+      (item) => item.id === herb.id
+    )
+
+    const updatedFavorites = alreadyFavorite
+      ? previous.filter((item) => item.id !== herb.id)
+      : [...previous, herb]
+
+    localStorage.setItem(
+      "favoriteHerbs",
+      JSON.stringify(updatedFavorites)
+    )
+
+    return updatedFavorites
+  })
+}
 
   const filteredHerbs = useMemo(() => {
     const query = searchQuery.trim().toLowerCase()
@@ -255,6 +288,11 @@ function HerbLibrary() {
     navigate("/compare")
   }
 
+  const handleViewInformation = (event, herb) => {
+    event.stopPropagation()
+    navigate(`/herb/${herb.id}`)
+  }
+
   return (
     <div className="herb-library-layout">
       <DashboardNavbar />
@@ -267,7 +305,6 @@ function HerbLibrary() {
 
             {/* HEADER */}
             <section className="herb-library-header">
-
               <div>
                 <p className="herb-library-breadcrumb">
                   COMPARE / HERB LIBRARY
@@ -278,17 +315,16 @@ function HerbLibrary() {
 
               <div className="library-selected-count">
                 <span className="selection-network-icon">♧</span>
+
                 <span>
                   {selectedHerbs.length}{" "}
                   {selectedHerbs.length === 1 ? "herb" : "herbs"} selected
                 </span>
               </div>
-
             </section>
 
             {/* SELECTION INFORMATION */}
             <section className="selection-banner">
-
               <div className="selection-banner-text">
                 <p>
                   Choose two or more herbs to compare their Ayurvedic
@@ -303,7 +339,6 @@ function HerbLibrary() {
               </div>
 
               <div className="selection-banner-actions">
-
                 <button
                   className="clear-selection-button"
                   type="button"
@@ -322,14 +357,11 @@ function HerbLibrary() {
                   Compare selected
                   <span>›</span>
                 </button>
-
               </div>
-
             </section>
 
             {/* SEARCH */}
             <section className="herb-library-search">
-
               <span className="library-search-icon">⌕</span>
 
               <input
@@ -340,12 +372,10 @@ function HerbLibrary() {
                 }
                 placeholder="Search herbs by name..."
               />
-
             </section>
 
             {/* HERB GRID */}
             <section className="herb-library-grid">
-
               {filteredHerbs.map((herb) => {
                 const isSelected = selectedHerbs.some(
                   (item) => item.id === herb.id
@@ -359,10 +389,8 @@ function HerbLibrary() {
                     key={herb.id}
                     onClick={() => toggleHerb(herb)}
                   >
-
                     {/* CHECKBOX + ICON */}
                     <div className="herb-card-main">
-
                       <button
                         type="button"
                         className={`herb-checkbox ${
@@ -380,7 +408,6 @@ function HerbLibrary() {
                       <LeafIcon variant={herb.variant} />
 
                       <div className="herb-card-information">
-
                         <h2>{herb.name}</h2>
 
                         <em>{herb.scientificName}</em>
@@ -400,33 +427,41 @@ function HerbLibrary() {
 
                           {herb.status}
                         </div>
-                        <button
-                        type="button"
-                        className="herb-view-information"
-                        onClick={(event) => {
-                          event.stopPropagation()
-                          navigate(`/herb/${herb.id}`)
-                          } 
-                          }
-                          >
-                            View information
-                            <span>›</span>
-                            </button>
-                          
+
+                        <div className="herb-card-actions">
+  <button
+    type="button"
+    className={`herb-favorite-action ${
+      isFavorite(herb.id) ? "favorite-active" : ""
+    }`}
+    onClick={(event) => handleFavorite(event, herb)}
+  >
+    {isFavorite(herb.id) ? "♥ Remove from favorites" : "♡ Add to favorites"}
+  </button>
+
+  <button
+    type="button"
+    className="herb-view-information"
+    onClick={(event) =>
+      handleViewInformation(event, herb)
+    }
+  >
+    View information
+    <span>›</span>
+  </button>
+</div>
                       </div>
-
                     </div>
-
                   </article>
                 )
               })}
-
             </section>
 
             {/* NO RESULTS */}
             {filteredHerbs.length === 0 && (
               <div className="herb-library-no-results">
                 <h2>No herbs found</h2>
+
                 <p>
                   Try searching with another herb name or scientific name.
                 </p>
@@ -435,7 +470,6 @@ function HerbLibrary() {
 
             {/* FOOTER */}
             <div className="herb-library-footer">
-
               <span>
                 Showing {filteredHerbs.length} herbs
               </span>
@@ -456,7 +490,6 @@ function HerbLibrary() {
                   ›
                 </button>
               </div>
-
             </div>
 
           </div>

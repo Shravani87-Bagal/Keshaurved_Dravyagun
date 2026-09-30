@@ -49,189 +49,614 @@ function LeafIcon() {
   )
 }
 
+function DetailField({ label, value }) {
+  return (
+    <div className="detail-field">
+      <span>{label}</span>
+      <strong>{value || "—"}</strong>
+    </div>
+  )
+}
+
+function PropertyCard({ label, value }) {
+  return (
+    <div className="property-card">
+      <span>{label}</span>
+      <strong>{value || "—"}</strong>
+    </div>
+  )
+}
+
 function HerbDetailPage() {
-    const navigate = useNavigate()
-    const { id } = useParams()
-  
-    const [isFavorite, setIsFavorite] = useState(false)
-  
-    const herbs = [
+  const navigate = useNavigate()
+  const { id } = useParams()
+
+  const [isFavorite, setIsFavorite] = useState(false)
+
+  /*
+    Temporary frontend records.
+
+    These IDs are intentionally the same as the IDs used
+    in HerbLibrary.jsx.
+
+    Later, these temporary records will be replaced by
+    the actual herb dataset.
+  */
+
+  const herbs = [
     {
-      id: 1,
-      name: "Ashwagandha",
-      scientificName: "Withania somnifera",
-      description:
-        "A grounding Rasayana traditionally used to support strength, restorative sleep, and balanced energy.",
-      dosha: "Vata ↓ · Kapha ↓",
-      dhatu: "Mamsa · Majja",
-      rasa: "Bitter · Sweet",
-      guna: "Light · Unctuous",
-      virya: "Heating",
-      vipaka: "Sweet",
-      karma: "Balya · Rasayana",
-      status: "Verified",
+      id: "HERB_REC_0001",
+      englishName: "Ashwagandha",
+      sanskritName: "—",
+      botanicalName: "Withania somnifera",
+      localName: "—",
+      family: "—",
+      partUsed: "Root",
+
+      rasa: "Madhura, Tikta",
+      guna: "Laghu, Snigdha",
+      virya: "Ushna",
+      vipaka: "Madhura",
+
+      dosha: {
+        vata: "Decreases",
+        pitta: "—",
+        kapha: "Decreases",
+      },
+
+      dhatu: {
+        rasa: "—",
+        rakta: "—",
+        mamsa: "—",
+        meda: "—",
+        asthi: "—",
+        majja: "—",
+        shukra: "—",
+      },
+
+      mala: {
+        purisha: "—",
+        mutra: "—",
+        sweda: "—",
+      },
+
+      srotas: {
+        pranavaha: "—",
+        annavaha: "—",
+        udakavaha: "—",
+        rasavaha: "—",
+        raktavaha: "—",
+        mamsavaha: "—",
+        medovaha: "—",
+        asthivaha: "—",
+        majjavaha: "—",
+        shukravaha: "—",
+        mutravaha: "—",
+        swedavaha: "—",
+        purishavaha: "—",
+        artavavaha: "—",
+      },
+
+      importantKarma: "Balya, Rasayana",
+      otherKarma: "—",
+
+      majorDiseases:
+        "—",
     },
+
     {
-      id: 2,
-      name: "Guduchi",
-      scientificName: "Tinospora cordifolia",
-      description:
-        "A rejuvenating vine traditionally used in Rasayana and digestive-supportive applications.",
-      dosha: "Tridoshic",
-      dhatu: "Rasa · Rakta",
-      rasa: "Bitter",
-      guna: "Light · Unctuous",
-      virya: "Heating",
-      vipaka: "Sweet",
-      karma: "Rasayana · Deepana",
-      status: "Verified",
+      id: "HERB_REC_0002",
+      englishName: "Guduchi",
+      sanskritName: "—",
+      botanicalName: "Tinospora cordifolia",
+      localName: "—",
+      family: "—",
+      partUsed: "Stem",
+
+      rasa: "Tikta, Kashay",
+      guna: "Laghu, Snigdha",
+      virya: "Ushna",
+      vipaka: "Madhura",
+
+      dosha: {
+        vata: "—",
+        pitta: "—",
+        kapha: "—",
+      },
+
+      dhatu: {
+        rasa: "—",
+        rakta: "—",
+        mamsa: "—",
+        meda: "—",
+        asthi: "—",
+        majja: "—",
+        shukra: "—",
+      },
+
+      mala: {
+        purisha: "—",
+        mutra: "—",
+        sweda: "—",
+      },
+
+      srotas: {
+        pranavaha: "—",
+        annavaha: "—",
+        udakavaha: "—",
+        rasavaha: "—",
+        raktavaha: "—",
+        mamsavaha: "—",
+        medovaha: "—",
+        asthivaha: "—",
+        majjavaha: "—",
+        shukravaha: "—",
+        mutravaha: "—",
+        swedavaha: "—",
+        purishavaha: "—",
+        artavavaha: "—",
+      },
+
+      importantKarma: "Rasayana, Deepana",
+      otherKarma: "—",
+
+      majorDiseases:
+        "Vaatrakt, Jwar, Kamala, Pandu, Prameha, Kushta, Daah, Krimirog, Visha",
     },
+
     {
-      id: 3,
-      name: "Shatavari",
-      scientificName: "Asparagus racemosus",
-      description:
-        "A nourishing root traditionally associated with hydration, vitality, and reproductive tissues.",
-      dosha: "Vata ↓ · Pitta ↓",
-      dhatu: "Rasa · Rakta · Shukra",
-      rasa: "Sweet · Bitter",
-      guna: "Heavy · Unctuous",
-      virya: "Cooling",
-      vipaka: "Sweet",
-      karma: "Rasayana · Stanyajanana",
-      status: "Reviewed",
+      id: "HERB_REC_0003",
+      englishName: "Shatavari",
+      sanskritName: "—",
+      botanicalName: "Asparagus racemosus",
+      localName: "—",
+      family: "—",
+      partUsed: "Root",
+
+      rasa: "Madhura, Tikta",
+      guna: "Guru, Snigdha",
+      virya: "Sheeta",
+      vipaka: "Madhura",
+
+      dosha: {
+        vata: "Decreases",
+        pitta: "Decreases",
+        kapha: "—",
+      },
+
+      dhatu: {
+        rasa: "—",
+        rakta: "—",
+        mamsa: "—",
+        meda: "—",
+        asthi: "—",
+        majja: "—",
+        shukra: "—",
+      },
+
+      mala: {
+        purisha: "—",
+        mutra: "—",
+        sweda: "—",
+      },
+
+      srotas: {
+        pranavaha: "—",
+        annavaha: "—",
+        udakavaha: "—",
+        rasavaha: "—",
+        raktavaha: "—",
+        mamsavaha: "—",
+        medovaha: "—",
+        asthivaha: "—",
+        majjavaha: "—",
+        shukravaha: "—",
+        mutravaha: "—",
+        swedavaha: "—",
+        purishavaha: "—",
+        artavavaha: "—",
+      },
+
+      importantKarma: "Rasayana, Stanyajanana",
+      otherKarma: "—",
+
+      majorDiseases: "—",
     },
+
     {
-      id: 4,
-      name: "Tulsi",
-      scientificName: "Ocimum tenuiflorum",
-      description:
-        "An aromatic leaf traditionally used to support clear breathing, digestion, and mental clarity.",
-      dosha: "Kapha ↓ · Vata ↓",
-      dhatu: "Rasa · Rakta",
-      rasa: "Pungent · Bitter",
-      guna: "Light · Dry",
-      virya: "Heating",
-      vipaka: "Pungent",
-      karma: "Deepana · Kaphaghna",
-      status: "Verified",
+      id: "HERB_REC_0004",
+      englishName: "Tulsi",
+      sanskritName: "—",
+      botanicalName: "Ocimum tenuiflorum",
+      localName: "—",
+      family: "—",
+      partUsed: "Leaves",
+
+      rasa: "Katu, Tikta",
+      guna: "Laghu, Ruksha",
+      virya: "Ushna",
+      vipaka: "Katu",
+
+      dosha: {
+        vata: "Decreases",
+        pitta: "—",
+        kapha: "Decreases",
+      },
+
+      dhatu: {
+        rasa: "—",
+        rakta: "—",
+        mamsa: "—",
+        meda: "—",
+        asthi: "—",
+        majja: "—",
+        shukra: "—",
+      },
+
+      mala: {
+        purisha: "—",
+        mutra: "—",
+        sweda: "—",
+      },
+
+      srotas: {
+        pranavaha: "—",
+        annavaha: "—",
+        udakavaha: "—",
+        rasavaha: "—",
+        raktavaha: "—",
+        mamsavaha: "—",
+        medovaha: "—",
+        asthivaha: "—",
+        majjavaha: "—",
+        shukravaha: "—",
+        mutravaha: "—",
+        swedavaha: "—",
+        purishavaha: "—",
+        artavavaha: "—",
+      },
+
+      importantKarma: "Deepana, Kaphaghna",
+      otherKarma: "—",
+
+      majorDiseases: "—",
     },
+
     {
-      id: 5,
-      name: "Yashtimadhu",
-      scientificName: "Glycyrrhiza glabra",
-      description:
-        "A soothing root traditionally valued for nourishing the voice, stomach, and respiratory tissues.",
-      dosha: "Vata ↓ · Pitta ↓",
-      dhatu: "Rasa · Rakta · Shukra",
-      rasa: "Sweet",
-      guna: "Heavy · Unctuous",
-      virya: "Cooling",
-      vipaka: "Sweet",
-      karma: "Rasayana · Varnya",
-      status: "Reviewed",
+      id: "HERB_REC_0005",
+      englishName: "Yashtimadhu",
+      sanskritName: "—",
+      botanicalName: "Glycyrrhiza glabra",
+      localName: "—",
+      family: "—",
+      partUsed: "Root",
+
+      rasa: "Madhura",
+      guna: "Guru, Snigdha",
+      virya: "Sheeta",
+      vipaka: "Madhura",
+
+      dosha: {
+        vata: "Decreases",
+        pitta: "Decreases",
+        kapha: "—",
+      },
+
+      dhatu: {
+        rasa: "—",
+        rakta: "—",
+        mamsa: "—",
+        meda: "—",
+        asthi: "—",
+        majja: "—",
+        shukra: "—",
+      },
+
+      mala: {
+        purisha: "—",
+        mutra: "—",
+        sweda: "—",
+      },
+
+      srotas: {
+        pranavaha: "—",
+        annavaha: "—",
+        udakavaha: "—",
+        rasavaha: "—",
+        raktavaha: "—",
+        mamsavaha: "—",
+        medovaha: "—",
+        asthivaha: "—",
+        majjavaha: "—",
+        shukravaha: "—",
+        mutravaha: "—",
+        swedavaha: "—",
+        purishavaha: "—",
+        artavavaha: "—",
+      },
+
+      importantKarma: "Rasayana, Varnya",
+      otherKarma: "—",
+
+      majorDiseases: "—",
     },
+
     {
-      id: 6,
-      name: "Neem",
-      scientificName: "Azadirachta indica",
-      description:
-        "A cooling bitter herb traditionally used in cleansing protocols and support for clear skin.",
-      dosha: "Pitta ↓ · Kapha ↓",
-      dhatu: "Rakta · Mamsa",
-      rasa: "Bitter · Astringent",
-      guna: "Light · Dry",
-      virya: "Cooling",
-      vipaka: "Pungent",
-      karma: "Krimighna · Kusthaghna",
-      status: "Verified",
+      id: "HERB_REC_0006",
+      englishName: "Neem",
+      sanskritName: "—",
+      botanicalName: "Azadirachta indica",
+      localName: "—",
+      family: "—",
+      partUsed: "Leaves",
+
+      rasa: "Tikta, Kashay",
+      guna: "Laghu, Ruksha",
+      virya: "Sheeta",
+      vipaka: "Katu",
+
+      dosha: {
+        vata: "—",
+        pitta: "Decreases",
+        kapha: "Decreases",
+      },
+
+      dhatu: {
+        rasa: "—",
+        rakta: "—",
+        mamsa: "—",
+        meda: "—",
+        asthi: "—",
+        majja: "—",
+        shukra: "—",
+      },
+
+      mala: {
+        purisha: "—",
+        mutra: "—",
+        sweda: "—",
+      },
+
+      srotas: {
+        pranavaha: "—",
+        annavaha: "—",
+        udakavaha: "—",
+        rasavaha: "—",
+        raktavaha: "—",
+        mamsavaha: "—",
+        medovaha: "—",
+        asthivaha: "—",
+        majjavaha: "—",
+        shukravaha: "—",
+        mutravaha: "—",
+        swedavaha: "—",
+        purishavaha: "—",
+        artavavaha: "—",
+      },
+
+      importantKarma: "Krimighna, Kusthaghna",
+      otherKarma: "—",
+
+      majorDiseases: "—",
     },
+
     {
-      id: 7,
-      name: "Haritaki",
-      scientificName: "Terminalia chebula",
-      description:
-        "A classical herb traditionally used to support digestion, elimination, and Rasayana purposes.",
-      dosha: "Tridoshic · Vata ↓",
-      dhatu: "Rasa · Rakta · Mamsa",
-      rasa: "Astringent · Five tastes except Salt",
-      guna: "Light · Dry",
-      virya: "Heating",
-      vipaka: "Sweet",
-      karma: "Anulomana · Rasayana",
-      status: "Verified",
+      id: "HERB_REC_0007",
+      englishName: "Haritaki",
+      sanskritName: "—",
+      botanicalName: "Terminalia chebula",
+      localName: "—",
+      family: "—",
+      partUsed: "Fruit",
+
+      rasa: "Kashay",
+      guna: "Laghu, Ruksha",
+      virya: "Ushna",
+      vipaka: "Madhura",
+
+      dosha: {
+        vata: "Decreases",
+        pitta: "—",
+        kapha: "—",
+      },
+
+      dhatu: {
+        rasa: "—",
+        rakta: "—",
+        mamsa: "—",
+        meda: "—",
+        asthi: "—",
+        majja: "—",
+        shukra: "—",
+      },
+
+      mala: {
+        purisha: "—",
+        mutra: "—",
+        sweda: "—",
+      },
+
+      srotas: {
+        pranavaha: "—",
+        annavaha: "—",
+        udakavaha: "—",
+        rasavaha: "—",
+        raktavaha: "—",
+        mamsavaha: "—",
+        medovaha: "—",
+        asthivaha: "—",
+        majjavaha: "—",
+        shukravaha: "—",
+        mutravaha: "—",
+        swedavaha: "—",
+        purishavaha: "—",
+        artavavaha: "—",
+      },
+
+      importantKarma: "Anulomana, Rasayana",
+      otherKarma: "—",
+
+      majorDiseases: "—",
     },
+
     {
-      id: 8,
-      name: "Amalaki",
-      scientificName: "Phyllanthus emblica",
-      description:
-        "A potent Rasayana traditionally used for nourishment, vitality, and tissue support.",
-      dosha: "Tridoshic · Pitta ↓",
-      dhatu: "Rasa · Rakta · Shukra",
-      rasa: "Sour · Sweet · Bitter · Astringent · Pungent",
-      guna: "Light · Dry",
-      virya: "Cooling",
-      vipaka: "Sweet",
-      karma: "Rasayana · Vayasthapana",
-      status: "Verified",
+      id: "HERB_REC_0008",
+      englishName: "Amalaki",
+      sanskritName: "—",
+      botanicalName: "Phyllanthus emblica",
+      localName: "—",
+      family: "—",
+      partUsed: "Fruit",
+
+      rasa: "Amla, Madhura, Tikta, Kashay, Katu",
+      guna: "Laghu, Ruksha",
+      virya: "Sheeta",
+      vipaka: "Madhura",
+
+      dosha: {
+        vata: "—",
+        pitta: "Decreases",
+        kapha: "—",
+      },
+
+      dhatu: {
+        rasa: "—",
+        rakta: "—",
+        mamsa: "—",
+        meda: "—",
+        asthi: "—",
+        majja: "—",
+        shukra: "—",
+      },
+
+      mala: {
+        purisha: "—",
+        mutra: "—",
+        sweda: "—",
+      },
+
+      srotas: {
+        pranavaha: "—",
+        annavaha: "—",
+        udakavaha: "—",
+        rasavaha: "—",
+        raktavaha: "—",
+        mamsavaha: "—",
+        medovaha: "—",
+        asthivaha: "—",
+        majjavaha: "—",
+        shukravaha: "—",
+        mutravaha: "—",
+        swedavaha: "—",
+        purishavaha: "—",
+        artavavaha: "—",
+      },
+
+      importantKarma: "Rasayana, Vayasthapana",
+      otherKarma: "—",
+
+      majorDiseases: "—",
     },
+
     {
-      id: 9,
-      name: "Turmeric",
-      scientificName: "Curcuma longa",
-      description:
-        "A classical herb traditionally used for its cleansing, tissue-supportive, and balancing properties.",
-      dosha: "Kapha ↓ · Vata ↓",
-      dhatu: "Rakta · Mamsa",
-      rasa: "Bitter · Pungent",
-      guna: "Light · Dry",
-      virya: "Heating",
-      vipaka: "Pungent",
-      karma: "Kaphaghna · Krimighna",
-      status: "Verified",
+      id: "HERB_REC_0009",
+      englishName: "Turmeric",
+      sanskritName: "—",
+      botanicalName: "Curcuma longa",
+      localName: "—",
+      family: "—",
+      partUsed: "Rhizome",
+
+      rasa: "Katu, Tikta",
+      guna: "Laghu, Ruksha",
+      virya: "Ushna",
+      vipaka: "Katu",
+
+      dosha: {
+        vata: "Decreases",
+        pitta: "—",
+        kapha: "Decreases",
+      },
+
+      dhatu: {
+        rasa: "—",
+        rakta: "—",
+        mamsa: "—",
+        meda: "—",
+        asthi: "—",
+        majja: "—",
+        shukra: "—",
+      },
+
+      mala: {
+        purisha: "—",
+        mutra: "—",
+        sweda: "—",
+      },
+
+      srotas: {
+        pranavaha: "—",
+        annavaha: "—",
+        udakavaha: "—",
+        rasavaha: "—",
+        raktavaha: "—",
+        mamsavaha: "—",
+        medovaha: "—",
+        asthivaha: "—",
+        majjavaha: "—",
+        shukravaha: "—",
+        mutravaha: "—",
+        swedavaha: "—",
+        purishavaha: "—",
+        artavavaha: "—",
+      },
+
+      importantKarma: "Kaphaghna, Krimighna",
+      otherKarma: "—",
+
+      majorDiseases: "—",
     },
   ]
 
-  const herb = herbs.find((item) => item.id === Number(id))
+  const herb = herbs.find((item) => item.id === id)
+
   useEffect(() => {
-    const currentHerb = herbs.find(
-      (item) => item.id === Number(id)
-    )
-  
-    if (!currentHerb) {
+    if (!herb) {
+      setIsFavorite(false)
       return
     }
-  
+
     const savedFavorites = localStorage.getItem("favoriteHerbs")
-  
+
     if (!savedFavorites) {
       setIsFavorite(false)
       return
     }
-  
-    const favorites = JSON.parse(savedFavorites)
-  
-    const alreadyFavorite = favorites.some(
-      (item) => item.id === currentHerb.id
-    )
-  
-    setIsFavorite(alreadyFavorite)
-  }, [id])
 
-  const handleFavorite = () => {
-    const savedFavorites = localStorage.getItem("favoriteHerbs")
-  
-    const favorites = savedFavorites
-      ? JSON.parse(savedFavorites)
-      : []
-  
+    const favorites = JSON.parse(savedFavorites)
+
     const alreadyFavorite = favorites.some(
       (item) => item.id === herb.id
     )
-  
+
+    setIsFavorite(alreadyFavorite)
+  }, [id, herb])
+
+  const handleFavorite = () => {
+    if (!herb) return
+
+    const savedFavorites = localStorage.getItem("favoriteHerbs")
+
+    const favorites = savedFavorites
+      ? JSON.parse(savedFavorites)
+      : []
+
+    const alreadyFavorite = favorites.some(
+      (item) => item.id === herb.id
+    )
+
     let updatedFavorites
-  
+
     if (alreadyFavorite) {
       updatedFavorites = favorites.filter(
         (item) => item.id !== herb.id
@@ -239,12 +664,12 @@ function HerbDetailPage() {
     } else {
       updatedFavorites = [...favorites, herb]
     }
-  
+
     localStorage.setItem(
       "favoriteHerbs",
       JSON.stringify(updatedFavorites)
     )
-  
+
     setIsFavorite(!alreadyFavorite)
   }
 
@@ -294,9 +719,7 @@ function HerbDetailPage() {
 
             {/* HEADER */}
             <section className="herb-detail-header">
-
               <div className="herb-detail-heading">
-
                 <div className="herb-detail-icon-wrapper">
                   <LeafIcon />
                 </div>
@@ -306,103 +729,309 @@ function HerbDetailPage() {
                     HERB LIBRARY / HERB INFORMATION
                   </p>
 
-                  <h1>{herb.name}</h1>
+                  <h1>{herb.englishName}</h1>
 
-                  <em>{herb.scientificName}</em>
+                  <em>{herb.botanicalName}</em>
                 </div>
-
               </div>
 
-              {/* FAVORITE BUTTON */}
               <button
-  className={`herb-favorite-button ${
-    isFavorite ? "favorite-active" : ""
-  }`}
-  type="button"
-  onClick={handleFavorite}
->
-  <span className="favorite-heart">
-    {isFavorite ? "♥" : "♡"}
-  </span>
+                className={`herb-favorite-button ${
+                  isFavorite ? "favorite-active" : ""
+                }`}
+                type="button"
+                onClick={handleFavorite}
+              >
+                <span className="favorite-heart">
+                  {isFavorite ? "♥" : "♡"}
+                </span>
 
-  <span>
-    {isFavorite
-      ? "Saved to favorites"
-      : "Add to favorites"}
-  </span>
-</button>
-
+                <span>
+                  {isFavorite
+                    ? "Saved to favorites"
+                    : "Add to favorites"}
+                </span>
+              </button>
             </section>
 
-            {/* DESCRIPTION */}
-            <section className="herb-detail-description-card">
-
-              <div className="detail-status">
-                <span>✓</span>
-                {herb.status}
+            {/* BASIC INFORMATION */}
+            <section className="herb-basic-section">
+              <div className="detail-section-heading">
+                <p>HERB IDENTITY</p>
+                <h2>Basic information</h2>
               </div>
 
-              <p>
-                {herb.description}
-              </p>
+              <div className="herb-basic-grid">
+                <DetailField
+                  label="ENGLISH NAME"
+                  value={herb.englishName}
+                />
 
+                <DetailField
+                  label="SANSKRIT NAME"
+                  value={herb.sanskritName}
+                />
+
+                <DetailField
+                  label="BOTANICAL NAME"
+                  value={herb.botanicalName}
+                />
+
+                <DetailField
+                  label="LOCAL NAME"
+                  value={herb.localName}
+                />
+
+                <DetailField
+                  label="FAMILY"
+                  value={herb.family}
+                />
+
+                <DetailField
+                  label="PART USED"
+                  value={herb.partUsed}
+                />
+              </div>
             </section>
 
-            {/* AYURVEDIC PROPERTIES */}
+            {/* AYURVEDIC PROFILE */}
             <section className="herb-properties-section">
-
               <div className="detail-section-heading">
                 <p>AYURVEDIC PROFILE</p>
                 <h2>Classical properties</h2>
               </div>
 
               <div className="herb-properties-grid">
+                <PropertyCard
+                  label="RASA"
+                  value={herb.rasa}
+                />
 
-                <div className="property-card">
-                  <span>RASA</span>
-                  <strong>{herb.rasa}</strong>
-                </div>
+                <PropertyCard
+                  label="GUNA"
+                  value={herb.guna}
+                />
 
-                <div className="property-card">
-                  <span>GUNA</span>
-                  <strong>{herb.guna}</strong>
-                </div>
+                <PropertyCard
+                  label="VIRYA"
+                  value={herb.virya}
+                />
 
-                <div className="property-card">
-                  <span>VIRYA</span>
-                  <strong>{herb.virya}</strong>
-                </div>
-
-                <div className="property-card">
-                  <span>VIPAKA</span>
-                  <strong>{herb.vipaka}</strong>
-                </div>
-
-                <div className="property-card">
-                  <span>PRABHAVA</span>
-                  <strong>—</strong>
-                </div>
-
-                <div className="property-card">
-                  <span>DOSHA</span>
-                  <strong>{herb.dosha}</strong>
-                </div>
-
-                <div className="property-card">
-                  <span>DHATU</span>
-                  <strong>{herb.dhatu}</strong>
-                </div>
-
-                <div className="property-card">
-                  <span>KARMA</span>
-                  <strong>{herb.karma}</strong>
-                </div>
-
+                <PropertyCard
+                  label="VIPAKA"
+                  value={herb.vipaka}
+                />
               </div>
-
             </section>
 
-            {/* RESEARCH NOTE */}
+            {/* DOSHA */}
+            <section className="detail-data-section">
+              <div className="detail-section-heading">
+                <p>DOSHA AFFINITY</p>
+                <h2>Dosha actions</h2>
+              </div>
+
+              <div className="detail-data-grid">
+                <PropertyCard
+                  label="VATA"
+                  value={herb.dosha.vata}
+                />
+
+                <PropertyCard
+                  label="PITTA"
+                  value={herb.dosha.pitta}
+                />
+
+                <PropertyCard
+                  label="KAPHA"
+                  value={herb.dosha.kapha}
+                />
+              </div>
+            </section>
+
+            {/* DHATU */}
+            <section className="detail-data-section">
+              <div className="detail-section-heading">
+                <p>DHATU AFFINITY</p>
+                <h2>Dhatu actions</h2>
+              </div>
+
+              <div className="detail-data-grid">
+                <PropertyCard
+                  label="RASA DHATU"
+                  value={herb.dhatu.rasa}
+                />
+
+                <PropertyCard
+                  label="RAKTA DHATU"
+                  value={herb.dhatu.rakta}
+                />
+
+                <PropertyCard
+                  label="MAMSA DHATU"
+                  value={herb.dhatu.mamsa}
+                />
+
+                <PropertyCard
+                  label="MEDA DHATU"
+                  value={herb.dhatu.meda}
+                />
+
+                <PropertyCard
+                  label="ASTHI DHATU"
+                  value={herb.dhatu.asthi}
+                />
+
+                <PropertyCard
+                  label="MAJJA DHATU"
+                  value={herb.dhatu.majja}
+                />
+
+                <PropertyCard
+                  label="SHUKRA DHATU"
+                  value={herb.dhatu.shukra}
+                />
+              </div>
+            </section>
+
+            {/* MALA */}
+            <section className="detail-data-section">
+              <div className="detail-section-heading">
+                <p>MALA AFFINITY</p>
+                <h2>Mala actions</h2>
+              </div>
+
+              <div className="detail-data-grid">
+                <PropertyCard
+                  label="PURISHA"
+                  value={herb.mala.purisha}
+                />
+
+                <PropertyCard
+                  label="MUTRA"
+                  value={herb.mala.mutra}
+                />
+
+                <PropertyCard
+                  label="SWEDA"
+                  value={herb.mala.sweda}
+                />
+              </div>
+            </section>
+
+            {/* SROTAS */}
+            <section className="detail-data-section">
+              <div className="detail-section-heading">
+                <p>SROTAS AFFINITY</p>
+                <h2>Srotas actions</h2>
+              </div>
+
+              <div className="detail-data-grid srotas-grid">
+                <PropertyCard
+                  label="PRANAVAHA"
+                  value={herb.srotas.pranavaha}
+                />
+
+                <PropertyCard
+                  label="ANNAVAHA"
+                  value={herb.srotas.annavaha}
+                />
+
+                <PropertyCard
+                  label="UDAKAVAHA"
+                  value={herb.srotas.udakavaha}
+                />
+
+                <PropertyCard
+                  label="RASAVAHA"
+                  value={herb.srotas.rasavaha}
+                />
+
+                <PropertyCard
+                  label="RAKTAVAHA"
+                  value={herb.srotas.raktavaha}
+                />
+
+                <PropertyCard
+                  label="MAMSAVAHA"
+                  value={herb.srotas.mamsavaha}
+                />
+
+                <PropertyCard
+                  label="MEDOVAHA"
+                  value={herb.srotas.medovaha}
+                />
+
+                <PropertyCard
+                  label="ASTHIVAHA"
+                  value={herb.srotas.asthivaha}
+                />
+
+                <PropertyCard
+                  label="MAJJAVAHA"
+                  value={herb.srotas.majjavaha}
+                />
+
+                <PropertyCard
+                  label="SHUKRAVAHA"
+                  value={herb.srotas.shukravaha}
+                />
+
+                <PropertyCard
+                  label="MUTRAVAHA"
+                  value={herb.srotas.mutravaha}
+                />
+
+                <PropertyCard
+                  label="SWEDAVAHA"
+                  value={herb.srotas.swedavaha}
+                />
+
+                <PropertyCard
+                  label="PURISHAVAHA"
+                  value={herb.srotas.purishavaha}
+                />
+
+                <PropertyCard
+                  label="ARTAVAVAHA"
+                  value={herb.srotas.artavavaha}
+                />
+              </div>
+            </section>
+
+            {/* KARMA */}
+            <section className="detail-data-section">
+              <div className="detail-section-heading">
+                <p>THERAPEUTIC ACTIONS</p>
+                <h2>Karma</h2>
+              </div>
+
+              <div className="herb-properties-grid karma-grid">
+                <PropertyCard
+                  label="IMPORTANT KARMA"
+                  value={herb.importantKarma}
+                />
+
+                <PropertyCard
+                  label="OTHER KARMA"
+                  value={herb.otherKarma}
+                />
+              </div>
+            </section>
+
+            {/* MAJOR DISEASES */}
+            <section className="detail-data-section">
+              <div className="detail-section-heading">
+                <p>CLINICAL INDICATIONS</p>
+                <h2>Major diseases / indications</h2>
+              </div>
+
+              <div className="major-disease-card">
+                <p>{herb.majorDiseases || "—"}</p>
+              </div>
+            </section>
+
+            {/* KNOWLEDGE NOTE */}
             <section className="herb-detail-note">
               <span>i</span>
 
@@ -411,9 +1040,10 @@ function HerbDetailPage() {
 
                 <p>
                   Ayurvedic attributes shown here are structured knowledge
-                  fields intended for clinical and research-oriented
-                  exploration. Classical references and verification status
-                  should be maintained with the underlying herb record.
+                  fields from the herb knowledge base. The complete record,
+                  including classical references and additional source
+                  information, will be connected to the underlying dataset
+                  during backend integration.
                 </p>
               </div>
             </section>
