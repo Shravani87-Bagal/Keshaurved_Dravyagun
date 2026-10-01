@@ -47,7 +47,6 @@ function DetailedSearch() {
         "Amla",
       ],
     },
-    
     {
       title: "Dosha",
       subtitle: "dosha action",
@@ -199,6 +198,20 @@ function DetailedSearch() {
     setSelectedParameters({})
   }
 
+  const handleDetailedSearch = () => {
+    if (selectedCount === 0) {
+      return
+    }
+
+    const encodedSelections = encodeURIComponent(
+      JSON.stringify(cleanedSelections)
+    )
+
+    navigate(
+      `/search-results?mode=detailed&parameters=${encodedSelections}`
+    )
+  }
+
   return (
     <section className="detailed-search-section">
       <div className="detailed-search-top">
@@ -228,9 +241,7 @@ function DetailedSearch() {
               className="detailed-search-button"
               type="button"
               disabled={selectedCount === 0}
-              onClick={() => {
-                navigate("/search-results?mode=detailed")
-              }}
+              onClick={handleDetailedSearch}
             >
               Search herbs
             </button>

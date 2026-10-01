@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 function HerbResultCard({ herb }) {
+  const navigate = useNavigate()
 
   const [isFavorite, setIsFavorite] = useState(false)
 
@@ -29,7 +31,6 @@ function HerbResultCard({ herb }) {
 
   // Add / remove herb from favorites
   const handleFavorite = () => {
-
     const savedFavorites = localStorage.getItem("favoriteHerbs")
 
     let favorites = []
@@ -44,7 +45,6 @@ function HerbResultCard({ herb }) {
     }
 
     if (isFavorite) {
-
       // Remove herb
       const updatedFavorites = favorites.filter(
         (savedHerb) => savedHerb.id !== herb.id
@@ -56,37 +56,96 @@ function HerbResultCard({ herb }) {
       )
 
       setIsFavorite(false)
-
     } else {
-
       // Add herb
-      const updatedHerb = {
+      const updatedFavorites = {
         ...herb,
-        id: herb.id || herb.name
+        id: herb.id || herb.englishName,
       }
 
-      const updatedFavorites = [
+      const updatedFavoritesList = [
         ...favorites,
-        updatedHerb
+        updatedFavorites,
       ]
 
       localStorage.setItem(
         "favoriteHerbs",
-        JSON.stringify(updatedFavorites)
+        JSON.stringify(updatedFavoritesList)
       )
 
       setIsFavorite(true)
     }
   }
 
+  // Open herb detail page
+  const handleViewProfile = () => {
+    navigate(`/herb/${herb.id}`)
+  }
+
+  // Add herb to comparison
+  const handleCompare = () => {
+    const savedCompareHerbs =
+      localStorage.getItem("selectedCompareHerbs")
+
+    let compareHerbs = []
+
+    if (savedCompareHerbs) {
+      try {
+        compareHerbs = JSON.parse(savedCompareHerbs)
+      } catch (error) {
+        console.error("Unable to read comparison herbs:", error)
+        compareHerbs = []
+      }
+    }
+
+    const alreadySelected = compareHerbs.some(
+      (selectedHerb) => selectedHerb.id === herb.id
+    )
+
+    if (alreadySelected) {
+      navigate("/compare")
+      return
+    }
+
+    if (compareHerbs.length >= 4) {
+      alert("You can compare up to 4 herbs.")
+      return
+    }
+
+    const updatedCompareHerbs = [
+      ...compareHerbs,
+      herb,
+    ]
+
+    localStorage.setItem(
+      "selectedCompareHerbs",
+      JSON.stringify(updatedCompareHerbs)
+    )
+
+    navigate("/compare")
+  }
+
+  // Build Ayurvedic tags from the new dataset structure
+  const herbTags = [
+    herb.rasa,
+    herb.guna,
+    herb.virya,
+    herb.vipaka,
+    herb.importantKarma,
+  ].filter(Boolean)
+
   return (
     <article className="herb-result-card">
 
-      {/* Herb visual block */}
+      {/* =========================================
+          HERB VISUAL
+          ========================================= */}
 
       <div
         className="herb-result-visual"
-        style={{ backgroundColor: herb.visualColor }}
+        style={{
+          backgroundColor: herb.visualColor || "#a5b195",
+        }}
       >
 
         <div className="herb-leaf-box">
@@ -121,7 +180,9 @@ function HerbResultCard({ herb }) {
       </div>
 
 
-      {/* Herb information */}
+      {/* =========================================
+          HERB INFORMATION
+          ========================================= */}
 
       <div className="herb-result-info">
 
@@ -130,17 +191,17 @@ function HerbResultCard({ herb }) {
           <div>
 
             <h2>
-              {herb.name}
+              {herb.englishName || "Unnamed herb"}
             </h2>
 
             <em>
-              {herb.scientificName}
+              {herb.botanicalName || "Botanical name unavailable"}
             </em>
 
           </div>
 
 
-          {/* Favorite button */}
+          {/* FAVORITE */}
 
           <button
             className={`herb-favorite-button ${
@@ -150,8 +211,8 @@ function HerbResultCard({ herb }) {
             onClick={handleFavorite}
             aria-label={
               isFavorite
-                ? `Remove ${herb.name} from favorites`
-                : `Save ${herb.name}`
+                ? `Remove ${herb.englishName} from favorites`
+                : `Save ${herb.englishName}`
             }
           >
             {isFavorite ? "♥" : "♡"}
@@ -160,33 +221,39 @@ function HerbResultCard({ herb }) {
         </div>
 
 
-        {/* Match */}
+        {/* =========================================
+            MATCH + STATUS
+            ========================================= */}
 
         <div className="herb-match-row">
 
           <strong>
-            {herb.match}%
+            {herb.match ?? 0}%
           </strong>
 
           <span>
             match
           </span>
 
-          <span
-            className={`verification-badge ${herb.status.toLowerCase()}`}
-          >
-            ✓ {herb.status}
-          </span>
+          {herb.status && (
+            <span
+              className={`verification-badge ${herb.status.toLowerCase()}`}
+            >
+              ✓ {herb.status}
+            </span>
+          )}
 
         </div>
 
 
-        {/* Ayurvedic attributes */}
+        {/* =========================================
+            AYURVEDIC ATTRIBUTES
+            ========================================= */}
 
         <div className="herb-result-tags">
 
-          {herb.tags.map((tag) => (
-            <span key={tag}>
+          {herbTags.map((tag, index) => (
+            <span key={`${herb.id}-tag-${index}`}>
               {tag}
             </span>
           ))}
@@ -194,20 +261,39 @@ function HerbResultCard({ herb }) {
         </div>
 
 
-        {/* Description */}
+        {/* =========================================
+            DESCRIPTION
+            ========================================= */}
 
         <p className="herb-result-description">
-          {herb.description}
+
+          {herb.partUsed && (
+            <>
+              <strong>Part used:</strong> {herb.partUsed}
+              {" "}
+            </>
+          )}
+
+          {herb.majorDiseases && (
+            <>
+              <strong>Major indications:</strong>{" "}
+              {herb.majorDiseases}
+            </>
+          )}
+
         </p>
 
 
-        {/* Bottom actions */}
+        {/* =========================================
+            ACTIONS
+            ========================================= */}
 
         <div className="herb-result-actions">
 
           <button
             className="view-profile-button"
             type="button"
+            onClick={handleViewProfile}
           >
             View profile
             <span>›</span>
@@ -217,6 +303,7 @@ function HerbResultCard({ herb }) {
           <button
             className="compare-herb-button"
             type="button"
+            onClick={handleCompare}
           >
             <span>♧</span>
             Compare

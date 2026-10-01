@@ -735,23 +735,7 @@ function HerbDetailPage() {
                 </div>
               </div>
 
-              <button
-                className={`herb-favorite-button ${
-                  isFavorite ? "favorite-active" : ""
-                }`}
-                type="button"
-                onClick={handleFavorite}
-              >
-                <span className="favorite-heart">
-                  {isFavorite ? "♥" : "♡"}
-                </span>
-
-                <span>
-                  {isFavorite
-                    ? "Saved to favorites"
-                    : "Add to favorites"}
-                </span>
-              </button>
+             
             </section>
 
             {/* BASIC INFORMATION */}
