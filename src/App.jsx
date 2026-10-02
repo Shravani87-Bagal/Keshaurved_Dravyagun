@@ -13,8 +13,10 @@ import HerbDetailPage from "./pages/HerbDetailPage"
 import FavoritesPage from "./pages/FavoritesPage"
 import ProfilePage from "./pages/ProfilePage"
 import SettingsPage from "./pages/SettingsPage"
+import HelpSupportPage from "./pages/HelpSupportPage"
 import LanguagePage from "./pages/LanguagePage"
 import UpgradePlanPage from "./pages/UpgradePlanPage"
+import PaymentPage from "./pages/PaymentPage"
 import LearnMorePage from "./pages/LearnMorePage"
 import ManageHerbs from "./pages/ManageHerbs"
 import AdminLayout from "./components/AdminLayout"
@@ -64,9 +66,11 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/language" element={<LanguagePage />} />
+        <Route path="/help-support" element={<HelpSupportPage />} />
 
         {/* Additional Pages */}
         <Route path="/upgrade" element={<UpgradePlanPage />} />
+        <Route path="/payment" element={<PaymentPage />}/>
         <Route path="/learn-more" element={<LearnMorePage />} />
 
       </Routes>

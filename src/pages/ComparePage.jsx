@@ -8,158 +8,24 @@ import "../styles/ComparePage.css"
 
 const MAX_COMPARE_HERBS = 4
 
-const availableHerbs = [
-  {
-    id: "HERB_REC_0001",
-    name: "Ashwagandha",
-    scientificName: "Withania somnifera",
-    description:
-      "A grounding Rasayana traditionally used to support strength, restorative sleep, and balanced energy.",
-    dosha: "Vata ↓ · Kapha ↓",
-    dhatu: "Mamsa · Majja",
-    rasa: "Bitter · Sweet",
-    guna: "Light · Unctuous",
-    virya: "Heating",
-    vipaka: "Sweet",
-    karma: "Balya · Rasayana",
-    status: "Verified",
-  },
-
-  {
-    id: "HERB_REC_0002",
-    name: "Guduchi",
-    scientificName: "Tinospora cordifolia",
-    description:
-      "A rejuvenating vine traditionally used in Rasayana and digestive-supportive applications.",
-    dosha: "Tridoshic",
-    dhatu: "Rasa · Rakta",
-    rasa: "Bitter",
-    guna: "Light · Unctuous",
-    virya: "Heating",
-    vipaka: "Sweet",
-    karma: "Rasayana · Deepana",
-    status: "Verified",
-  },
-
-  {
-    id: "HERB_REC_0003",
-    name: "Shatavari",
-    scientificName: "Asparagus racemosus",
-    description:
-      "A nourishing root traditionally associated with hydration, vitality, and reproductive tissues.",
-    dosha: "Vata ↓ · Pitta ↓",
-    dhatu: "Rasa · Rakta · Shukra",
-    rasa: "Sweet · Bitter",
-    guna: "Heavy · Unctuous",
-    virya: "Cooling",
-    vipaka: "Sweet",
-    karma: "Rasayana · Stanyajanana",
-    status: "Reviewed",
-  },
-
-  {
-    id: "HERB_REC_0004",
-    name: "Tulsi",
-    scientificName: "Ocimum tenuiflorum",
-    description:
-      "An aromatic leaf traditionally used to support clear breathing, digestion, and mental clarity.",
-    dosha: "Kapha ↓ · Vata ↓",
-    dhatu: "Rasa · Rakta",
-    rasa: "Pungent · Bitter",
-    guna: "Light · Dry",
-    virya: "Heating",
-    vipaka: "Pungent",
-    karma: "Deepana · Kaphaghna",
-    status: "Verified",
-  },
-
-  {
-    id: "HERB_REC_0005",
-    name: "Yashtimadhu",
-    scientificName: "Glycyrrhiza glabra",
-    description:
-      "A soothing root traditionally valued for nourishing the voice, stomach, and respiratory tissues.",
-    dosha: "Vata ↓ · Pitta ↓",
-    dhatu: "Rasa · Rakta · Shukra",
-    rasa: "Sweet",
-    guna: "Heavy · Unctuous",
-    virya: "Cooling",
-    vipaka: "Sweet",
-    karma: "Rasayana · Varnya",
-    status: "Reviewed",
-  },
-
-  {
-    id: "HERB_REC_0006",
-    name: "Neem",
-    scientificName: "Azadirachta indica",
-    description:
-      "A cooling bitter herb traditionally used in cleansing protocols and support for clear skin.",
-    dosha: "Pitta ↓ · Kapha ↓",
-    dhatu: "Rakta · Mamsa",
-    rasa: "Bitter · Astringent",
-    guna: "Light · Dry",
-    virya: "Cooling",
-    vipaka: "Pungent",
-    karma: "Krimighna · Kusthaghna",
-    status: "Verified",
-  },
-
-  {
-    id: "HERB_REC_0007",
-    name: "Haritaki",
-    scientificName: "Terminalia chebula",
-    description:
-      "A classical herb traditionally used to support digestion, elimination, and Rasayana purposes.",
-    dosha: "Tridoshic · Vata ↓",
-    dhatu: "Rasa · Rakta · Mamsa",
-    rasa: "Astringent · Five tastes except Salt",
-    guna: "Light · Dry",
-    virya: "Heating",
-    vipaka: "Sweet",
-    karma: "Anulomana · Rasayana",
-    status: "Verified",
-  },
-
-  {
-    id: "HERB_REC_0008",
-    name: "Amalaki",
-    scientificName: "Phyllanthus emblica",
-    description:
-      "A potent Rasayana traditionally used for nourishment, vitality, and tissue support.",
-    dosha: "Tridoshic · Pitta ↓",
-    dhatu: "Rasa · Rakta · Shukra",
-    rasa: "Sour · Sweet · Bitter · Astringent · Pungent",
-    guna: "Light · Dry",
-    virya: "Cooling",
-    vipaka: "Sweet",
-    karma: "Rasayana · Vayasthapana",
-    status: "Verified",
-  },
-
-  {
-    id: "HERB_REC_0009",
-    name: "Turmeric",
-    scientificName: "Curcuma longa",
-    description:
-      "A classical herb traditionally used for its cleansing, tissue-supportive, and balancing properties.",
-    dosha: "Kapha ↓ · Vata ↓",
-    dhatu: "Rakta · Mamsa",
-    rasa: "Bitter · Pungent",
-    guna: "Light · Dry",
-    virya: "Heating",
-    vipaka: "Pungent",
-    karma: "Kaphaghna · Krimighna",
-    status: "Verified",
-  },
-]
-
 function ComparePage() {
   const navigate = useNavigate()
 
   const [selectedHerbs, setSelectedHerbs] = useState([])
 
-  // Load previously selected herbs
+  /*
+    =========================================
+    LOAD SELECTED HERBS
+    =========================================
+    
+    Herbs are added to comparison from:
+    - Herb Library
+    - Search Result Card
+
+    Both pages store the complete herb object
+    inside localStorage.
+  */
+
   useEffect(() => {
     const savedHerbs = localStorage.getItem("selectedCompareHerbs")
 
@@ -177,42 +43,31 @@ function ComparePage() {
         setSelectedHerbs([])
       }
     } catch (error) {
-      console.error("Unable to load comparison herbs:", error)
+      console.error(
+        "Unable to load comparison herbs:",
+        error
+      )
+
       setSelectedHerbs([])
     }
   }, [])
 
-  // Open Herb Library
+  /*
+    =========================================
+    OPEN HERB LIBRARY
+    =========================================
+  */
+
   const handleAddHerb = () => {
     navigate("/herb-library")
   }
 
-  // Add/remove herb from comparison
-  const toggleCompareHerb = (herb) => {
-    const alreadySelected = selectedHerbs.some(
-      (selectedHerb) => selectedHerb.id === herb.id
-    )
+  /*
+    =========================================
+    REMOVE ONE HERB
+    =========================================
+  */
 
-    if (alreadySelected) {
-      removeHerb(herb.id)
-      return
-    }
-
-    if (selectedHerbs.length >= MAX_COMPARE_HERBS) {
-      return
-    }
-
-    const updatedHerbs = [...selectedHerbs, herb]
-
-    setSelectedHerbs(updatedHerbs)
-
-    localStorage.setItem(
-      "selectedCompareHerbs",
-      JSON.stringify(updatedHerbs)
-    )
-  }
-
-  // Remove one herb
   const removeHerb = (herbId) => {
     const updatedHerbs = selectedHerbs.filter(
       (herb) => herb.id !== herbId
@@ -230,79 +85,259 @@ function ComparePage() {
     }
   }
 
-  // Clear complete comparison
-  const clearComparison = () => {
-    setSelectedHerbs([])
-    localStorage.removeItem("selectedCompareHerbs")
+  /*
+    =========================================
+    TOGGLE HERB
+    =========================================
+
+    This is kept so your selected-herb chips
+    continue to work.
+  */
+
+  const toggleCompareHerb = (herb) => {
+    const alreadySelected = selectedHerbs.some(
+      (selectedHerb) => selectedHerb.id === herb.id
+    )
+
+    if (alreadySelected) {
+      removeHerb(herb.id)
+      return
+    }
+
+    if (selectedHerbs.length >= MAX_COMPARE_HERBS) {
+      return
+    }
+
+    const updatedHerbs = [
+      ...selectedHerbs,
+      herb,
+    ]
+
+    setSelectedHerbs(updatedHerbs)
+
+    localStorage.setItem(
+      "selectedCompareHerbs",
+      JSON.stringify(updatedHerbs)
+    )
   }
 
+  /*
+    =========================================
+    CLEAR COMPLETE COMPARISON
+    =========================================
+  */
+
+  const clearComparison = () => {
+    setSelectedHerbs([])
+
+    localStorage.removeItem(
+      "selectedCompareHerbs"
+    )
+  }
+
+  /*
+    =========================================
+    FORMAT ARRAY
+    =========================================
+
+    Real dataset contains arrays such as:
+
+    rasa: ["Tikta", "Kashay"]
+
+    karma:
+    ["Rasayana", "Balya", "Deepana"]
+
+    This converts them into readable text.
+  */
+
+  const formatArray = (value) => {
+    if (!value) {
+      return "—"
+    }
+
+    if (Array.isArray(value)) {
+      const filteredValues = value.filter(
+        (item) =>
+          item !== null &&
+          item !== undefined &&
+          String(item).trim() !== ""
+      )
+
+      if (filteredValues.length === 0) {
+        return "—"
+      }
+
+      return filteredValues.join(" · ")
+    }
+
+    return String(value)
+  }
+
+  /*
+    =========================================
+    DOSHA
+    =========================================
+  */
+
   const formatDosha = (dosha) => {
-    if (!dosha) return "—"
-  
-    return [
-      dosha.vata && `Vata: ${dosha.vata}`,
-      dosha.pitta && `Pitta: ${dosha.pitta}`,
-      dosha.kapha && `Kapha: ${dosha.kapha}`,
-    ]
-      .filter(Boolean)
-      .join(" · ")
+    if (!dosha) {
+      return "—"
+    }
+
+    const values = [
+      dosha.vata &&
+        `Vata: ${dosha.vata}`,
+
+      dosha.pitta &&
+        `Pitta: ${dosha.pitta}`,
+
+      dosha.kapha &&
+        `Kapha: ${dosha.kapha}`,
+    ].filter(Boolean)
+
+    return values.length > 0
+      ? values.join(" · ")
+      : "—"
   }
-  
+
+  /*
+    =========================================
+    DHATU
+    =========================================
+
+    Real dataset:
+
+    [
+      "Rasa (5)",
+      "Rakta (5)",
+      "Mamsa (4)"
+    ]
+  */
+
   const formatDhatu = (dhatu) => {
-    if (!dhatu) return "—"
-  
-    return [
-      dhatu.rasa && `Rasa: ${dhatu.rasa}`,
-      dhatu.rakta && `Rakta: ${dhatu.rakta}`,
-      dhatu.mamsa && `Mamsa: ${dhatu.mamsa}`,
-      dhatu.meda && `Meda: ${dhatu.meda}`,
-      dhatu.asthi && `Asthi: ${dhatu.asthi}`,
-      dhatu.majja && `Majja: ${dhatu.majja}`,
-      dhatu.shukra && `Shukra: ${dhatu.shukra}`,
-    ]
-      .filter(Boolean)
-      .join(" · ")
+    if (!dhatu) {
+      return "—"
+    }
+
+    if (Array.isArray(dhatu)) {
+      return dhatu.length > 0
+        ? dhatu.join(" · ")
+        : "—"
+    }
+
+    if (typeof dhatu === "object") {
+      return Object.entries(dhatu)
+        .filter(
+          ([, value]) =>
+            value !== null &&
+            value !== undefined &&
+            String(value).trim() !== "" &&
+            value !== "—"
+        )
+        .map(
+          ([key, value]) =>
+            `${key}: ${value}`
+        )
+        .join(" · ") || "—"
+    }
+
+    return String(dhatu)
   }
-  
+
+  /*
+    =========================================
+    MALA
+    =========================================
+
+    Real dataset:
+
+    [
+      "Purisha: Decreases",
+      "Mutra: Increases"
+    ]
+  */
+
   const formatMala = (mala) => {
-    if (!mala) return "—"
-  
-    return [
-      mala.purisha && `Purisha: ${mala.purisha}`,
-      mala.mutra && `Mutra: ${mala.mutra}`,
-      mala.sweda && `Sweda: ${mala.sweda}`,
-    ]
-      .filter(Boolean)
-      .join(" · ")
+    return formatArray(mala)
   }
-  
+
+  /*
+    =========================================
+    SROTAS
+    =========================================
+
+    Real dataset:
+
+    [
+      "Rasavaha",
+      "Raktavaha",
+      "Mamsavaha"
+    ]
+  */
+
   const formatSrotas = (srotas) => {
-    if (!srotas) return "—"
-  
-    return Object.entries(srotas)
-      .filter(([, value]) => value && value !== "—")
-      .map(([key, value]) => `${key}: ${value}`)
-      .join(" · ") || "—"
+    return formatArray(srotas)
+  }
+
+  /*
+    =========================================
+    INDICATIONS
+    =========================================
+  */
+
+  const formatIndications = (indications) => {
+    return formatArray(indications)
+  }
+
+  /*
+    =========================================
+    KARMA
+    =========================================
+  */
+
+  const formatKarma = (karma) => {
+    return formatArray(karma)
+  }
+
+  /*
+    =========================================
+    REGIONAL NAMES
+    =========================================
+  */
+
+  const formatRegionalNames = (names) => {
+    return formatArray(names)
   }
 
   return (
     <div className="compare-page-layout">
+
       <DashboardNavbar />
 
       <div className="compare-page-body">
+
         <Sidebar />
 
         <main className="compare-page-content">
+
           <div className="compare-content-inner">
 
-            {/* HEADER */}
+            {/* =========================================
+                HEADER
+                ========================================= */}
+
             <section className="compare-header">
+
               <div>
+
                 <p className="compare-breadcrumb">
                   WORKSPACE / COMPARE
                 </p>
 
-                <h1>Compare herbs</h1>
+                <h1>
+                  Compare herbs
+                </h1>
+
               </div>
 
               <button
@@ -312,16 +347,25 @@ function ComparePage() {
               >
                 + Add herb
               </button>
+
             </section>
 
-            {/* HERB SELECTOR */}
+
+            {/* =========================================
+                HERB SELECTOR
+                ========================================= */}
+
             <section className="compare-herb-selector">
 
               <div className="compare-selector-header">
+
                 <div>
+
                   <p className="compare-selector-label">
-                    SELECTED HERBS ({selectedHerbs.length}/
-                    {MAX_COMPARE_HERBS})
+                    SELECTED HERBS (
+                    {selectedHerbs.length}/
+                    {MAX_COMPARE_HERBS}
+                    )
                   </p>
 
                   <div className="selected-herb-chips">
@@ -341,50 +385,49 @@ function ComparePage() {
                           toggleCompareHerb(herb)
                         }
                       >
-                        {herb.name}
+                        {herb.englishName ||
+                          "Unnamed herb"}
 
-                        <span>×</span>
+                        <span>
+                          ×
+                        </span>
                       </button>
                     ))}
 
                   </div>
+
                 </div>
+
               </div>
+
+
+              {/* 
+                The real dataset can contain hundreds
+                of herbs.
+
+                We do NOT hardcode all herbs here.
+
+                User adds herbs through Herb Library.
+              */}
 
               <div className="compare-available-herbs">
 
-                {availableHerbs.map((herb) => {
-
-                  const isSelected = selectedHerbs.some(
-                    (selectedHerb) =>
-                      selectedHerb.id === herb.id
-                  )
-
-                  const maxReached =
-                    selectedHerbs.length >=
-                      MAX_COMPARE_HERBS &&
-                    !isSelected
-
-                  return (
-                    <button
-                      key={herb.id}
-                      type="button"
-                      className={`compare-herb-option ${
-                        isSelected ? "selected" : ""
-                      } ${
-                        maxReached ? "disabled" : ""
-                      }`}
-                      onClick={() =>
-                        toggleCompareHerb(herb)
-                      }
-                      disabled={maxReached}
-                    >
-                      {herb.name}
-                    </button>
-                  )
-                })}
+                {selectedHerbs.map((herb) => (
+                  <button
+                    key={herb.id}
+                    type="button"
+                    className="compare-herb-option selected"
+                    onClick={() =>
+                      toggleCompareHerb(herb)
+                    }
+                  >
+                    {herb.englishName ||
+                      "Unnamed herb"}
+                  </button>
+                ))}
 
               </div>
+
 
               <p className="compare-selector-hint">
                 Select up to 4 herbs. Choose at least 2 herbs
@@ -393,8 +436,13 @@ function ComparePage() {
 
             </section>
 
-            {/* EMPTY STATE */}
+
+            {/* =========================================
+                EMPTY STATE
+                ========================================= */}
+
             {selectedHerbs.length === 0 && (
+
               <section className="compare-empty-state">
 
                 <div className="compare-empty-icon">
@@ -406,8 +454,8 @@ function ComparePage() {
                 </h2>
 
                 <p>
-                  Select two or more herbs to compare their
-                  classical properties side by side.
+                  Select two or more herbs to compare
+                  their classical properties side by side.
                 </p>
 
                 <button
@@ -419,10 +467,16 @@ function ComparePage() {
                 </button>
 
               </section>
+
             )}
 
-            {/* ONE HERB SELECTED */}
+
+            {/* =========================================
+                ONE HERB SELECTED
+                ========================================= */}
+
             {selectedHerbs.length === 1 && (
+
               <section className="compare-incomplete-state">
 
                 <div className="compare-selected-preview">
@@ -432,16 +486,21 @@ function ComparePage() {
                   </div>
 
                   <div>
+
                     <h2>
-                      {selectedHerbs[0].name}
+                      {selectedHerbs[0].englishName ||
+                        "Unnamed herb"}
                     </h2>
 
                     <em>
-                      {selectedHerbs[0].scientificName}
+                      {selectedHerbs[0].botanicalName ||
+                        "Botanical name unavailable"}
                     </em>
+
                   </div>
 
                 </div>
+
 
                 <div className="compare-incomplete-message">
 
@@ -465,15 +524,22 @@ function ComparePage() {
                 </div>
 
               </section>
+
             )}
 
-            {/* COMPARISON */}
+
+            {/* =========================================
+                COMPARISON
+                ========================================= */}
+
             {selectedHerbs.length >= 2 && (
+
               <section className="comparison-section">
 
                 <div className="comparison-section-header">
 
                   <div>
+
                     <p className="comparison-section-label">
                       SELECTED HERBS
                     </p>
@@ -481,6 +547,7 @@ function ComparePage() {
                     <h2>
                       {selectedHerbs.length} herbs selected
                     </h2>
+
                   </div>
 
                   <button
@@ -492,6 +559,7 @@ function ComparePage() {
                   </button>
 
                 </div>
+
 
                 <div className="comparison-table-wrapper">
 
@@ -505,7 +573,11 @@ function ComparePage() {
                     }}
                   >
 
-                    {/* HERB HEADER */}
+
+                    {/* =========================================
+                        HERB HEADER
+                        ========================================= */}
+
                     <div
                       className="comparison-row comparison-header-row"
                       style={{
@@ -515,11 +587,20 @@ function ComparePage() {
                     >
 
                       <div className="comparison-attribute">
-                        <strong>ATTRIBUTE</strong>
-                        <span>Ayurvedic profile</span>
+
+                        <strong>
+                          ATTRIBUTE
+                        </strong>
+
+                        <span>
+                          Ayurvedic profile
+                        </span>
+
                       </div>
 
+
                       {selectedHerbs.map((herb) => (
+
                         <div
                           className="comparison-herb-header"
                           key={herb.id}
@@ -543,20 +624,28 @@ function ComparePage() {
 
                           </div>
 
+
                           <h2>
-                            {herb.name}
+                            {herb.englishName ||
+                              "Unnamed herb"}
                           </h2>
 
                           <em>
-                            {herb.scientificName}
+                            {herb.botanicalName ||
+                              "Botanical name unavailable"}
                           </em>
 
                         </div>
+
                       ))}
 
                     </div>
 
-                    {/* DOSHA */}
+
+                    {/* =========================================
+                        PART USED
+                        ========================================= */}
+
                     <div
                       className="comparison-row"
                       style={{
@@ -566,22 +655,36 @@ function ComparePage() {
                     >
 
                       <div className="comparison-attribute">
-                        <strong>DOSHA</strong>
-                        <span>Dosha affinity</span>
+
+                        <strong>
+                          PART USED
+                        </strong>
+
+                        <span>
+                          Plant part
+                        </span>
+
                       </div>
 
+
                       {selectedHerbs.map((herb) => (
+
                         <div
                           className="comparison-value"
                           key={herb.id}
                         >
-                          {formatDosha(herb.dosha)}
+                          {herb.partUsed || "—"}
                         </div>
+
                       ))}
 
                     </div>
 
-                    {/* DHATU */}
+
+                    {/* =========================================
+                        RASA
+                        ========================================= */}
+
                     <div
                       className="comparison-row"
                       style={{
@@ -591,66 +694,36 @@ function ComparePage() {
                     >
 
                       <div className="comparison-attribute">
-                        <strong>DHATU</strong>
-                        <span>Tissue affinity</span>
+
+                        <strong>
+                          RASA
+                        </strong>
+
+                        <span>
+                          Taste
+                        </span>
+
                       </div>
 
+
                       {selectedHerbs.map((herb) => (
+
                         <div
                           className="comparison-value"
                           key={herb.id}
                         >
-                          {formatDhatu(herb.dhatu)}
+                          {formatArray(herb.rasa)}
                         </div>
+
                       ))}
 
                     </div>
 
-                    {/* MALA */}
-<div
-  className="comparison-row"
-  style={{
-    gridTemplateColumns: `145px repeat(${selectedHerbs.length}, minmax(0, 1fr))`,
-  }}
->
-  <div className="comparison-attribute">
-    <strong>MALA</strong>
-    <span>Waste products</span>
-  </div>
 
-  {selectedHerbs.map((herb) => (
-    <div
-      className="comparison-value"
-      key={herb.id}
-    >
-      {formatMala(herb.mala)}
-    </div>
-  ))}
-</div>
+                    {/* =========================================
+                        GUNA
+                        ========================================= */}
 
-{/* SROTAS */}
-<div
-  className="comparison-row"
-  style={{
-    gridTemplateColumns: `145px repeat(${selectedHerbs.length}, minmax(0, 1fr))`,
-  }}
->
-  <div className="comparison-attribute">
-    <strong>SROTAS</strong>
-    <span>Channel affinity</span>
-  </div>
-
-  {selectedHerbs.map((herb) => (
-    <div
-      className="comparison-value"
-      key={herb.id}
-    >
-      {formatSrotas(herb.srotas)}
-    </div>
-  ))}
-</div>
-
-                    {/* RASA */}
                     <div
                       className="comparison-row"
                       style={{
@@ -660,22 +733,36 @@ function ComparePage() {
                     >
 
                       <div className="comparison-attribute">
-                        <strong>RASA</strong>
-                        <span>Taste</span>
+
+                        <strong>
+                          GUNA
+                        </strong>
+
+                        <span>
+                          Qualities
+                        </span>
+
                       </div>
 
+
                       {selectedHerbs.map((herb) => (
+
                         <div
                           className="comparison-value"
                           key={herb.id}
                         >
-                          {herb.rasa || "—"}
+                          {formatArray(herb.guna)}
                         </div>
+
                       ))}
 
                     </div>
 
-                    {/* GUNA */}
+
+                    {/* =========================================
+                        VIRYA
+                        ========================================= */}
+
                     <div
                       className="comparison-row"
                       style={{
@@ -685,47 +772,36 @@ function ComparePage() {
                     >
 
                       <div className="comparison-attribute">
-                        <strong>GUNA</strong>
-                        <span>Qualities</span>
+
+                        <strong>
+                          VIRYA
+                        </strong>
+
+                        <span>
+                          Potency
+                        </span>
+
                       </div>
 
-                      {selectedHerbs.map((herb) => (
-                        <div
-                          className="comparison-value"
-                          key={herb.id}
-                        >
-                          {herb.guna || "—"}
-                        </div>
-                      ))}
-
-                    </div>
-
-                    {/* VIRYA */}
-                    <div
-                      className="comparison-row"
-                      style={{
-                        gridTemplateColumns:
-                          `145px repeat(${selectedHerbs.length}, minmax(0, 1fr))`,
-                      }}
-                    >
-
-                      <div className="comparison-attribute">
-                        <strong>VIRYA</strong>
-                        <span>Potency</span>
-                      </div>
 
                       {selectedHerbs.map((herb) => (
+
                         <div
                           className="comparison-value"
                           key={herb.id}
                         >
                           {herb.virya || "—"}
                         </div>
+
                       ))}
 
                     </div>
 
-                    {/* VIPAKA */}
+
+                    {/* =========================================
+                        VIPAKA
+                        ========================================= */}
+
                     <div
                       className="comparison-row"
                       style={{
@@ -735,22 +811,36 @@ function ComparePage() {
                     >
 
                       <div className="comparison-attribute">
-                        <strong>VIPAKA</strong>
-                        <span>Post-digestive effect</span>
+
+                        <strong>
+                          VIPAKA
+                        </strong>
+
+                        <span>
+                          Post-digestive effect
+                        </span>
+
                       </div>
 
+
                       {selectedHerbs.map((herb) => (
+
                         <div
                           className="comparison-value"
                           key={herb.id}
                         >
                           {herb.vipaka || "—"}
                         </div>
+
                       ))}
 
                     </div>
 
-                    {/* KARMA */}
+
+                    {/* =========================================
+                        PRABHAVA
+                        ========================================= */}
+
                     <div
                       className="comparison-row"
                       style={{
@@ -760,48 +850,36 @@ function ComparePage() {
                     >
 
                       <div className="comparison-attribute">
-                        <strong>KARMA</strong>
-                        <span>Actions</span>
+
+                        <strong>
+                          PRABHAVA
+                        </strong>
+
+                        <span>
+                          Specific effect
+                        </span>
+
                       </div>
 
+
                       {selectedHerbs.map((herb) => (
+
                         <div
                           className="comparison-value"
                           key={herb.id}
                         >
-                          {herb.importantKarma || "—"}
-                          {herb.otherKarma || "—"}
-
+                          {herb.prabhava || "—"}
                         </div>
-
 
                       ))}
 
                     </div>
 
-                    {/* MAJOR DISEASES */}
-<div
-  className="comparison-row"
-  style={{
-    gridTemplateColumns: `145px repeat(${selectedHerbs.length}, minmax(0, 1fr))`,
-  }}
->
-  <div className="comparison-attribute">
-    <strong>INDICATIONS</strong>
-    <span>Major diseases</span>
-  </div>
 
-  {selectedHerbs.map((herb) => (
-    <div
-      className="comparison-value"
-      key={herb.id}
-    >
-      {herb.majorDiseases || "—"}
-    </div>
-  ))}
-</div>
+                    {/* =========================================
+                        DOSHA
+                        ========================================= */}
 
-                    {/* STATUS */}
                     <div
                       className="comparison-row"
                       style={{
@@ -811,34 +889,368 @@ function ComparePage() {
                     >
 
                       <div className="comparison-attribute">
-                        <strong>STATUS</strong>
-                        <span>Verification</span>
+
+                        <strong>
+                          DOSHA
+                        </strong>
+
+                        <span>
+                          Dosha affinity
+                        </span>
+
                       </div>
 
+
                       {selectedHerbs.map((herb) => (
+
+                        <div
+                          className="comparison-value"
+                          key={herb.id}
+                        >
+                          {formatDosha(herb.dosha)}
+                        </div>
+
+                      ))}
+
+                    </div>
+
+
+                    {/* =========================================
+                        DHATU
+                        ========================================= */}
+
+                    <div
+                      className="comparison-row"
+                      style={{
+                        gridTemplateColumns:
+                          `145px repeat(${selectedHerbs.length}, minmax(0, 1fr))`,
+                      }}
+                    >
+
+                      <div className="comparison-attribute">
+
+                        <strong>
+                          DHATU
+                        </strong>
+
+                        <span>
+                          Tissue affinity
+                        </span>
+
+                      </div>
+
+
+                      {selectedHerbs.map((herb) => (
+
+                        <div
+                          className="comparison-value"
+                          key={herb.id}
+                        >
+                          {formatDhatu(herb.dhatu)}
+                        </div>
+
+                      ))}
+
+                    </div>
+
+
+                    {/* =========================================
+                        MALA
+                        ========================================= */}
+
+                    <div
+                      className="comparison-row"
+                      style={{
+                        gridTemplateColumns:
+                          `145px repeat(${selectedHerbs.length}, minmax(0, 1fr))`,
+                      }}
+                    >
+
+                      <div className="comparison-attribute">
+
+                        <strong>
+                          MALA
+                        </strong>
+
+                        <span>
+                          Waste products
+                        </span>
+
+                      </div>
+
+
+                      {selectedHerbs.map((herb) => (
+
+                        <div
+                          className="comparison-value"
+                          key={herb.id}
+                        >
+                          {formatMala(herb.mala)}
+                        </div>
+
+                      ))}
+
+                    </div>
+
+
+                    {/* =========================================
+                        SROTAS
+                        ========================================= */}
+
+                    <div
+                      className="comparison-row"
+                      style={{
+                        gridTemplateColumns:
+                          `145px repeat(${selectedHerbs.length}, minmax(0, 1fr))`,
+                      }}
+                    >
+
+                      <div className="comparison-attribute">
+
+                        <strong>
+                          SROTAS
+                        </strong>
+
+                        <span>
+                          Channel affinity
+                        </span>
+
+                      </div>
+
+
+                      {selectedHerbs.map((herb) => (
+
+                        <div
+                          className="comparison-value"
+                          key={herb.id}
+                        >
+                          {formatSrotas(herb.srotas)}
+                        </div>
+
+                      ))}
+
+                    </div>
+
+
+                    {/* =========================================
+                        AVAYAVA
+                        ========================================= */}
+
+                    <div
+                      className="comparison-row"
+                      style={{
+                        gridTemplateColumns:
+                          `145px repeat(${selectedHerbs.length}, minmax(0, 1fr))`,
+                      }}
+                    >
+
+                      <div className="comparison-attribute">
+
+                        <strong>
+                          AVAYAVA
+                        </strong>
+
+                        <span>
+                          Organ / structure
+                        </span>
+
+                      </div>
+
+
+                      {selectedHerbs.map((herb) => (
+
+                        <div
+                          className="comparison-value"
+                          key={herb.id}
+                        >
+                          {formatArray(herb.avayava)}
+                        </div>
+
+                      ))}
+
+                    </div>
+
+
+                    {/* =========================================
+                        KARMA
+                        ========================================= */}
+
+                    <div
+                      className="comparison-row"
+                      style={{
+                        gridTemplateColumns:
+                          `145px repeat(${selectedHerbs.length}, minmax(0, 1fr))`,
+                      }}
+                    >
+
+                      <div className="comparison-attribute">
+
+                        <strong>
+                          KARMA
+                        </strong>
+
+                        <span>
+                          Therapeutic actions
+                        </span>
+
+                      </div>
+
+
+                      {selectedHerbs.map((herb) => (
+
+                        <div
+                          className="comparison-value"
+                          key={herb.id}
+                        >
+                          {formatKarma(herb.karma)}
+                        </div>
+
+                      ))}
+
+                    </div>
+
+
+                    {/* =========================================
+                        INDICATIONS
+                        ========================================= */}
+
+                    <div
+                      className="comparison-row"
+                      style={{
+                        gridTemplateColumns:
+                          `145px repeat(${selectedHerbs.length}, minmax(0, 1fr))`,
+                      }}
+                    >
+
+                      <div className="comparison-attribute">
+
+                        <strong>
+                          INDICATIONS
+                        </strong>
+
+                        <span>
+                          Major diseases
+                        </span>
+
+                      </div>
+
+
+                      {selectedHerbs.map((herb) => (
+
+                        <div
+                          className="comparison-value"
+                          key={herb.id}
+                        >
+                          {formatIndications(
+                            herb.indications
+                          )}
+                        </div>
+
+                      ))}
+
+                    </div>
+
+
+                    {/* =========================================
+                        REGIONAL NAMES
+                        ========================================= */}
+
+                    <div
+                      className="comparison-row"
+                      style={{
+                        gridTemplateColumns:
+                          `145px repeat(${selectedHerbs.length}, minmax(0, 1fr))`,
+                      }}
+                    >
+
+                      <div className="comparison-attribute">
+
+                        <strong>
+                          REGIONAL NAMES
+                        </strong>
+
+                        <span>
+                          Known names
+                        </span>
+
+                      </div>
+
+
+                      {selectedHerbs.map((herb) => (
+
+                        <div
+                          className="comparison-value"
+                          key={herb.id}
+                        >
+                          {formatRegionalNames(
+                            herb.regionalNames
+                          )}
+                        </div>
+
+                      ))}
+
+                    </div>
+
+
+                    {/* =========================================
+                        STATUS
+                        ========================================= */}
+
+                    <div
+                      className="comparison-row"
+                      style={{
+                        gridTemplateColumns:
+                          `145px repeat(${selectedHerbs.length}, minmax(0, 1fr))`,
+                      }}
+                    >
+
+                      <div className="comparison-attribute">
+
+                        <strong>
+                          STATUS
+                        </strong>
+
+                        <span>
+                          Verification
+                        </span>
+
+                      </div>
+
+
+                      {selectedHerbs.map((herb) => (
+
                         <div
                           className="comparison-value"
                           key={herb.id}
                         >
 
                           <span className="comparison-status">
-                            {herb.status || "Draft"}
+                            {herb.verificationStatus ||
+                              herb.status ||
+                              "Draft"}
                           </span>
 
                         </div>
+
                       ))}
 
                     </div>
 
+
                   </div>
+
                 </div>
 
               </section>
+
             )}
 
           </div>
+
         </main>
+
       </div>
+
     </div>
   )
 }

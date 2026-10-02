@@ -16,9 +16,10 @@ function SettingsPage() {
   const doctorName = savedUser?.fullName || "Doctor"
   const doctorEmail = savedUser?.email || "Not available"
 
-  const [activeSetting, setActiveSetting] = useState("general")
+  const [activeSetting, setActiveSetting] = useState("account")
   const [searchText, setSearchText] = useState("")
 
+  // Search preferences
   const [defaultSearch, setDefaultSearch] = useState("simple")
   const [resultsPerPage, setResultsPerPage] = useState("20")
 
@@ -26,10 +27,12 @@ function SettingsPage() {
   const [showMatchPercentage, setShowMatchPercentage] = useState(true)
   const [showScoringBreakdown, setShowScoringBreakdown] = useState(true)
 
+  // Notifications
   const [searchUpdates, setSearchUpdates] = useState(true)
   const [savedReminders, setSavedReminders] = useState(false)
   const [referenceUpdates, setReferenceUpdates] = useState(true)
 
+  // Clinical preferences
   const [showClassicalReferences, setShowClassicalReferences] =
     useState(true)
 
@@ -39,12 +42,13 @@ function SettingsPage() {
   const [showClinicalNotes, setShowClinicalNotes] =
     useState(true)
 
+  const [saveMessage, setSaveMessage] = useState("")
+
+  // =========================================
+  // SETTINGS NAVIGATION
+  // =========================================
+
   const settingsItems = [
-    {
-      id: "general",
-      label: "General",
-      icon: "⚙"
-    },
     {
       id: "account",
       label: "Account",
@@ -73,109 +77,90 @@ function SettingsPage() {
   ]
 
   const filteredItems = settingsItems.filter((item) =>
-    item.label.toLowerCase().includes(searchText.toLowerCase())
+    item.label
+      .toLowerCase()
+      .includes(searchText.toLowerCase())
   )
+
+  // =========================================
+  // CLOSE SETTINGS
+  // =========================================
 
   const closeSettings = () => {
     navigate("/doctor")
   }
 
-  const renderGeneral = () => (
-    <div className="settings-panel-content">
+  // =========================================
+  // CHANGE EMAIL
+  // =========================================
 
-      <div className="settings-panel-title">
-        <h2>Profile</h2>
-        <p>
-          Manage the information used across your clinical workspace.
-        </p>
-      </div>
+  const handleChangeEmail = () => {
+    alert(
+      "To change your email, an OTP will be sent to your registered email address. This process will be connected to the backend later."
+    )
+  }
 
-      <div className="settings-profile-block">
+  // =========================================
+  // CHANGE PASSWORD
+  // =========================================
 
-        <div className="settings-profile-line">
-          <div className="settings-field-label">
-            <strong>Avatar</strong>
-          </div>
+  const handleChangePassword = () => {
+    alert(
+      "Password change will be connected to the backend later."
+    )
+  }
 
-          <div className="settings-large-avatar">
-            DR
-          </div>
-        </div>
+  // =========================================
+  // SAVE ALL SETTINGS
+  // =========================================
 
-        <div className="settings-field-row">
-          <div className="settings-field-label">
-            <strong>Full name</strong>
-          </div>
+  const handleSaveChanges = () => {
+    const settings = {
+      defaultSearch,
+      resultsPerPage,
+      verifiedProfiles,
+      showMatchPercentage,
+      showScoringBreakdown,
+      searchUpdates,
+      savedReminders,
+      referenceUpdates,
+      showClassicalReferences,
+      showVerificationStatus,
+      showClinicalNotes
+    }
 
-          <div className="settings-value-box">
-            {doctorName}
-          </div>
-        </div>
+    localStorage.setItem(
+      "herbSettings",
+      JSON.stringify(settings)
+    )
 
-        <div className="settings-field-row">
-          <div className="settings-field-label">
-            <strong>What should we call you?</strong>
-          </div>
+    setSaveMessage("Settings saved successfully.")
 
-          <div className="settings-value-box">
-            {doctorName}
-          </div>
-        </div>
+    setTimeout(() => {
+      setSaveMessage("")
+    }, 2500)
+  }
 
-        <div className="settings-field-row">
-          <div className="settings-field-label">
-            <strong>Professional role</strong>
-          </div>
+  // =========================================
+  // PRIVACY
+  // =========================================
 
-          <div className="settings-value-text">
-            Ayurvedic Physician
-          </div>
-        </div>
+  const handleClearSearchHistory = () => {
+    alert(
+      "Recent search history will be cleared here."
+    )
+  }
 
-        <div className="settings-field-row">
-          <div className="settings-field-label">
-            <strong>Email</strong>
-          </div>
-
-          <div className="settings-value-box">
-            {doctorEmail}
-          </div>
-        </div>
-
-      </div>
-
-      <div className="settings-subsection">
-
-        <h3>Preferences</h3>
-
-        <div className="settings-simple-row">
-          <div>
-            <strong>Default search mode</strong>
-            <span>
-              Choose the search method that opens first.
-            </span>
-          </div>
-
-          <select
-            value={defaultSearch}
-            onChange={(e) => setDefaultSearch(e.target.value)}
-            className="settings-small-select"
-          >
-            <option value="simple">Simple Search</option>
-            <option value="detailed">Detailed Search</option>
-          </select>
-        </div>
-
-      </div>
-
-    </div>
-  )
+  // =========================================
+  // ACCOUNT
+  // =========================================
 
   const renderAccount = () => (
     <div className="settings-panel-content">
 
       <div className="settings-panel-title">
         <h2>Account</h2>
+
         <p>
           Manage your account information and access preferences.
         </p>
@@ -183,54 +168,95 @@ function SettingsPage() {
 
       <div className="settings-form-list">
 
+        {/* FULL NAME */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Full name</strong>
-            <span>Your name associated with this account.</span>
+
+            <span>
+              Your name associated with this account.
+            </span>
           </div>
 
           <div className="settings-value-box">
             {doctorName}
           </div>
+
         </div>
 
+
+        {/* EMAIL */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Email address</strong>
-            <span>Your registered account email.</span>
+
+            <span>
+              Your registered account email.
+            </span>
           </div>
 
-          <div className="settings-value-box">
-            {doctorEmail}
+          <div className="settings-account-action">
+
+            <div className="settings-value-box">
+              {doctorEmail}
+            </div>
+
+            <button
+              type="button"
+              className="settings-text-button"
+              onClick={handleChangeEmail}
+            >
+              Change email
+            </button>
+
           </div>
+
         </div>
 
+
+        {/* PROFESSIONAL ROLE */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Professional role</strong>
-            <span>Your role within the clinical workspace.</span>
+
+            <span>
+              Your role within the clinical workspace.
+            </span>
           </div>
 
           <div className="settings-value-text">
             Ayurvedic Physician
           </div>
+
         </div>
 
+
+        {/* PASSWORD */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Password</strong>
-            <span>Update your account password.</span>
+
+            <span>
+              Update your account password securely.
+            </span>
           </div>
 
           <button
             type="button"
             className="settings-text-button"
-            onClick={() =>
-              alert("Password change will be connected to the backend later.")
-            }
+            onClick={handleChangePassword}
           >
             Change password
           </button>
+
         </div>
 
       </div>
@@ -238,21 +264,33 @@ function SettingsPage() {
     </div>
   )
 
+
+  // =========================================
+  // PRIVACY
+  // =========================================
+
   const renderPrivacy = () => (
     <div className="settings-panel-content">
 
       <div className="settings-panel-title">
+
         <h2>Privacy</h2>
+
         <p>
           Control how your research activity is handled within the workspace.
         </p>
+
       </div>
 
       <div className="settings-form-list">
 
+        {/* SEARCH HISTORY */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Search history</strong>
+
             <span>
               Your recent searches may be stored for quick access.
             </span>
@@ -261,17 +299,21 @@ function SettingsPage() {
           <button
             type="button"
             className="settings-text-button"
-            onClick={() =>
-              alert("Recent search history will be cleared here.")
-            }
+            onClick={handleClearSearchHistory}
           >
             Clear
           </button>
+
         </div>
 
+
+        {/* SAVED HERBS */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Saved herb profiles</strong>
+
             <span>
               Manage herbs saved to your clinical library.
             </span>
@@ -280,17 +322,21 @@ function SettingsPage() {
           <button
             type="button"
             className="settings-text-button"
-            onClick={() =>
-              navigate("/favorites")
-            }
+            onClick={() => navigate("/favorites")}
           >
             Manage
           </button>
+
         </div>
 
+
+        {/* LOCAL ACTIVITY */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Local research activity</strong>
+
             <span>
               Review locally stored workspace activity.
             </span>
@@ -299,6 +345,7 @@ function SettingsPage() {
           <span className="settings-status-text">
             Protected
           </span>
+
         </div>
 
       </div>
@@ -306,21 +353,33 @@ function SettingsPage() {
     </div>
   )
 
+
+  // =========================================
+  // NOTIFICATIONS
+  // =========================================
+
   const renderNotifications = () => (
     <div className="settings-panel-content">
 
       <div className="settings-panel-title">
+
         <h2>Notifications</h2>
+
         <p>
           Control updates and reminders from your clinical workspace.
         </p>
+
       </div>
 
       <div className="settings-form-list">
 
+        {/* SEARCH UPDATES */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Search updates</strong>
+
             <span>
               Receive important updates related to your searches.
             </span>
@@ -331,15 +390,23 @@ function SettingsPage() {
               searchUpdates ? "on" : ""
             }`}
             type="button"
-            onClick={() => setSearchUpdates(!searchUpdates)}
+            onClick={() =>
+              setSearchUpdates(!searchUpdates)
+            }
           >
             <span></span>
           </button>
+
         </div>
 
+
+        {/* SAVED REMINDERS */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Saved herb reminders</strong>
+
             <span>
               Receive reminders about saved herb profiles.
             </span>
@@ -350,15 +417,23 @@ function SettingsPage() {
               savedReminders ? "on" : ""
             }`}
             type="button"
-            onClick={() => setSavedReminders(!savedReminders)}
+            onClick={() =>
+              setSavedReminders(!savedReminders)
+            }
           >
             <span></span>
           </button>
+
         </div>
 
+
+        {/* REFERENCE UPDATES */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Reference updates</strong>
+
             <span>
               Receive updates related to Ayurvedic references.
             </span>
@@ -375,6 +450,7 @@ function SettingsPage() {
           >
             <span></span>
           </button>
+
         </div>
 
       </div>
@@ -382,21 +458,33 @@ function SettingsPage() {
     </div>
   )
 
+
+  // =========================================
+  // SEARCH PREFERENCES
+  // =========================================
+
   const renderSearchPreferences = () => (
     <div className="settings-panel-content">
 
       <div className="settings-panel-title">
+
         <h2>Search Preferences</h2>
+
         <p>
           Configure how the herb intelligence engine presents results.
         </p>
+
       </div>
 
       <div className="settings-form-list">
 
+        {/* DEFAULT SEARCH */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Default search mode</strong>
+
             <span>
               Choose which search method opens first.
             </span>
@@ -409,14 +497,27 @@ function SettingsPage() {
             }
             className="settings-small-select"
           >
-            <option value="simple">Simple Search</option>
-            <option value="detailed">Detailed Search</option>
+
+            <option value="simple">
+              Simple Search
+            </option>
+
+            <option value="detailed">
+              Detailed Search
+            </option>
+
           </select>
+
         </div>
 
+
+        {/* RESULTS PER PAGE */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Results per page</strong>
+
             <span>
               Number of herb profiles shown in results.
             </span>
@@ -429,15 +530,23 @@ function SettingsPage() {
             }
             className="settings-small-select"
           >
+
             <option value="10">10</option>
             <option value="20">20</option>
             <option value="30">30</option>
+
           </select>
+
         </div>
 
+
+        {/* VERIFIED PROFILES */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Show verified profiles</strong>
+
             <span>
               Highlight profiles that have been reviewed and verified.
             </span>
@@ -454,11 +563,17 @@ function SettingsPage() {
           >
             <span></span>
           </button>
+
         </div>
 
+
+        {/* MATCH PERCENTAGE */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Show match percentage</strong>
+
             <span>
               Display the relevance percentage for each result.
             </span>
@@ -475,11 +590,17 @@ function SettingsPage() {
           >
             <span></span>
           </button>
+
         </div>
 
+
+        {/* SCORING BREAKDOWN */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Show scoring breakdown</strong>
+
             <span>
               Display how Ayurvedic parameters contributed to ranking.
             </span>
@@ -496,6 +617,7 @@ function SettingsPage() {
           >
             <span></span>
           </button>
+
         </div>
 
       </div>
@@ -503,21 +625,33 @@ function SettingsPage() {
     </div>
   )
 
+
+  // =========================================
+  // CLINICAL PREFERENCES
+  // =========================================
+
   const renderClinicalPreferences = () => (
     <div className="settings-panel-content">
 
       <div className="settings-panel-title">
+
         <h2>Clinical Preferences</h2>
+
         <p>
           Configure the clinical information displayed with herb results.
         </p>
+
       </div>
 
       <div className="settings-form-list">
 
+        {/* CLASSICAL REFERENCES */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Show classical references</strong>
+
             <span>
               Display classical Ayurvedic references with herb profiles.
             </span>
@@ -536,11 +670,17 @@ function SettingsPage() {
           >
             <span></span>
           </button>
+
         </div>
 
+
+        {/* VERIFICATION STATUS */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Show verification status</strong>
+
             <span>
               Display whether a herb profile is draft, reviewed, or verified.
             </span>
@@ -559,11 +699,17 @@ function SettingsPage() {
           >
             <span></span>
           </button>
+
         </div>
 
+
+        {/* CLINICAL NOTES */}
+
         <div className="settings-form-row">
+
           <div>
             <strong>Show clinical notes</strong>
+
             <span>
               Display additional clinical information where available.
             </span>
@@ -580,6 +726,7 @@ function SettingsPage() {
           >
             <span></span>
           </button>
+
         </div>
 
       </div>
@@ -587,10 +734,14 @@ function SettingsPage() {
     </div>
   )
 
+
+  // =========================================
+  // ACTIVE PANEL
+  // =========================================
+
   const renderActivePanel = () => {
+
     switch (activeSetting) {
-      case "account":
-        return renderAccount()
 
       case "privacy":
         return renderPrivacy()
@@ -604,11 +755,17 @@ function SettingsPage() {
       case "clinical":
         return renderClinicalPreferences()
 
-      case "general":
+      case "account":
       default:
-        return renderGeneral()
+        return renderAccount()
     }
+
   }
+
+
+  // =========================================
+  // PAGE
+  // =========================================
 
   return (
     <div className="settings-page-layout">
@@ -616,16 +773,19 @@ function SettingsPage() {
       <DashboardNavbar />
 
       <div className="settings-page-body">
+
         <Sidebar />
 
         <main className="settings-page-content">
-          {/* Dashboard remains underneath */}
 
           <div className="settings-overlay">
 
             <div className="settings-modal">
 
-              {/* Search / Left Navigation */}
+
+              {/* =========================================
+                  LEFT SETTINGS NAVIGATION
+                  ========================================= */}
 
               <aside className="settings-modal-sidebar">
 
@@ -646,13 +806,16 @@ function SettingsPage() {
 
                 </div>
 
+
                 <div className="settings-sidebar-label">
                   Settings
                 </div>
 
+
                 <nav className="settings-sidebar-nav">
 
                   {filteredItems.map((item) => (
+
                     <button
                       key={item.id}
                       type="button"
@@ -665,6 +828,7 @@ function SettingsPage() {
                         setActiveSetting(item.id)
                       }
                     >
+
                       <span className="settings-sidebar-icon">
                         {item.icon}
                       </span>
@@ -672,7 +836,9 @@ function SettingsPage() {
                       <span>
                         {item.label}
                       </span>
+
                     </button>
+
                   ))}
 
                 </nav>
@@ -680,9 +846,14 @@ function SettingsPage() {
               </aside>
 
 
-              {/* Right Content */}
+              {/* =========================================
+                  RIGHT SETTINGS CONTENT
+                  ========================================= */}
 
               <section className="settings-modal-main">
+
+
+                {/* CLOSE BUTTON */}
 
                 <button
                   type="button"
@@ -693,8 +864,38 @@ function SettingsPage() {
                   ×
                 </button>
 
+
+                {/* =========================================
+                    SCROLLABLE CONTENT
+                    ========================================= */}
+
                 <div className="settings-scroll-area">
+
                   {renderActivePanel()}
+
+                </div>
+
+
+                {/* =========================================
+                    FIXED SAVE FOOTER
+                    ========================================= */}
+
+                <div className="settings-save-footer">
+
+                  {saveMessage && (
+                    <span className="settings-save-message">
+                      {saveMessage}
+                    </span>
+                  )}
+
+                  <button
+                    type="button"
+                    className="settings-save-button"
+                    onClick={handleSaveChanges}
+                  >
+                    Save changes
+                  </button>
+
                 </div>
 
               </section>

@@ -1,6 +1,12 @@
 import { useNavigate } from "react-router-dom"
 
-function SearchModeCard({ title, description, icon, mode }) {
+function SearchModeCard({
+  title,
+  description,
+  icon,
+  mode,
+  hoverDescription,
+}) {
 
   const navigate = useNavigate()
 
@@ -14,30 +20,68 @@ function SearchModeCard({ title, description, icon, mode }) {
       onClick={handleClick}
     >
 
-      <div className="search-mode-top">
-        <div className="search-mode-icon">
-          {icon}
+      {/* NORMAL CARD */}
+      <div className="search-mode-default">
+
+        <div className="search-mode-top">
+          <div className="search-mode-icon">
+            {icon}
+          </div>
         </div>
+
+        <div className="search-mode-content">
+
+          <h2>{title}</h2>
+
+          <p>{description}</p>
+
+        </div>
+
+        <button
+          className="search-mode-arrow"
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation()
+            handleClick()
+          }}
+        >
+          ›
+        </button>
+
       </div>
 
-      <div className="search-mode-content">
 
-        <h2>{title}</h2>
+      {/* HOVER INFORMATION */}
+      <div className="search-mode-hover-info">
 
-        <p>{description}</p>
+        <div className="search-mode-hover-top">
+
+          <div className="search-mode-hover-icon">
+            {icon}
+          </div>
+
+          <div>
+            <span className="search-mode-hover-label">
+              {title.toUpperCase()}
+            </span>
+
+            <h3>How it works</h3>
+          </div>
+
+        </div>
+
+
+        <p className="search-mode-hover-description">
+          {hoverDescription}
+        </p>
+
+
+        <div className="search-mode-hover-footer">
+          <span>Click to explore</span>
+          <span>›</span>
+        </div>
 
       </div>
-
-      <button
-        className="search-mode-arrow"
-        type="button"
-        onClick={(e) => {
-          e.stopPropagation()
-          handleClick()
-        }}
-      >
-        ›
-      </button>
 
     </div>
   )

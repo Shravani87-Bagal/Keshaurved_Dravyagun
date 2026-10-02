@@ -1009,3 +1009,345 @@
       font-size: 20px;
     }
   }
+
+  /* =========================================
+   RESULTS CONTROL WRAPPER
+   ========================================= */
+
+.results-control-wrapper {
+  position: relative;
+}
+
+
+/* =========================================
+   ACTIVE CONTROL
+   ========================================= */
+
+.results-filter-button.control-active {
+  background: #f0f5ef;
+  border-color: #9fb9a6;
+}
+
+.results-sort-button.control-active {
+  color: #285d49;
+}
+
+
+/* =========================================
+   FILTER COUNT
+   ========================================= */
+
+.results-filter-button b {
+  min-width: 19px;
+  height: 19px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: 2px;
+
+  border-radius: 50%;
+
+  background: #285d49;
+  color: #ffffff;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+/* =========================================
+   FILTER PANEL
+   ========================================= */
+
+.results-filter-panel {
+  position: absolute;
+
+  top: calc(100% + 9px);
+  right: 0;
+
+  z-index: 50;
+
+  width: 270px;
+
+  padding: 17px;
+
+  border: 1px solid #d5ded5;
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 12px 30px rgba(42, 76, 59, 0.12);
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   FILTER PANEL HEADER
+   ========================================= */
+
+.filter-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding-bottom: 13px;
+
+  margin-bottom: 13px;
+
+  border-bottom: 1px solid #e1e6df;
+}
+
+.filter-panel-header strong {
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #17352a;
+}
+
+.filter-panel-header button {
+  border: none;
+  background: transparent;
+
+  color: #66806f;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.filter-panel-header button:hover {
+  color: #285d49;
+}
+
+
+/* =========================================
+   FILTER FIELD
+   ========================================= */
+
+.results-filter-panel label {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+
+  margin-top: 12px;
+
+  color: #53695d;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   FILTER SELECT
+   ========================================= */
+
+.results-filter-panel select {
+  width: 100%;
+  height: 36px;
+
+  padding: 0 9px;
+
+  border: 1px solid #cbd8cd;
+  border-radius: 7px;
+
+  background: #fafcf9;
+
+  color: #285d49;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  outline: none;
+
+  cursor: pointer;
+}
+
+.results-filter-panel select:hover {
+  border-color: #9fb9a6;
+}
+
+.results-filter-panel select:focus {
+  border-color: #71977e;
+
+  box-shadow:
+    0 0 0 2px rgba(113, 151, 126, 0.12);
+}
+
+
+/* =========================================
+   SORT MENU
+   ========================================= */
+
+.results-sort-menu {
+  position: absolute;
+
+  top: calc(100% + 7px);
+  right: 0;
+
+  z-index: 50;
+
+  min-width: 155px;
+
+  padding: 6px;
+
+  border: 1px solid #d5ded5;
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 12px 30px rgba(42, 76, 59, 0.12);
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   SORT OPTIONS
+   ========================================= */
+
+.results-sort-menu button {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  padding: 9px 10px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: #53695d;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.results-sort-menu button:hover {
+  background: #f0f5ef;
+  color: #285d49;
+}
+
+.results-sort-menu button.selected {
+  background: #eaf2e7;
+  color: #285d49;
+
+  font-weight: 600;
+}
+
+
+/* =========================================
+   ACTIVE FILTER BAR
+   ========================================= */
+
+.active-filter-bar {
+  display: flex;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-top: 13px;
+
+  padding: 10px 2px 0;
+
+  color: #718078;
+
+  font-size: 12px;
+}
+
+.active-filter-bar > span {
+  font-weight: 600;
+  color: #61756a;
+}
+
+.active-filter-bar button {
+  min-height: 27px;
+
+  padding: 0 9px;
+
+  border: 1px solid #cbd8cd;
+  border-radius: 14px;
+
+  background: #edf2ed;
+
+  color: #416452;
+
+  font-family: inherit;
+  font-size: 11px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.active-filter-bar button:hover {
+  background: #e2ece1;
+  border-color: #9db6a3;
+}
+
+
+/* =========================================
+   MOBILE FILTER PANEL
+   ========================================= */
+
+@media (max-width: 650px) {
+
+  .results-filter-panel {
+    left: 0;
+    right: auto;
+
+    width: min(300px, calc(100vw - 30px));
+  }
+
+  .results-sort-menu {
+    right: 0;
+
+    width: 170px;
+  }
+
+}
+
+
+@media (max-width: 450px) {
+
+  .results-control-wrapper {
+    width: 100%;
+  }
+
+  .results-filter-panel {
+    position: absolute;
+
+    left: 0;
+    right: auto;
+
+    width: 100%;
+  }
+
+  .results-sort-menu {
+    left: 0;
+    right: auto;
+
+    width: 100%;
+  }
+
+}

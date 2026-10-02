@@ -52,157 +52,263 @@ function LeafIcon({ variant = "green" }) {
 function HerbLibrary() {
   const navigate = useNavigate()
 
+  /*
+    REAL HERB DATASET
+
+    These records use the same structure as the dataset
+    used by the search result page.
+
+    Later, this array can be replaced directly by API data
+    without changing the UI structure.
+  */
   const herbs = [
     {
       id: "HERB_REC_0001",
-      name: "Ashwagandha",
-      scientificName: "Withania somnifera",
-      description:
-        "A grounding Rasayana traditionally used to support strength, restorative sleep, and balanced energy.",
-      dosha: "Vata ↓ · Kapha ↓",
-      dhatu: "Mamsa · Majja",
-      rasa: "Bitter · Sweet",
-      guna: "Light · Unctuous",
-      virya: "Heating",
-      vipaka: "Sweet",
-      karma: "Balya · Rasayana",
-      status: "Verified",
+      englishName: "heart leaved moon seed",
+      botanicalName: "tinospora cordifolia",
+
+      regionalNames: [
+        "Guduchi",
+        "gulvel",
+      ],
+
+      partUsed: "stem",
+
+      rasa: [
+        "Tikta",
+        "Kashay",
+      ],
+
+      guna: [
+        "Laghu",
+        "Snigdha",
+      ],
+
+      virya: "Ushna",
+      vipaka: "Madhura",
+
+      prabhava: "vrushya and pitta shaman",
+
+      dosha: {
+        vata: "Decreases",
+        pitta: "Decreases",
+        kapha: "Decreases",
+      },
+
+      dhatu: [
+        "Rasa (5)",
+        "Rakta (5)",
+        "Mamsa (4)",
+        "Meda (4)",
+        "Asthi (3)",
+        "Majja (4)",
+        "Shukra (3)",
+      ],
+
+      mala: [
+        "Purisha: Decreases",
+        "Mutra: Increases",
+      ],
+
+      srotas: [
+        "Rasavaha",
+        "Raktavaha",
+        "Mamsavaha",
+        "Medovaha",
+        "Shukravaha",
+        "Mutravaha",
+        "Artavavaha",
+      ],
+
+      avayava: [],
+
+      karma: [
+        "Rasayana",
+        "Balya",
+        "Deepana",
+        "Pachana",
+        "Krimighna",
+        "Mutrala",
+        "jwaraghna",
+        "tridoshhar",
+        "vishaghna",
+        "dahashamak",
+        "Grahi",
+        "Medhya",
+      ],
+
+      indications: [
+        "vaatrakt",
+        "jwar",
+        "kamala",
+        "pandu.prameha",
+        "kushta",
+        "daah",
+        "krimirog",
+        "visha",
+      ],
+
+      references: [],
+
+      verificationStatus: "Draft",
+
       variant: "green",
     },
 
     {
       id: "HERB_REC_0002",
-      name: "Guduchi",
-      scientificName: "Tinospora cordifolia",
-      description:
-        "A rejuvenating vine traditionally used in Rasayana and digestive-supportive applications.",
-      dosha: "Tridoshic",
-      dhatu: "Rasa · Rakta",
-      rasa: "Bitter",
-      guna: "Light · Unctuous",
-      virya: "Heating",
-      vipaka: "Sweet",
-      karma: "Rasayana · Deepana",
-      status: "Verified",
+      englishName: "Indian Silver fir",
+      botanicalName: "Abies webbiana",
+
+      regionalNames: [
+        "Indian Silver Fir",
+        "Talispatra",
+      ],
+
+      partUsed: "Leaves",
+
+      rasa: [
+        "Madhura",
+        "Tikta",
+      ],
+
+      guna: [
+        "Laghu",
+        "Snigdha",
+        "Tikshna",
+      ],
+
+      virya: "Ushna",
+      vipaka: "Katu",
+
+      prabhava: "Kasahar",
+
+      dosha: {
+        vata: "Decreases",
+        pitta: "",
+        kapha: "Decreases",
+      },
+
+      dhatu: [
+        "Rasa (0)",
+      ],
+
+      mala: [
+        "Purisha: Increases",
+      ],
+
+      srotas: [
+        "Pranavaha",
+        "Annavaha",
+        "Rasavaha",
+      ],
+
+      avayava: [],
+
+      karma: [
+        "Deepana",
+        "Pachana",
+        "Grahi",
+        "Rechana",
+        "Vatanuloman",
+      ],
+
+      indications: [
+        "Aruchi",
+        "gulm",
+        "agnimandya",
+        "aadhman",
+        "kaas",
+        "shwas",
+        "rajyakshma",
+        "swarbhed",
+        "kshayrog",
+        "daurbalya",
+      ],
+
+      references: [],
+
+      verificationStatus: "Draft",
+
       variant: "sage",
     },
 
     {
       id: "HERB_REC_0003",
-      name: "Shatavari",
-      scientificName: "Asparagus racemosus",
-      description:
-        "A nourishing root traditionally associated with hydration, vitality, and reproductive tissues.",
-      dosha: "Vata ↓ · Pitta ↓",
-      dhatu: "Rasa · Rakta · Shukra",
-      rasa: "Sweet · Bitter",
-      guna: "Heavy · Unctuous",
-      virya: "Cooling",
-      vipaka: "Sweet",
-      karma: "Rasayana · Stanyajanana",
-      status: "Reviewed",
-      variant: "cream",
-    },
+      englishName: "Irimed",
+      botanicalName: "Acacia ferruginea DC",
 
-    {
-      id: "HERB_REC_0004",
-      name: "Tulsi",
-      scientificName: "Ocimum tenuiflorum",
-      description:
-        "An aromatic leaf traditionally used to support clear breathing, digestion, and mental clarity.",
-      dosha: "Kapha ↓ · Vata ↓",
-      dhatu: "Rasa · Rakta",
-      rasa: "Pungent · Bitter",
-      guna: "Light · Dry",
-      virya: "Heating",
-      vipaka: "Pungent",
-      karma: "Deepana · Kaphaghna",
-      status: "Verified",
-      variant: "sage",
-    },
+      regionalNames: [
+        "Dhavi khair",
+      ],
 
-    {
-      id: "HERB_REC_0005",
-      name: "Yashtimadhu",
-      scientificName: "Glycyrrhiza glabra",
-      description:
-        "A soothing root traditionally valued for nourishing the voice, stomach, and respiratory tissues.",
-      dosha: "Vata ↓ · Pitta ↓",
-      dhatu: "Rasa · Rakta · Shukra",
-      rasa: "Sweet",
-      guna: "Heavy · Unctuous",
-      virya: "Cooling",
-      vipaka: "Sweet",
-      karma: "Rasayana · Varnya",
-      status: "Reviewed",
-      variant: "cream",
-    },
+      partUsed: "Mainly stem bark, also heartwood/gum",
 
-    {
-      id: "HERB_REC_0006",
-      name: "Neem",
-      scientificName: "Azadirachta indica",
-      description:
-        "A cooling bitter herb traditionally used in cleansing protocols and support for clear skin.",
-      dosha: "Pitta ↓ · Kapha ↓",
-      dhatu: "Rakta · Mamsa",
-      rasa: "Bitter · Astringent",
-      guna: "Light · Dry",
-      virya: "Cooling",
-      vipaka: "Pungent",
-      karma: "Krimighna · Kusthaghna",
-      status: "Verified",
-      variant: "green",
-    },
+      rasa: [
+        "Tikta",
+        "Kashay",
+      ],
 
-    {
-      id: "HERB_REC_0007",
-      name: "Haritaki",
-      scientificName: "Terminalia chebula",
-      description:
-        "A classical herb traditionally used to support digestion, elimination, and Rasayana purposes.",
-      dosha: "Tridoshic · Vata ↓",
-      dhatu: "Rasa · Rakta · Mamsa",
-      rasa: "Astringent · Five tastes except Salt",
-      guna: "Light · Dry",
-      virya: "Heating",
-      vipaka: "Sweet",
-      karma: "Anulomana · Rasayana",
-      status: "Verified",
-      variant: "sage",
-    },
+      guna: [
+        "Laghu",
+        "Ruksha",
+      ],
 
-    {
-      id: "HERB_REC_0008",
-      name: "Amalaki",
-      scientificName: "Phyllanthus emblica",
-      description:
-        "A potent Rasayana traditionally used for nourishment, vitality, and tissue support.",
-      dosha: "Tridoshic · Pitta ↓",
-      dhatu: "Rasa · Rakta · Shukra",
-      rasa: "Sour · Sweet · Bitter · Astringent · Pungent",
-      guna: "Light · Dry",
-      virya: "Cooling",
-      vipaka: "Sweet",
-      karma: "Rasayana · Vayasthapana",
-      status: "Verified",
-      variant: "green",
-    },
+      virya: "Sheeta",
+      vipaka: "Katu",
 
-    {
-      id: "HERB_REC_0009",
-      name: "Turmeric",
-      scientificName: "Curcuma longa",
-      description:
-        "A classical herb traditionally used for its cleansing, tissue-supportive, and balancing properties.",
-      dosha: "Kapha ↓ · Vata ↓",
-      dhatu: "Rakta · Mamsa",
-      rasa: "Bitter · Pungent",
-      guna: "Light · Dry",
-      virya: "Heating",
-      vipaka: "Pungent",
-      karma: "Kaphaghna · Krimighna",
-      status: "Verified",
+      prabhava: "",
+
+      dosha: {
+        vata: "Increases",
+        pitta: "Decreases",
+        kapha: "Decreases",
+      },
+
+      dhatu: [
+        "Rasa (0)",
+        "Rakta (5)",
+        "Shukra (5)",
+      ],
+
+      mala: [
+        "Purisha: Increases",
+        "Mutra: Increases",
+      ],
+
+      srotas: [
+        "Pranavaha",
+        "Raktavaha",
+        "Mamsavaha",
+        "Purishavaha",
+      ],
+
+      avayava: [],
+
+      karma: [
+        "Shothahara",
+        "Kushtaghna",
+        "Krimighna",
+        "Raktaprasadak",
+        "garbhashay-shaythilyahar",
+        "plihavruddhi",
+        "Swarbhed",
+        "raktstrav",
+        "dantarog",
+        "atisar",
+      ],
+
+      indications: [
+        "Kustha",
+        "pandu",
+        "krumi",
+        "pradar",
+      ],
+
+      references: [],
+
+      verificationStatus: "Draft",
+
       variant: "cream",
     },
   ]
@@ -211,38 +317,64 @@ function HerbLibrary() {
   const [selectedHerbs, setSelectedHerbs] = useState([])
   const [favoriteHerbs, setFavoriteHerbs] = useState([])
 
-useEffect(() => {
-  const savedFavorites =
-    JSON.parse(localStorage.getItem("favoriteHerbs")) || []
+  /*
+    LOAD FAVORITES
+  */
+  useEffect(() => {
+    try {
+      const savedFavorites =
+        JSON.parse(localStorage.getItem("favoriteHerbs")) || []
 
-  setFavoriteHerbs(savedFavorites)
-}, [])
+      setFavoriteHerbs(savedFavorites)
+    } catch (error) {
+      console.error("Unable to load favorite herbs:", error)
+      setFavoriteHerbs([])
+    }
+  }, [])
 
-const isFavorite = (herbId) => {
-  return favoriteHerbs.some((item) => item.id === herbId)
-}
-
-const handleFavorite = (event, herb) => {
-  event.stopPropagation()
-
-  setFavoriteHerbs((previous) => {
-    const alreadyFavorite = previous.some(
-      (item) => item.id === herb.id
+  /*
+    CHECK FAVORITE
+  */
+  const isFavorite = (herbId) => {
+    return favoriteHerbs.some(
+      (item) => item.id === herbId
     )
+  }
 
-    const updatedFavorites = alreadyFavorite
-      ? previous.filter((item) => item.id !== herb.id)
-      : [...previous, herb]
+  /*
+    ADD / REMOVE FAVORITE
+  */
+  const handleFavorite = (event, herb) => {
+    event.stopPropagation()
 
-    localStorage.setItem(
-      "favoriteHerbs",
-      JSON.stringify(updatedFavorites)
-    )
+    setFavoriteHerbs((previous) => {
+      const alreadyFavorite = previous.some(
+        (item) => item.id === herb.id
+      )
 
-    return updatedFavorites
-  })
-}
+      const updatedFavorites = alreadyFavorite
+        ? previous.filter(
+            (item) => item.id !== herb.id
+          )
+        : [...previous, herb]
 
+      localStorage.setItem(
+        "favoriteHerbs",
+        JSON.stringify(updatedFavorites)
+      )
+
+      return updatedFavorites
+    })
+  }
+
+  /*
+    SEARCH
+
+    Search works with:
+    - English name
+    - Botanical name
+    - Regional names
+  */
   const filteredHerbs = useMemo(() => {
     const query = searchQuery.trim().toLowerCase()
 
@@ -250,13 +382,29 @@ const handleFavorite = (event, herb) => {
       return herbs
     }
 
-    return herbs.filter(
-      (herb) =>
-        herb.name.toLowerCase().includes(query) ||
-        herb.scientificName.toLowerCase().includes(query)
-    )
+    return herbs.filter((herb) => {
+      const englishName =
+        herb.englishName?.toLowerCase() || ""
+
+      const botanicalName =
+        herb.botanicalName?.toLowerCase() || ""
+
+      const regionalNames =
+        herb.regionalNames
+          ?.join(" ")
+          .toLowerCase() || ""
+
+      return (
+        englishName.includes(query) ||
+        botanicalName.includes(query) ||
+        regionalNames.includes(query)
+      )
+    })
   }, [searchQuery])
 
+  /*
+    SELECT / DESELECT HERB
+  */
   const toggleHerb = (herb) => {
     setSelectedHerbs((previous) => {
       const alreadySelected = previous.some(
@@ -264,17 +412,25 @@ const handleFavorite = (event, herb) => {
       )
 
       if (alreadySelected) {
-        return previous.filter((item) => item.id !== herb.id)
+        return previous.filter(
+          (item) => item.id !== herb.id
+        )
       }
 
       return [...previous, herb]
     })
   }
 
+  /*
+    CLEAR SELECTION
+  */
   const clearSelection = () => {
     setSelectedHerbs([])
   }
 
+  /*
+    COMPARE SELECTED HERBS
+  */
   const handleCompare = () => {
     if (selectedHerbs.length < 2) {
       return
@@ -288,8 +444,16 @@ const handleFavorite = (event, herb) => {
     navigate("/compare")
   }
 
+  /*
+    OPEN HERB DETAIL PAGE
+
+    IMPORTANT:
+    The exact same herb object is identified using
+    its real dataset ID.
+  */
   const handleViewInformation = (event, herb) => {
     event.stopPropagation()
+
     navigate(`/herb/${herb.id}`)
   }
 
@@ -314,11 +478,16 @@ const handleFavorite = (event, herb) => {
               </div>
 
               <div className="library-selected-count">
-                <span className="selection-network-icon">♧</span>
+                <span className="selection-network-icon">
+                  ♧
+                </span>
 
                 <span>
                   {selectedHerbs.length}{" "}
-                  {selectedHerbs.length === 1 ? "herb" : "herbs"} selected
+                  {selectedHerbs.length === 1
+                    ? "herb"
+                    : "herbs"}{" "}
+                  selected
                 </span>
               </div>
             </section>
@@ -362,7 +531,9 @@ const handleFavorite = (event, herb) => {
 
             {/* SEARCH */}
             <section className="herb-library-search">
-              <span className="library-search-icon">⌕</span>
+              <span className="library-search-icon">
+                ⌕
+              </span>
 
               <input
                 type="text"
@@ -381,6 +552,21 @@ const handleFavorite = (event, herb) => {
                   (item) => item.id === herb.id
                 )
 
+                const regionalName =
+                  herb.regionalNames?.join(" · ")
+
+                const rasa =
+                  herb.rasa?.join(" · ")
+
+                const guna =
+                  herb.guna?.join(" · ")
+
+                const karma =
+                  herb.karma?.slice(0, 2).join(" · ")
+
+                const indications =
+                  herb.indications?.slice(0, 4).join(", ")
+
                 return (
                   <article
                     className={`herb-library-card ${
@@ -389,14 +575,16 @@ const handleFavorite = (event, herb) => {
                     key={herb.id}
                     onClick={() => toggleHerb(herb)}
                   >
+
                     {/* CHECKBOX + ICON */}
                     <div className="herb-card-main">
+
                       <button
                         type="button"
                         className={`herb-checkbox ${
                           isSelected ? "checked" : ""
                         }`}
-                        aria-label={`Select ${herb.name}`}
+                        aria-label={`Select ${herb.englishName}`}
                         onClick={(event) => {
                           event.stopPropagation()
                           toggleHerb(herb)
@@ -405,51 +593,129 @@ const handleFavorite = (event, herb) => {
                         {isSelected && "✓"}
                       </button>
 
-                      <LeafIcon variant={herb.variant} />
+                      <LeafIcon
+                        variant={herb.variant}
+                      />
 
                       <div className="herb-card-information">
-                        <h2>{herb.name}</h2>
 
-                        <em>{herb.scientificName}</em>
+                        {/* NAME */}
+                        <h2>
+                          {herb.englishName}
+                        </h2>
 
-                        <p>{herb.description}</p>
+                        {/* BOTANICAL NAME */}
+                        <em>
+                          {herb.botanicalName}
+                        </em>
 
+                        {/* REGIONAL NAMES */}
+                        {regionalName && (
+                          <p>
+                            <strong>
+                              Also known as:
+                            </strong>{" "}
+                            {regionalName}
+                          </p>
+                        )}
+
+                        {/* DESCRIPTION */}
+                        <p>
+                          <strong>
+                            Part used:
+                          </strong>{" "}
+                          {herb.partUsed}
+                        </p>
+
+                        {/* AYURVEDIC SUMMARY */}
+                        <p>
+                          <strong>
+                            Rasa:
+                          </strong>{" "}
+                          {rasa}
+                          {" · "}
+                          <strong>
+                            Guna:
+                          </strong>{" "}
+                          {guna}
+                        </p>
+
+                        <p>
+                          <strong>
+                            Virya:
+                          </strong>{" "}
+                          {herb.virya}
+                          {" · "}
+                          <strong>
+                            Vipaka:
+                          </strong>{" "}
+                          {herb.vipaka}
+                        </p>
+
+                        {/* STATUS */}
                         <div
                           className={`herb-status ${
-                            herb.status === "Reviewed"
+                            herb.verificationStatus ===
+                            "Verified"
+                              ? "verified"
+                              : herb.verificationStatus ===
+                                "Reviewed"
                               ? "reviewed"
-                              : "verified"
+                              : "draft"
                           }`}
                         >
                           <span>
-                            {herb.status === "Verified" ? "✓" : "◷"}
+                            {herb.verificationStatus ===
+                            "Verified"
+                              ? "✓"
+                              : herb.verificationStatus ===
+                                "Reviewed"
+                              ? "◷"
+                              : "○"}
                           </span>
 
-                          {herb.status}
+                          {herb.verificationStatus}
                         </div>
 
+                        {/* ACTIONS */}
                         <div className="herb-card-actions">
-  <button
-    type="button"
-    className={`herb-favorite-action ${
-      isFavorite(herb.id) ? "favorite-active" : ""
-    }`}
-    onClick={(event) => handleFavorite(event, herb)}
-  >
-    {isFavorite(herb.id) ? "♥ Remove from favorites" : "♡ Add to favorites"}
-  </button>
 
-  <button
-    type="button"
-    className="herb-view-information"
-    onClick={(event) =>
-      handleViewInformation(event, herb)
-    }
-  >
-    View information
-    <span>›</span>
-  </button>
-</div>
+                          {/* FAVORITE */}
+                          <button
+                            type="button"
+                            className={`herb-favorite-action ${
+                              isFavorite(herb.id)
+                                ? "favorite-active"
+                                : ""
+                            }`}
+                            onClick={(event) =>
+                              handleFavorite(
+                                event,
+                                herb
+                              )
+                            }
+                          >
+                            {isFavorite(herb.id)
+                              ? "♥ Remove from favorites"
+                              : "♡ Add to favorites"}
+                          </button>
+
+                          {/* VIEW INFORMATION */}
+                          <button
+                            type="button"
+                            className="herb-view-information"
+                            onClick={(event) =>
+                              handleViewInformation(
+                                event,
+                                herb
+                              )
+                            }
+                          >
+                            View information
+                            <span>›</span>
+                          </button>
+
+                        </div>
                       </div>
                     </div>
                   </article>
@@ -463,7 +729,8 @@ const handleFavorite = (event, herb) => {
                 <h2>No herbs found</h2>
 
                 <p>
-                  Try searching with another herb name or scientific name.
+                  Try searching with another herb name,
+                  botanical name, or regional name.
                 </p>
               </div>
             )}
@@ -475,7 +742,10 @@ const handleFavorite = (event, herb) => {
               </span>
 
               <div className="library-pagination">
-                <button type="button" disabled>
+                <button
+                  type="button"
+                  disabled
+                >
                   ‹
                 </button>
 
@@ -486,7 +756,10 @@ const handleFavorite = (event, herb) => {
                   1
                 </button>
 
-                <button type="button" disabled>
+                <button
+                  type="button"
+                  disabled
+                >
                   ›
                 </button>
               </div>

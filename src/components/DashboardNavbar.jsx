@@ -14,6 +14,16 @@ function DashboardNavbar() {
 
   const doctorName = savedUser?.fullName || "Doctor"
   const doctorEmail = savedUser?.email || "Ayurvedic Physician"
+  const profilePhoto = savedUser?.profilePhoto || ""
+  const doctorInitials = doctorName
+  .trim()
+  .split(/\s+/)
+  .filter(Boolean)
+  .map((name) => name[0])
+  .join("")
+  .slice(0, 2)
+  .toUpperCase()
+
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -120,9 +130,17 @@ function DashboardNavbar() {
             }
           >
 
-            <div className="navbar-avatar">
-              DR
-            </div>
+<div className="navbar-avatar">
+  {profilePhoto ? (
+    <img
+      src={profilePhoto}
+      alt="Profile"
+      className="navbar-profile-photo"
+    />
+  ) : (
+    doctorInitials
+  )}
+</div>
 
             <div className="navbar-doctor-info">
               <strong>{doctorName}</strong>

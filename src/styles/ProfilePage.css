@@ -444,5 +444,119 @@
   
       font-size: 19px;
     }
-  
   }
+  /* =========================================
+   PROFILE PHOTO
+========================================= */
+
+.profile-large-avatar {
+  width: 72px;
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border-radius: 50%;
+
+  background: #d9bd8c;
+  color: #ffffff;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  flex-shrink: 0;
+}
+
+
+/* Actual uploaded image */
+
+.profile-photo {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+
+/* Hide the real file input */
+
+.profile-photo-input {
+  display: none;
+}
+
+
+/* =========================================
+   ADD / CHANGE PHOTO BUTTON
+========================================= */
+
+.change-photo-button {
+  border: none;
+  background: transparent;
+
+  color: #347457;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  padding: 7px 10px;
+
+  border-radius: 7px;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.change-photo-button:hover {
+  background: #eef4ec;
+  color: #234f3a;
+}
+
+.delete-photo-button {
+  border: none;
+  background: transparent;
+
+  color: #347457;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  padding: 7px 10px;
+
+  border-radius: 7px;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.delete-photo-button:hover {
+  background: #eef4ec;
+  color: #234f3a;
+}
+
+/* =========================================
+   SAVE SUCCESS MESSAGE
+========================================= */
+
+.profile-save-message {
+  margin: 12px 0 0;
+
+  text-align: center;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  color: #347457;
+}

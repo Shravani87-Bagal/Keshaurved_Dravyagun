@@ -10,41 +10,112 @@ function SearchPage() {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
 
-  const mode = searchParams.get("mode") || "simple"
+  // =========================================
+  // READ SAVED SEARCH SETTINGS
+  // =========================================
 
-  // Stores what the user types in the search box
+  const savedSettings = JSON.parse(
+    localStorage.getItem("herbSettings") || "null"
+  )
+
+  const savedDefaultSearch =
+    savedSettings?.defaultSearch || "simple"
+
+  // URL mode has priority.
+  // If there is no mode in URL, use saved setting.
+  const mode =
+    searchParams.get("mode") || savedDefaultSearch
+
+
+  // =========================================
+  // SIMPLE SEARCH STATE
+  // =========================================
+
   const [searchQuery, setSearchQuery] = useState("")
+
+  const [rasa, setRasa] = useState("")
+  const [virya, setVirya] = useState("")
+  const [vipaka, setVipaka] = useState("")
+  const [majorDisease, setMajorDisease] = useState("")
+
+
+  // =========================================
+  // SEARCH MODE CHANGE
+  // =========================================
 
   const handleModeChange = (selectedMode) => {
     navigate(`/search?mode=${selectedMode}`)
   }
 
-  // Handle simple search
+
+  // =========================================
+  // SIMPLE SEARCH
+  // =========================================
+
   const handleSimpleSearch = () => {
-    if (!searchQuery.trim()) {
+
+    if (
+      !searchQuery.trim() &&
+      !rasa &&
+      !virya &&
+      !vipaka &&
+      !majorDisease
+    ) {
       return
     }
 
-    navigate(
-      `/search-results?mode=simple&query=${encodeURIComponent(
-        searchQuery.trim()
-      )}`
-    )
+    const params = new URLSearchParams()
+
+    params.set("mode", "simple")
+
+    if (searchQuery.trim()) {
+      params.set("query", searchQuery.trim())
+    }
+
+    if (rasa) {
+      params.set("rasa", rasa)
+    }
+
+    if (virya) {
+      params.set("virya", virya)
+    }
+
+    if (vipaka) {
+      params.set("vipaka", vipaka)
+    }
+
+    if (majorDisease) {
+      params.set("majorDisease", majorDisease)
+    }
+
+    navigate(`/search-results?${params.toString()}`)
   }
 
-  // Handle Enter key inside search box
+
+  // =========================================
+  // ENTER KEY
+  // =========================================
+
   const handleSearchKeyDown = (e) => {
+
     if (e.key === "Enter") {
       handleSimpleSearch()
     }
+
   }
 
-  // Select one of the suggested search patterns
+
+  // =========================================
+  // SEARCH PATTERN
+  // =========================================
+
   const handlePatternClick = (pattern) => {
     setSearchQuery(pattern)
   }
 
+
   return (
+
     <div className="search-page-layout">
 
       <DashboardNavbar />
@@ -84,9 +155,8 @@ function SearchPage() {
                   </h1>
 
                   <p className="search-page-description">
-                    Use everyday language. The engine will map your
-                    description to relevant Ayurvedic properties and
-                    indications.
+                    Use everyday language and add Ayurvedic clinical
+                    factors to refine the results.
                   </p>
                 </>
 
@@ -141,10 +211,6 @@ function SearchPage() {
 
             <>
 
-              {/* =========================================
-                  SIMPLE SEARCH CARD
-                  ========================================= */}
-
               <section className="simple-search-card">
 
                 <div className="simple-search-heading">
@@ -169,10 +235,6 @@ function SearchPage() {
                 </div>
 
 
-                {/* =========================================
-                    SEARCH INPUT
-                    ========================================= */}
-
                 <div className="simple-search-input-row">
 
                   <div className="simple-search-input">
@@ -184,7 +246,9 @@ function SearchPage() {
                     <input
                       type="text"
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onChange={(e) =>
+                        setSearchQuery(e.target.value)
+                      }
                       onKeyDown={handleSearchKeyDown}
                       placeholder="e.g. joint pain, worse in cold weather, morning stiffness"
                     />
@@ -192,12 +256,16 @@ function SearchPage() {
                   </div>
 
 
-                  {/* Search Button */}
-
                   <button
                     className="simple-search-button"
                     type="button"
-                    disabled={!searchQuery.trim()}
+                    disabled={
+                      !searchQuery.trim() &&
+                      !rasa &&
+                      !virya &&
+                      !vipaka &&
+                      !majorDisease
+                    }
                     onClick={handleSimpleSearch}
                   >
                     Search
@@ -207,9 +275,186 @@ function SearchPage() {
                 </div>
 
 
-                {/* =========================================
-                    SEARCH PATTERNS
-                    ========================================= */}
+                <div className="simple-search-factors">
+
+                  <div className="simple-search-factors-header">
+
+                    <div>
+
+                      <span className="factors-label">
+                        AYURVEDIC CLINICAL CONTEXT
+                      </span>
+
+                      <h3>
+                        Refine the search
+                      </h3>
+
+                    </div>
+
+                    <p>
+                      Add classical factors to narrow the herb match.
+                    </p>
+
+                  </div>
+
+
+                  <div className="simple-search-factors-grid">
+
+                    <div className="simple-search-factor">
+
+                      <label htmlFor="rasa">
+                        Rasa
+                      </label>
+
+                      <select
+                        id="rasa"
+                        value={rasa}
+                        onChange={(e) =>
+                          setRasa(e.target.value)
+                        }
+                      >
+
+                        <option value="">
+                          Any Rasa
+                        </option>
+
+                        <option value="Madhura">
+                          Madhura
+                        </option>
+
+                        <option value="Amla">
+                          Amla
+                        </option>
+
+                        <option value="Lavana">
+                          Lavana
+                        </option>
+
+                        <option value="Katu">
+                          Katu
+                        </option>
+
+                        <option value="Tikta">
+                          Tikta
+                        </option>
+
+                        <option value="Kashaya">
+                          Kashaya
+                        </option>
+
+                      </select>
+
+                    </div>
+
+
+                    <div className="simple-search-factor">
+
+                      <label htmlFor="virya">
+                        Virya
+                      </label>
+
+                      <select
+                        id="virya"
+                        value={virya}
+                        onChange={(e) =>
+                          setVirya(e.target.value)
+                        }
+                      >
+
+                        <option value="">
+                          Any Virya
+                        </option>
+
+                        <option value="Ushna">
+                          Ushna
+                        </option>
+
+                        <option value="Sheeta">
+                          Sheeta
+                        </option>
+
+                      </select>
+
+                    </div>
+
+
+                    <div className="simple-search-factor">
+
+                      <label htmlFor="vipaka">
+                        Vipaka
+                      </label>
+
+                      <select
+                        id="vipaka"
+                        value={vipaka}
+                        onChange={(e) =>
+                          setVipaka(e.target.value)
+                        }
+                      >
+
+                        <option value="">
+                          Any Vipaka
+                        </option>
+
+                        <option value="Madhura">
+                          Madhura
+                        </option>
+
+                        <option value="Amla">
+                          Amla
+                        </option>
+
+                        <option value="Katu">
+                          Katu
+                        </option>
+
+                      </select>
+
+                    </div>
+
+
+                    <div className="simple-search-factor">
+
+                      <label htmlFor="majorDisease">
+                        Major Disease
+                      </label>
+
+                      <select
+                        id="majorDisease"
+                        value={majorDisease}
+                        onChange={(e) =>
+                          setMajorDisease(e.target.value)
+                        }
+                      >
+
+                        <option value="">
+                          Any Disease
+                        </option>
+
+                        <option value="Diabetes">
+                          Diabetes
+                        </option>
+
+                        <option value="Hypertension">
+                          Hypertension
+                        </option>
+
+                        <option value="Arthritis">
+                          Arthritis
+                        </option>
+
+                        <option value="Asthma">
+                          Asthma
+                        </option>
+
+                      </select>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
 
                 <div className="search-patterns">
 
@@ -255,10 +500,6 @@ function SearchPage() {
               </section>
 
 
-              {/* =========================================
-                  CLINICAL NUANCE
-                  ========================================= */}
-
               <section className="clinical-nuance-card">
 
                 <div className="clinical-nuance-icon">
@@ -272,8 +513,8 @@ function SearchPage() {
                   </h2>
 
                   <p>
-                    Include timing, triggers, qualities, and associated
-                    symptoms for a more precise match.
+                    Include timing, triggers, qualities, associated
+                    symptoms, and Ayurvedic factors for a more precise match.
                   </p>
 
                 </div>

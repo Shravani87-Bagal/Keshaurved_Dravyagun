@@ -1,303 +1,56 @@
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 
 import DashboardNavbar from "../components/DashboardNavbar"
 import Sidebar from "../components/Sidebar"
 import HerbResultCard from "../components/HerbResultCard"
+import herbDataset from "../data/herbDataset"
 
 import "../styles/SearchResults.css"
 
 
 /* =========================================
-   TEMPORARY FRONTEND HERB DATA
-
-   This is only for the frontend demo.
-
-   Later:
-   backend / RAG / scoring engine
-   will provide the real results.
+   SEARCH TERM MAPPING
    ========================================= */
 
-const herbDataset = [
-  {
-    id: "HERB_REC_0001",
-    englishName: "Ashwagandha",
-    botanicalName: "Withania somnifera",
-    partUsed: "Root",
-    rasa: "Madhura, Tikta",
-    guna: "Laghu, Snigdha",
-    virya: "Ushna",
-    vipaka: "Madhura",
-    dosha: "Vata · Decreases, Kapha · Decreases",
-    dhatu: "Mamsa, Majja",
-    importantKarma: "Balya, Rasayana",
-    majorDiseases:
-      "Daurbalya, Vata disorders, stress-related conditions",
-    status: "Verified",
-    visualColor: "#a5b195",
-  },
-
-  {
-    id: "HERB_REC_0002",
-    englishName: "Guduchi",
-    botanicalName: "Tinospora cordifolia",
-    partUsed: "Stem",
-    rasa: "Tikta, Kashay",
-    guna: "Laghu, Snigdha",
-    virya: "Ushna",
-    vipaka: "Madhura",
-    dosha: "Tridoshic",
-    dhatu: "Rasa, Rakta",
-    importantKarma: "Rasayana, Balya",
-    majorDiseases:
-      "Jvara, Kamala, Pandu, Prameha, Kushta, Krimi",
-    status: "Verified",
-    visualColor: "#91a57d",
-  },
-
-  {
-    id: "HERB_REC_0003",
-    englishName: "Shatavari",
-    botanicalName: "Asparagus racemosus",
-    partUsed: "Root",
-    rasa: "Madhura, Tikta",
-    guna: "Guru, Snigdha",
-    virya: "Sheeta",
-    vipaka: "Madhura",
-    dosha: "Vata · Decreases, Pitta · Decreases",
-    dhatu: "Rasa, Shukra",
-    importantKarma: "Rasayana, Balya",
-    majorDiseases:
-      "Artava disorders, weakness, reproductive health",
-    status: "Reviewed",
-    visualColor: "#c9bd8d",
-  },
-
-  {
-    id: "HERB_REC_0004",
-    englishName: "Tulsi",
-    botanicalName: "Ocimum tenuiflorum",
-    partUsed: "Leaves",
-    rasa: "Katu, Tikta",
-    guna: "Laghu, Ruksha",
-    virya: "Ushna",
-    vipaka: "Katu",
-    dosha: "Kapha · Decreases, Vata · Decreases",
-    dhatu: "Rasa, Rakta",
-    importantKarma: "Deepana, Pachana",
-    majorDiseases:
-      "Kasa, Shwasa, Kapha disorders, seasonal congestion",
-    status: "Verified",
-    visualColor: "#d4ad4d",
-  },
-
-  {
-    id: "HERB_REC_0005",
-    englishName: "Yashtimadhu",
-    botanicalName: "Glycyrrhiza glabra",
-    partUsed: "Root",
-    rasa: "Madhura",
-    guna: "Guru, Snigdha",
-    virya: "Sheeta",
-    vipaka: "Madhura",
-    dosha: "Vata · Decreases, Pitta · Decreases",
-    dhatu: "Rasa, Rakta",
-    importantKarma: "Brimhana, Rasayana",
-    majorDiseases:
-      "Kasa, Shwasa, Daha, weakness",
-    status: "Reviewed",
-    visualColor: "#9caf8d",
-  },
-
-  {
-    id: "HERB_REC_0006",
-    englishName: "Neem",
-    botanicalName: "Azadirachta indica",
-    partUsed: "Leaves, bark",
-    rasa: "Tikta, Kashay",
-    guna: "Laghu, Ruksha",
-    virya: "Sheeta",
-    vipaka: "Katu",
-    dosha: "Pitta · Decreases, Kapha · Decreases",
-    dhatu: "Rakta, Mamsa",
-    importantKarma: "Krimighna, Kandughna",
-    majorDiseases:
-      "Kushta, skin disorders, Krimi",
-    status: "Verified",
-    visualColor: "#b6aa8d",
-  },
-
-  {
-    id: "HERB_REC_0007",
-    englishName: "Haritaki",
-    botanicalName: "Terminalia chebula",
-    partUsed: "Fruit",
-    rasa: "Kashay",
-    guna: "Laghu, Ruksha",
-    virya: "Ushna",
-    vipaka: "Madhura",
-    dosha: "Tridoshic, Vata · Decreases",
-    dhatu: "Rasa, Mamsa",
-    importantKarma: "Rasayana, Anulomana",
-    majorDiseases:
-      "Grahani, constipation, digestive disorders",
-    status: "Verified",
-    visualColor: "#a9b99d",
-  },
-
-  {
-    id: "HERB_REC_0008",
-    englishName: "Amalaki",
-    botanicalName: "Phyllanthus emblica",
-    partUsed: "Fruit",
-    rasa: "Amla, Madhura",
-    guna: "Laghu, Ruksha",
-    virya: "Sheeta",
-    vipaka: "Madhura",
-    dosha: "Tridoshic, Pitta · Decreases",
-    dhatu: "Rasa, Rakta",
-    importantKarma: "Rasayana, Chakshushya",
-    majorDiseases:
-      "Pitta disorders, weakness, digestive disorders",
-    status: "Verified",
-    visualColor: "#c2b997",
-  },
-
-  {
-    id: "HERB_REC_0009",
-    englishName: "Turmeric",
-    botanicalName: "Curcuma longa",
-    partUsed: "Rhizome",
-    rasa: "Tikta, Katu",
-    guna: "Laghu, Ruksha",
-    virya: "Ushna",
-    vipaka: "Katu",
-    dosha: "Kapha · Decreases, Vata · Decreases",
-    dhatu: "Rakta, Mamsa",
-    importantKarma: "Kaphaghna, Varnya",
-    majorDiseases:
-      "Kushta, skin disorders, Kapha disorders",
-    status: "Verified",
-    visualColor: "#a4af96",
-  },
-
-  {
-    id: "HERB_REC_0010",
-    englishName: "Ativisha",
-    botanicalName: "Aconitum heterophyllum",
-    partUsed: "Root",
-    rasa: "Katu, Tikta",
-    guna: "Laghu, Ruksha",
-    virya: "Ushna",
-    vipaka: "Katu",
-    dosha: "Kapha · Decreases",
-    dhatu: "Rasa",
-    importantKarma: "Deepana, Pachana",
-    majorDiseases:
-      "Grahani, Vishamjwara, Atisara, Kasa",
-    status: "Verified",
-    visualColor: "#b0b99f",
-  },
-]
-
-
-/* =========================================
-   SIMPLE SEARCH DEMO MAPPING
-
-   Temporary frontend-only semantic mapping.
-   Backend/RAG will replace this later.
-   ========================================= */
-
-const simpleSearchMappings = {
-  congestion: [
-    "Tulsi",
-    "Yashtimadhu",
-  ],
-
-  respiratory: [
-    "Tulsi",
-    "Yashtimadhu",
-  ],
-
-  cough: [
-    "Tulsi",
-    "Yashtimadhu",
-    "Ativisha",
-  ],
-
-  kasa: [
-    "Tulsi",
-    "Yashtimadhu",
-    "Ativisha",
-  ],
-
-  shwasa: [
-    "Tulsi",
-    "Yashtimadhu",
-  ],
-
+const searchTermMappings = {
+  fever: ["fever", "jwar", "jwara", "jwaraghna"],
+  cough: ["cough", "kaas", "kasa", "kasahar"],
+  cold: ["cold", "shwas", "shwasa", "pranavaha"],
+  breathing: ["breathing", "shwas", "shwasa", "pranavaha"],
+  respiratory: ["respiratory", "shwas", "shwasa", "pranavaha"],
   digestion: [
-    "Haritaki",
-    "Ativisha",
-    "Guduchi",
+    "digestion",
+    "digestive",
+    "agnimandya",
+    "ajeerna",
+    "aruchi",
+    "deepana",
+    "pachana",
   ],
-
   digestive: [
-    "Haritaki",
-    "Ativisha",
-    "Guduchi",
+    "digestion",
+    "digestive",
+    "agnimandya",
+    "ajeerna",
+    "aruchi",
+    "deepana",
+    "pachana",
   ],
-
-  "after meals": [
-    "Haritaki",
-    "Ativisha",
-    "Guduchi",
-  ],
-
-  energy: [
-    "Ashwagandha",
-    "Shatavari",
-    "Yashtimadhu",
-  ],
-
-  weakness: [
-    "Ashwagandha",
-    "Shatavari",
-    "Yashtimadhu",
-  ],
-
-  sleep: [
-    "Ashwagandha",
-  ],
-
-  stress: [
-    "Ashwagandha",
-  ],
-
-  skin: [
-    "Neem",
-    "Turmeric",
-  ],
-
-  kushta: [
-    "Neem",
-    "Turmeric",
-  ],
-
-  fever: [
-    "Guduchi",
-    "Ativisha",
-  ],
-
-  jvara: [
-    "Guduchi",
-    "Ativisha",
-  ],
+  weakness: ["weakness", "daurbalya", "balya", "rasayana"],
+  skin: ["skin", "kushta", "kustha", "kandughna", "kushtaghna"],
+  itching: ["itching", "kandu", "kandughna"],
+  worms: ["worms", "krimi", "krimirog", "krimighna"],
+  inflammation: ["inflammation", "shotha", "shothahara"],
+  urine: ["urine", "mutra", "mutrala", "mutravaha"],
+  feverish: ["feverish", "jwar", "jwara", "jwaraghna"],
+  stress: ["stress", "medhya", "rasayana"],
+  energy: ["energy", "balya", "rasayana", "daurbalya"],
 }
 
 
 /* =========================================
-   NORMALIZE DATA FOR HERB RESULT CARD
+   PREPARE HERB FOR RESULT CARD
    ========================================= */
 
 function prepareHerbForCard(herb, match) {
@@ -305,65 +58,276 @@ function prepareHerbForCard(herb, match) {
     ...herb,
 
     name: herb.englishName,
-
     scientificName: herb.botanicalName,
 
     match,
 
-    tags: [
-      herb.rasa,
-      herb.guna,
-      herb.virya,
-      herb.vipaka,
-      herb.importantKarma,
-    ].filter(Boolean),
+    status: herb.verificationStatus,
 
-    description: `Part used: ${herb.partUsed}. Major indications: ${herb.majorDiseases}.`,
+    description: `Part used: ${
+      herb.partUsed || "Not specified"
+    }. Indications: ${
+      Array.isArray(herb.indications)
+        ? herb.indications.join(", ")
+        : herb.indications || "Not specified"
+    }.`,
   }
 }
 
 
 /* =========================================
-   CALCULATE SIMPLE SEARCH DEMO SCORE
+   GET ALL SEARCHABLE HERB DATA
    ========================================= */
 
-function getSimpleSearchScore(herb, query) {
-  const normalizedQuery = query.toLowerCase()
+function getSearchableValues(herb) {
+  const values = []
 
-  let score = 0
-
-  const herbName = herb.englishName.toLowerCase()
-  const searchableText = [
+  values.push(
     herb.englishName,
     herb.botanicalName,
-    herb.rasa,
-    herb.guna,
-    herb.virya,
-    herb.vipaka,
-    herb.importantKarma,
-    herb.majorDiseases,
     herb.partUsed,
-  ]
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase()
+    herb.prabhava
+  )
 
-  if (searchableText.includes(normalizedQuery)) {
-    score += 55
+  if (Array.isArray(herb.regionalNames)) {
+    values.push(...herb.regionalNames)
   }
 
-  Object.entries(simpleSearchMappings).forEach(
-    ([keyword, herbs]) => {
-      if (normalizedQuery.includes(keyword)) {
-        if (herbs.includes(herb.englishName)) {
-          score += 30
+  if (Array.isArray(herb.rasa)) {
+    values.push(...herb.rasa)
+  }
+
+  if (Array.isArray(herb.guna)) {
+    values.push(...herb.guna)
+  }
+
+  values.push(herb.virya)
+  values.push(herb.vipaka)
+
+  if (
+    herb.dosha &&
+    typeof herb.dosha === "object"
+  ) {
+    Object.entries(herb.dosha).forEach(
+      ([dosha, action]) => {
+        if (action) {
+          values.push(dosha)
+          values.push(action)
+          values.push(`${dosha} ${action}`)
         }
+      }
+    )
+  }
+
+  if (Array.isArray(herb.dhatu)) {
+    values.push(...herb.dhatu)
+  }
+
+  if (Array.isArray(herb.mala)) {
+    values.push(...herb.mala)
+  }
+
+  if (Array.isArray(herb.srotas)) {
+    values.push(...herb.srotas)
+  }
+
+  if (Array.isArray(herb.avayava)) {
+    values.push(...herb.avayava)
+  }
+
+  if (Array.isArray(herb.karma)) {
+    values.push(...herb.karma)
+  }
+
+  if (Array.isArray(herb.indications)) {
+    values.push(...herb.indications)
+  }
+
+  return values
+    .filter(
+      (value) =>
+        value !== null &&
+        value !== undefined &&
+        value !== ""
+    )
+    .map((value) =>
+      String(value).toLowerCase().trim()
+    )
+}
+
+
+/* =========================================
+   NORMALIZE SEARCH QUERY
+   ========================================= */
+
+function normalizeQuery(query) {
+  return query
+    .toLowerCase()
+    .trim()
+    .replace(/[.,!?]/g, " ")
+    .replace(/\s+/g, " ")
+}
+
+
+/* =========================================
+   GET SEARCH TERMS
+   ========================================= */
+
+function getSearchTerms(query) {
+  const normalizedQuery = normalizeQuery(query)
+
+  const terms = new Set()
+
+  terms.add(normalizedQuery)
+
+  normalizedQuery
+    .split(" ")
+    .filter(Boolean)
+    .forEach((word) => {
+      terms.add(word)
+    })
+
+  Object.entries(searchTermMappings).forEach(
+    ([keyword, mappedTerms]) => {
+      if (normalizedQuery.includes(keyword)) {
+        mappedTerms.forEach((term) => {
+          terms.add(term.toLowerCase())
+        })
       }
     }
   )
 
-  if (herbName.includes(normalizedQuery)) {
-    score += 20
+  return [...terms]
+}
+
+
+/* =========================================
+   SIMPLE SEARCH SCORE
+   ========================================= */
+
+function getSimpleSearchScore(herb, query) {
+  const normalizedQuery = normalizeQuery(query)
+
+  if (!normalizedQuery) {
+    return 0
+  }
+
+  const searchableValues =
+    getSearchableValues(herb)
+
+  const searchableText =
+    searchableValues.join(" ")
+
+  const searchTerms =
+    getSearchTerms(normalizedQuery)
+
+  let score = 0
+
+  const herbName =
+    String(
+      herb.englishName || ""
+    ).toLowerCase()
+
+  if (herbName === normalizedQuery) {
+    score += 100
+  }
+
+  const botanicalName =
+    String(
+      herb.botanicalName || ""
+    ).toLowerCase()
+
+  if (botanicalName === normalizedQuery) {
+    score += 95
+  }
+
+  const regionalNames =
+    Array.isArray(herb.regionalNames)
+      ? herb.regionalNames.map((name) =>
+          String(name).toLowerCase()
+        )
+      : []
+
+  if (
+    regionalNames.some(
+      (name) => name === normalizedQuery
+    )
+  ) {
+    score += 95
+  }
+
+  if (
+    searchableText.includes(normalizedQuery)
+  ) {
+    score += 60
+  }
+
+  searchTerms.forEach((term) => {
+    if (!term) {
+      return
+    }
+
+    if (
+      searchableValues.some(
+        (value) => value === term
+      )
+    ) {
+      score += 35
+      return
+    }
+
+    if (
+      searchableValues.some(
+        (value) => value.includes(term)
+      )
+    ) {
+      score += 20
+      return
+    }
+
+    if (
+      searchableText.includes(term)
+    ) {
+      score += 10
+    }
+  })
+
+  if (Array.isArray(herb.indications)) {
+    herb.indications.forEach(
+      (indication) => {
+        const normalizedIndication =
+          String(indication).toLowerCase()
+
+        searchTerms.forEach(
+          (term) => {
+            if (
+              normalizedIndication.includes(term)
+            ) {
+              score += 25
+            }
+          }
+        )
+      }
+    )
+  }
+
+  if (Array.isArray(herb.karma)) {
+    herb.karma.forEach(
+      (karma) => {
+        const normalizedKarma =
+          String(karma).toLowerCase()
+
+        searchTerms.forEach(
+          (term) => {
+            if (
+              normalizedKarma.includes(term)
+            ) {
+              score += 15
+            }
+          }
+        )
+      }
+    )
   }
 
   return Math.min(score, 98)
@@ -371,68 +335,126 @@ function getSimpleSearchScore(herb, query) {
 
 
 /* =========================================
-   CALCULATE DETAILED SEARCH SCORE
+   DETAILED SEARCH SCORE
    ========================================= */
 
-function getDetailedSearchScore(herb, selectedParameters) {
+function getDetailedSearchScore(
+  herb,
+  selectedParameters
+) {
   let totalSelections = 0
   let matchedSelections = 0
 
-  Object.entries(selectedParameters).forEach(
+  Object.entries(
+    selectedParameters
+  ).forEach(
     ([parameter, options]) => {
       options.forEach((option) => {
         totalSelections += 1
 
-        let herbValue = ""
+        let herbValues = []
 
         switch (parameter) {
           case "Rasa":
-            herbValue = herb.rasa
+            herbValues =
+              Array.isArray(herb.rasa)
+                ? herb.rasa
+                : []
             break
 
           case "Guna":
-            herbValue = herb.guna
+            herbValues =
+              Array.isArray(herb.guna)
+                ? herb.guna
+                : []
             break
 
           case "Virya":
-            herbValue = herb.virya
+            herbValues =
+              herb.virya
+                ? [herb.virya]
+                : []
             break
 
           case "Vipaka":
-            herbValue = herb.vipaka
+            herbValues =
+              herb.vipaka
+                ? [herb.vipaka]
+                : []
             break
 
           case "Dosha":
-            herbValue = herb.dosha
+            if (
+              herb.dosha &&
+              typeof herb.dosha === "object"
+            ) {
+              Object.entries(
+                herb.dosha
+              ).forEach(
+                ([dosha, action]) => {
+                  if (action) {
+                    herbValues.push(
+                      `${dosha} · ${action}`
+                    )
+                  }
+                }
+              )
+            }
             break
 
           case "Dhatu":
-            herbValue = herb.dhatu
-            break
-
-          case "Karma":
-            herbValue = herb.importantKarma
-            break
-
-          case "Major Diseases / Indications":
-            herbValue = herb.majorDiseases
+            herbValues =
+              Array.isArray(herb.dhatu)
+                ? herb.dhatu
+                : []
             break
 
           case "Mala":
+            herbValues =
+              Array.isArray(herb.mala)
+                ? herb.mala
+                : []
+            break
+
           case "Srotas":
-            herbValue = ""
+            herbValues =
+              Array.isArray(herb.srotas)
+                ? herb.srotas
+                : []
+            break
+
+          case "Karma":
+            herbValues =
+              Array.isArray(herb.karma)
+                ? herb.karma
+                : []
+            break
+
+          case "Major Diseases / Indications":
+            herbValues =
+              Array.isArray(herb.indications)
+                ? herb.indications
+                : []
             break
 
           default:
-            herbValue = ""
+            herbValues = []
         }
 
-        if (
-          herbValue &&
-          herbValue
+        const normalizedOption =
+          String(option)
             .toLowerCase()
-            .includes(option.toLowerCase().split(" · ")[0])
-        ) {
+            .trim()
+
+        const matched =
+          herbValues.some(
+            (value) =>
+              String(value)
+                .toLowerCase()
+                .includes(normalizedOption)
+          )
+
+        if (matched) {
           matchedSelections += 1
         }
       })
@@ -443,10 +465,132 @@ function getDetailedSearchScore(herb, selectedParameters) {
     return 0
   }
 
-  const percentage =
-    (matchedSelections / totalSelections) * 100
+  return Math.round(
+    (matchedSelections /
+      totalSelections) *
+      100
+  )
+}
 
-  return Math.round(percentage)
+
+/* =========================================
+   FILTER HELPERS
+   ========================================= */
+
+function getUniqueValues(field) {
+  const values = new Set()
+
+  herbDataset.forEach((herb) => {
+    const fieldValue = herb[field]
+
+    if (Array.isArray(fieldValue)) {
+      fieldValue.forEach((value) => {
+        if (value) {
+          values.add(String(value))
+        }
+      })
+    } else if (
+      fieldValue !== null &&
+      fieldValue !== undefined &&
+      fieldValue !== ""
+    ) {
+      values.add(String(fieldValue))
+    }
+  })
+
+  return [...values].sort()
+}
+
+
+function getDoshaValues() {
+  const values = new Set()
+
+  herbDataset.forEach((herb) => {
+    if (
+      herb.dosha &&
+      typeof herb.dosha === "object"
+    ) {
+      Object.keys(herb.dosha).forEach(
+        (dosha) => {
+          values.add(dosha)
+        }
+      )
+    }
+  })
+
+  return [...values].sort()
+}
+
+
+/* =========================================
+   CHECK FILTER
+   ========================================= */
+
+function herbMatchesFilter(
+  herb,
+  filterType,
+  selectedValue
+) {
+  if (!selectedValue) {
+    return true
+  }
+
+  if (filterType === "status") {
+    return (
+      String(
+        herb.verificationStatus || ""
+      ).toLowerCase() ===
+      selectedValue.toLowerCase()
+    )
+  }
+
+  if (filterType === "virya") {
+    return (
+      String(
+        herb.virya || ""
+      ).toLowerCase() ===
+      selectedValue.toLowerCase()
+    )
+  }
+
+  if (filterType === "rasa") {
+    return (
+      Array.isArray(herb.rasa) &&
+      herb.rasa.some(
+        (value) =>
+          String(value).toLowerCase() ===
+          selectedValue.toLowerCase()
+      )
+    )
+  }
+
+  if (filterType === "guna") {
+    return (
+      Array.isArray(herb.guna) &&
+      herb.guna.some(
+        (value) =>
+          String(value).toLowerCase() ===
+          selectedValue.toLowerCase()
+      )
+    )
+  }
+
+  if (filterType === "dosha") {
+    if (
+      !herb.dosha ||
+      typeof herb.dosha !== "object"
+    ) {
+      return false
+    }
+
+    return Object.keys(herb.dosha)
+      .map((value) => value.toLowerCase())
+      .includes(
+        selectedValue.toLowerCase()
+      )
+  }
+
+  return true
 }
 
 
@@ -455,112 +599,296 @@ function getDetailedSearchScore(herb, selectedParameters) {
    ========================================= */
 
 function SearchResults() {
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] =
+    useSearchParams()
 
   const query =
-    searchParams.get("query")?.trim() || ""
+    searchParams
+      .get("query")
+      ?.trim() || ""
 
   const mode =
-    searchParams.get("mode") || "simple"
+    searchParams.get("mode") ||
+    "simple"
 
   const parametersString =
     searchParams.get("parameters") || ""
+
+  const [showFilters, setShowFilters] =
+    useState(false)
+
+  const [showSort, setShowSort] =
+    useState(false)
+
+  const [sortOption, setSortOption] =
+    useState("best")
+
+  const [filters, setFilters] =
+    useState({
+      status: "",
+      virya: "",
+      rasa: "",
+      guna: "",
+      dosha: "",
+    })
+
+    const savedSettings = JSON.parse(
+      localStorage.getItem("herbSettings") || "null"
+    )
+    
+    const resultsPerPage = Number(
+      savedSettings?.resultsPerPage || 20
+    )
 
 
   /* =========================================
      READ DETAILED SEARCH PARAMETERS
      ========================================= */
 
-  const selectedParameters = useMemo(() => {
-    if (!parametersString) {
-      return {}
-    }
+  const selectedParameters =
+    useMemo(() => {
+      if (!parametersString) {
+        return {}
+      }
 
-    try {
-      return JSON.parse(
-        decodeURIComponent(parametersString)
-      )
-    } catch (error) {
-      console.error(
-        "Unable to read detailed search parameters:",
-        error
-      )
+      try {
+        return JSON.parse(
+          decodeURIComponent(
+            parametersString
+          )
+        )
+      } catch (error) {
+        console.error(
+          "Unable to read detailed search parameters:",
+          error
+        )
 
-      return {}
-    }
-  }, [parametersString])
+        return {}
+      }
+    }, [parametersString])
 
 
   /* =========================================
-     CREATE DEMO RESULTS
+     CREATE BASE RESULTS
      ========================================= */
 
-  const herbResults = useMemo(() => {
-    let results = []
+  const baseResults =
+    useMemo(() => {
+      let results = []
 
-    /* -----------------------------------------
-       DETAILED SEARCH
-       ----------------------------------------- */
-
-    if (mode === "detailed") {
-      const hasParameters =
-        Object.keys(selectedParameters).length > 0
-
-      if (!hasParameters) {
-        return []
-      }
-
-      results = herbDataset
-        .map((herb) => {
-          const match = getDetailedSearchScore(
-            herb,
+      if (mode === "detailed") {
+        const hasParameters =
+          Object.keys(
             selectedParameters
-          )
+          ).length > 0
 
-          return {
-            herb,
-            match,
-          }
-        })
-        .filter((item) => item.match > 0)
-        .sort((a, b) => b.match - a.match)
-    }
+        if (!hasParameters) {
+          return []
+        }
 
-    /* -----------------------------------------
-       SIMPLE SEARCH
-       ----------------------------------------- */
+        results =
+          herbDataset
+            .map((herb) => {
+              const match =
+                getDetailedSearchScore(
+                  herb,
+                  selectedParameters
+                )
 
-    else {
-      if (!query) {
-        results = herbDataset.map((herb) => ({
-          herb,
-          match: 50,
-        }))
+              return {
+                herb,
+                match,
+              }
+            })
+            .filter(
+              (item) =>
+                item.match > 0
+            )
+            .sort(
+              (a, b) =>
+                b.match - a.match
+            )
       } else {
-        results = herbDataset
-          .map((herb) => ({
-            herb,
-            match: getSimpleSearchScore(
-              herb,
-              query
-            ),
-          }))
-          .filter((item) => item.match > 0)
-          .sort((a, b) => b.match - a.match)
-      }
-    }
+        if (!query) {
+          results =
+            herbDataset.map(
+              (herb) => ({
+                herb,
+                match: 50,
+              })
+            )
+        } else {
+          results =
+            herbDataset
+              .map((herb) => {
+                const match =
+                  getSimpleSearchScore(
+                    herb,
+                    query
+                  )
 
-    return results.map((item) =>
-      prepareHerbForCard(
-        item.herb,
-        item.match
+                return {
+                  herb,
+                  match,
+                }
+              })
+              .filter(
+                (item) =>
+                  item.match > 0
+              )
+              .sort(
+                (a, b) =>
+                  b.match - a.match
+              )
+        }
+      }
+
+      return results.map(
+        (item) =>
+          prepareHerbForCard(
+            item.herb,
+            item.match
+          )
       )
-    )
-  }, [
-    mode,
-    query,
-    selectedParameters,
-  ])
+    }, [
+      mode,
+      query,
+      selectedParameters,
+    ])
+
+
+  /* =========================================
+     APPLY FILTERS + SORT
+     ========================================= */
+
+  const herbResults =
+    useMemo(() => {
+      let results =
+        [...baseResults]
+
+      Object.entries(filters).forEach(
+        ([filterType, selectedValue]) => {
+          if (!selectedValue) {
+            return
+          }
+
+          results =
+            results.filter(
+              (herb) =>
+                herbMatchesFilter(
+                  herb,
+                  filterType,
+                  selectedValue
+                )
+            )
+        }
+      )
+
+      if (sortOption === "best") {
+        results.sort(
+          (a, b) =>
+            (b.match || 0) -
+            (a.match || 0)
+        )
+      }
+
+      if (sortOption === "nameAsc") {
+        results.sort((a, b) =>
+          String(a.englishName || "")
+            .localeCompare(
+              String(b.englishName || "")
+            )
+        )
+      }
+
+      if (sortOption === "nameDesc") {
+        results.sort((a, b) =>
+          String(b.englishName || "")
+            .localeCompare(
+              String(a.englishName || "")
+            )
+        )
+      }
+
+      return results.slice(0, resultsPerPage)
+    }, [
+      baseResults,
+      filters,
+      sortOption,
+    ])
+
+
+  /* =========================================
+     FILTER OPTIONS
+     ========================================= */
+
+  const filterOptions = {
+    status: getUniqueValues(
+      "verificationStatus"
+    ),
+
+    virya: getUniqueValues(
+      "virya"
+    ),
+
+    rasa: getUniqueValues(
+      "rasa"
+    ),
+
+    guna: getUniqueValues(
+      "guna"
+    ),
+
+    dosha: getDoshaValues(),
+  }
+
+
+  /* =========================================
+     HANDLERS
+     ========================================= */
+
+  const updateFilter = (
+    filterType,
+    value
+  ) => {
+    setFilters((previous) => ({
+      ...previous,
+      [filterType]: value,
+    }))
+  }
+
+
+  const clearFilters = () => {
+    setFilters({
+      status: "",
+      virya: "",
+      rasa: "",
+      guna: "",
+      dosha: "",
+    })
+  }
+
+
+  const handleSort = (option) => {
+    setSortOption(option)
+    setShowSort(false)
+  }
+
+
+  const handleSuggestion = (
+    suggestion
+  ) => {
+    setSearchParams({
+      query: suggestion,
+      mode: "simple",
+    })
+  }
+
+
+  const activeFilterCount =
+    Object.values(filters).filter(
+      Boolean
+    ).length
 
 
   return (
@@ -575,6 +903,7 @@ function SearchResults() {
         <main className="search-results-page">
 
           <div className="search-results-content">
+
 
             {/* =========================================
                 RESULTS HEADER
@@ -605,21 +934,309 @@ function SearchResults() {
 
               <div className="results-header-actions">
 
-                <button
-                  className="results-filter-button"
-                  type="button"
-                >
-                  <span>☷</span>
-                  Filters
-                </button>
+                {/* FILTER BUTTON */}
 
-                <button
-                  className="results-sort-button"
-                  type="button"
-                >
-                  Best match
-                  <span>⌄</span>
-                </button>
+                <div className="results-control-wrapper">
+
+                  <button
+                    className={`results-filter-button ${
+                      showFilters
+                        ? "control-active"
+                        : ""
+                    }`}
+                    type="button"
+                    onClick={() => {
+                      setShowFilters(
+                        !showFilters
+                      )
+                      setShowSort(false)
+                    }}
+                  >
+                    <span>☷</span>
+                    Filters
+
+                    {activeFilterCount >
+                      0 && (
+                      <b>
+                        {activeFilterCount}
+                      </b>
+                    )}
+                  </button>
+
+
+                  {showFilters && (
+                    <div className="results-filter-panel">
+
+                      <div className="filter-panel-header">
+
+                        <strong>
+                          Filter results
+                        </strong>
+
+                        <button
+                          type="button"
+                          onClick={
+                            clearFilters
+                          }
+                        >
+                          Clear
+                        </button>
+
+                      </div>
+
+
+                      <label>
+                        Verification status
+
+                        <select
+                          value={
+                            filters.status
+                          }
+                          onChange={(event) =>
+                            updateFilter(
+                              "status",
+                              event.target.value
+                            )
+                          }
+                        >
+                          <option value="">
+                            All statuses
+                          </option>
+
+                          {filterOptions.status.map(
+                            (value) => (
+                              <option
+                                key={value}
+                                value={value}
+                              >
+                                {value}
+                              </option>
+                            )
+                          )}
+                        </select>
+                      </label>
+
+
+                      <label>
+                        Virya
+
+                        <select
+                          value={
+                            filters.virya
+                          }
+                          onChange={(event) =>
+                            updateFilter(
+                              "virya",
+                              event.target.value
+                            )
+                          }
+                        >
+                          <option value="">
+                            All Virya
+                          </option>
+
+                          {filterOptions.virya.map(
+                            (value) => (
+                              <option
+                                key={value}
+                                value={value}
+                              >
+                                {value}
+                              </option>
+                            )
+                          )}
+                        </select>
+                      </label>
+
+
+                      <label>
+                        Rasa
+
+                        <select
+                          value={
+                            filters.rasa
+                          }
+                          onChange={(event) =>
+                            updateFilter(
+                              "rasa",
+                              event.target.value
+                            )
+                          }
+                        >
+                          <option value="">
+                            All Rasa
+                          </option>
+
+                          {filterOptions.rasa.map(
+                            (value) => (
+                              <option
+                                key={value}
+                                value={value}
+                              >
+                                {value}
+                              </option>
+                            )
+                          )}
+                        </select>
+                      </label>
+
+
+                      <label>
+                        Guna
+
+                        <select
+                          value={
+                            filters.guna
+                          }
+                          onChange={(event) =>
+                            updateFilter(
+                              "guna",
+                              event.target.value
+                            )
+                          }
+                        >
+                          <option value="">
+                            All Guna
+                          </option>
+
+                          {filterOptions.guna.map(
+                            (value) => (
+                              <option
+                                key={value}
+                                value={value}
+                              >
+                                {value}
+                              </option>
+                            )
+                          )}
+                        </select>
+                      </label>
+
+
+                      <label>
+                        Dosha
+
+                        <select
+                          value={
+                            filters.dosha
+                          }
+                          onChange={(event) =>
+                            updateFilter(
+                              "dosha",
+                              event.target.value
+                            )
+                          }
+                        >
+                          <option value="">
+                            All Dosha
+                          </option>
+
+                          {filterOptions.dosha.map(
+                            (value) => (
+                              <option
+                                key={value}
+                                value={value}
+                              >
+                                {value}
+                              </option>
+                            )
+                          )}
+                        </select>
+                      </label>
+
+                    </div>
+                  )}
+
+                </div>
+
+
+                {/* SORT BUTTON */}
+
+                <div className="results-control-wrapper">
+
+                  <button
+                    className={`results-sort-button ${
+                      showSort
+                        ? "control-active"
+                        : ""
+                    }`}
+                    type="button"
+                    onClick={() => {
+                      setShowSort(
+                        !showSort
+                      )
+                      setShowFilters(false)
+                    }}
+                  >
+                    {sortOption === "best"
+                      ? "Best match"
+                      : sortOption ===
+                        "nameAsc"
+                      ? "Name A–Z"
+                      : "Name Z–A"}
+
+                    <span>⌄</span>
+                  </button>
+
+
+                  {showSort && (
+                    <div className="results-sort-menu">
+
+                      <button
+                        type="button"
+                        className={
+                          sortOption ===
+                          "best"
+                            ? "selected"
+                            : ""
+                        }
+                        onClick={() =>
+                          handleSort(
+                            "best"
+                          )
+                        }
+                      >
+                        Best match
+                      </button>
+
+                      <button
+                        type="button"
+                        className={
+                          sortOption ===
+                          "nameAsc"
+                            ? "selected"
+                            : ""
+                        }
+                        onClick={() =>
+                          handleSort(
+                            "nameAsc"
+                          )
+                        }
+                      >
+                        Name A–Z
+                      </button>
+
+                      <button
+                        type="button"
+                        className={
+                          sortOption ===
+                          "nameDesc"
+                            ? "selected"
+                            : ""
+                        }
+                        onClick={() =>
+                          handleSort(
+                            "nameDesc"
+                          )
+                        }
+                      >
+                        Name Z–A
+                      </button>
+
+                    </div>
+                  )}
+
+                </div>
 
               </div>
 
@@ -632,22 +1249,26 @@ function SearchResults() {
 
             <div className="results-context">
 
-              {mode === "simple" && query && (
-                <div className="results-query">
+              {mode === "simple" &&
+                query && (
 
-                  <span className="context-label">
-                    SEARCH
-                  </span>
+                  <div className="results-query">
 
-                  <strong>
-                    "{query}"
-                  </strong>
+                    <span className="context-label">
+                      SEARCH
+                    </span>
 
-                </div>
-              )}
+                    <strong>
+                      "{query}"
+                    </strong>
+
+                  </div>
+
+                )}
 
 
               {mode === "detailed" && (
+
                 <div className="results-query">
 
                   <span className="context-label">
@@ -659,7 +1280,9 @@ function SearchResults() {
                   </strong>
 
                 </div>
+
               )}
+
 
               <div className="results-dataset-status">
                 ✓ Structured Ayurvedic dataset
@@ -669,7 +1292,45 @@ function SearchResults() {
 
 
             {/* =========================================
-                NO RESULTS
+                ACTIVE FILTERS
+                ========================================= */}
+
+            {activeFilterCount > 0 && (
+
+              <div className="active-filter-bar">
+
+                <span>
+                  Active filters:
+                </span>
+
+                {Object.entries(filters)
+                  .filter(
+                    ([, value]) => value
+                  )
+                  .map(
+                    ([key, value]) => (
+                      <button
+                        key={key}
+                        type="button"
+                        onClick={() =>
+                          updateFilter(
+                            key,
+                            ""
+                          )
+                        }
+                      >
+                        {key}: {value} ×
+                      </button>
+                    )
+                  )}
+
+              </div>
+
+            )}
+
+
+            {/* =========================================
+                NO SEARCH RESULTS
                 ========================================= */}
 
             {herbResults.length === 0 && (
@@ -689,30 +1350,55 @@ function SearchResults() {
                 </h2>
 
                 <p className="no-results-description">
-                  Try using a broader symptom description,
-                  Ayurvedic quality, indication, or another
-                  clinical parameter.
+                  Try using a broader symptom
+                  description, Ayurvedic quality,
+                  indication, or another clinical
+                  parameter.
                 </p>
 
                 <div className="no-results-suggestions">
 
-                  <span>Try:</span>
+                  <span>
+                    Try:
+                  </span>
 
-                  <button type="button">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleSuggestion(
+                        "digestive discomfort"
+                      )
+                    }
+                  >
                     digestive discomfort
                   </button>
 
-                  <button type="button">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleSuggestion(
+                        "seasonal congestion"
+                      )
+                    }
+                  >
                     seasonal congestion
                   </button>
 
-                  <button type="button">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleSuggestion(
+                        "low energy"
+                      )
+                    }
+                  >
                     low energy
                   </button>
 
                 </div>
 
               </section>
+
             )}
 
 
@@ -724,14 +1410,14 @@ function SearchResults() {
 
               <section className="herb-results-list">
 
-                {herbResults.map((herb) => (
-
-                  <HerbResultCard
-                    key={herb.id}
-                    herb={herb}
-                  />
-
-                ))}
+                {herbResults.map(
+                  (herb) => (
+                    <HerbResultCard
+                      key={herb.id}
+                      herb={herb}
+                    />
+                  )
+                )}
 
               </section>
 
@@ -746,5 +1432,6 @@ function SearchResults() {
     </div>
   )
 }
+
 
 export default SearchResults

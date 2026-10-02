@@ -625,6 +625,7 @@
   position: relative;
   min-height: 190px;
   padding: 28px 48px 26px 26px;
+  overflow: hidden;
   box-sizing: border-box;
   background: #ffffff;
   border: 1px solid #d9ded7;
@@ -640,6 +641,115 @@
   box-shadow:
     0 5px 18px rgba(45, 76, 58, 0.07);
   transform: translateY(-2px);
+}
+
+/* =========================================
+   SEARCH MODE HOVER INFORMATION
+========================================= */
+
+.search-mode-hover-info {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  min-height: 100%;
+  padding: 24px 48px 22px 26px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  background: rgba(255, 255, 255, 0.97);
+
+  border-radius: 10px;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(8px);
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
+
+  pointer-events: none;
+
+  z-index: 2;
+}
+
+
+/* Show information when card is hovered */
+
+.search-mode-card:hover .search-mode-hover-info,
+.search-mode-card:focus-visible .search-mode-hover-info {
+  opacity: 1;
+  visibility: visible;
+
+  transform: translateY(0);
+}
+
+
+/* Hover information label */
+
+.hover-info-label {
+  margin-bottom: 9px;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 1.3px;
+
+  color: #66806f;
+}
+
+
+/* Hover information text */
+
+.search-mode-hover-info p {
+  max-width: 430px;
+
+  margin: 0;
+
+  font-size: 13px;
+  line-height: 1.65;
+
+  color: #52665b;
+}
+
+
+/* Small hint at bottom */
+
+.hover-info-hint {
+  margin-top: 13px;
+
+  font-size: 10px;
+
+  color: #9aa59e;
+}
+
+
+/* Keep arrow above hover information */
+
+.search-mode-card .search-mode-arrow {
+  z-index: 3;
+}
+
+
+/* =========================================
+   HOVER INFORMATION — DETAILED SEARCH
+========================================= */
+
+.search-mode-card:nth-child(2) .search-mode-hover-info {
+  background: #fffdf8;
+}
+
+.search-mode-card:nth-child(2) .hover-info-label {
+  color: #987a42;
 }
 
 /* CARD ICON */
@@ -1108,6 +1218,7 @@
   }
   .search-mode-card {
     min-height: 175px;
+    overflow: hidden;
   } }
 
 @media (max-width: 600px) {
@@ -1116,6 +1227,7 @@
   }
   .search-mode-card {
     padding: 24px 45px 24px 22px;
+    overflow: hidden;
   } }
 
  /* =========================================
@@ -1167,4 +1279,20 @@
 .dashboard-insights > * {
   min-width: 0;
   height: 100%;
+}
+
+.navbar-profile-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.sidebar-profile-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
 }

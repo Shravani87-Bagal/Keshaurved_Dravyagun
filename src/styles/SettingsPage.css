@@ -770,3 +770,153 @@
     width: 100%;
   }
 }
+/* EMAIL ACTION */
+
+.settings-account-action {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.settings-account-action .settings-value-box {
+  min-width: 180px;
+}
+
+
+/* SAVE CHANGES */
+
+.settings-save-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 1px solid #e1e6df;
+}
+
+.settings-save-button {
+  min-height: 40px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 8px;
+  background: #28664f;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.settings-save-button:hover {
+  background: #234f3a;
+  transform: translateY(-1px);
+}
+
+.settings-save-message {
+  margin: 0;
+  font-size: 12px;
+  color: #347457;
+}
+
+/* =========================================
+   SETTINGS MAIN PANEL
+   ========================================= */
+
+   .settings-modal-main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  
+  /* =========================================
+     SETTINGS SCROLL AREA
+     ========================================= */
+  
+  .settings-scroll-area {
+    flex: 1;
+    min-height: 0;
+  
+    overflow-y: auto;
+    overflow-x: hidden;
+  
+    padding: 40px 44px 32px;
+  }
+  
+  
+  /* Custom scrollbar */
+  
+  .settings-scroll-area::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  .settings-scroll-area::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .settings-scroll-area::-webkit-scrollbar-thumb {
+    background: #d5ddd2;
+    border-radius: 10px;
+  }
+  
+  .settings-scroll-area::-webkit-scrollbar-thumb:hover {
+    background: #bcc8b9;
+  }
+  
+  
+  /* =========================================
+     FIXED SAVE FOOTER
+     ========================================= */
+  
+  .settings-save-footer {
+    flex-shrink: 0;
+  
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  
+    padding: 16px 44px;
+  
+    background: #ffffff;
+  
+    border-top: 1px solid #e3e8e1;
+  }
+  
+  
+  /* =========================================
+     SAVE BUTTON
+     ========================================= */
+  
+  .settings-save-button {
+    border: none;
+  
+    padding: 11px 22px;
+  
+    border-radius: 9px;
+  
+    background: #3f633f;
+    color: #ffffff;
+  
+    font-size: 14px;
+    font-weight: 600;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.2s ease,
+      transform 0.15s ease;
+  }
+  
+  .settings-save-button:hover {
+    background: #345534;
+  }
+  
+  .settings-save-button:active {
+    transform: translateY(1px);
+  }

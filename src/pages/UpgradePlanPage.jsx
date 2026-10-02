@@ -9,6 +9,7 @@ import "../styles/UpgradePlanPage.css"
 
 function UpgradePlanPage() {
   const navigate = useNavigate()
+
   const [selectedPlan, setSelectedPlan] = useState("Free")
 
   const closeUpgrade = () => {
@@ -19,37 +20,73 @@ function UpgradePlanPage() {
     setSelectedPlan(plan)
   }
 
+  const handleContinue = () => {
+    if (selectedPlan === "Free") {
+      // Free plan → simply close the upgrade page
+      navigate("/doctor")
+      return
+    }
+
+    // Pro / Max → open payment page
+    navigate(`/payment?plan=${selectedPlan}`)
+  }
+
   return (
     <div className="settings-page-layout">
 
-      {/* Top Navbar */}
+      {/* TOP NAVBAR */}
       <DashboardNavbar />
 
       <div className="settings-page-body">
 
-        {/* Sidebar */}
+        {/* SIDEBAR */}
         <Sidebar />
 
         <main className="settings-page-content">
 
-          {/* Same overlay used by Settings and Language */}
           <div className="settings-overlay">
 
-            {/* Upgrade Modal */}
             <div className="upgrade-modal">
 
-              {/* Close button */}
-              <button
-                type="button"
-                className="settings-close-button"
-                onClick={closeUpgrade}
-                aria-label="Close upgrade plans"
-              >
-                ×
-              </button>
+              {/* =========================================
+                  TOP RIGHT ACTIONS
+                  ========================================= */}
+<div className="upgrade-top-actions">
+
+<div className="upgrade-selection-actions">
+
+  <span className="selected-plan-text">
+    Selected plan:{" "}
+    <strong>{selectedPlan}</strong>
+  </span>
+
+  <button
+    type="button"
+    className="continue-plan-button"
+    onClick={handleContinue}
+  >
+    Continue with {selectedPlan}
+    <span>→</span>
+  </button>
+
+</div>
+
+</div>
+
+<button
+type="button"
+className="settings-close-button"
+onClick={closeUpgrade}
+aria-label="Close upgrade plans"
+>
+×
+</button>
 
 
-              {/* Header */}
+              {/* =========================================
+                  HEADER
+                  ========================================= */}
+
               <div className="upgrade-header">
 
                 <p className="upgrade-label">
@@ -61,23 +98,34 @@ function UpgradePlanPage() {
                 </h1>
 
                 <p>
-                  Choose the plan that best fits your clinical research workflow.
+                  Choose the plan that best fits your clinical
+                  research workflow.
                 </p>
 
               </div>
 
 
-              {/* Plans */}
+              {/* =========================================
+                  PLANS
+                  ========================================= */}
+
               <div className="upgrade-plans">
 
 
-                {/* FREE */}
+                {/* =========================================
+                    FREE PLAN
+                    ========================================= */}
+
                 <div
-  className={`upgrade-plan-card ${
-    selectedPlan === "Free" ? "selected" : ""
-  }`}
-  onClick={() => handlePlanSelect("Free")}
->
+                  className={`upgrade-plan-card ${
+                    selectedPlan === "Free"
+                      ? "selected"
+                      : ""
+                  }`}
+                  onClick={() =>
+                    handlePlanSelect("Free")
+                  }
+                >
 
                   <h2>
                     Free
@@ -94,11 +142,12 @@ function UpgradePlanPage() {
                   <button
                     type="button"
                     className="upgrade-plan-button secondary"
-                    onClick={() =>
+                    onClick={(event) => {
+                      event.stopPropagation()
                       handlePlanSelect("Free")
-                    }
+                    }}
                   >
-                    Current plan
+                    Select Free plan
                   </button>
 
                   <div className="upgrade-divider"></div>
@@ -130,13 +179,21 @@ function UpgradePlanPage() {
                 </div>
 
 
-                {/* PRO */}
+                {/* =========================================
+                    PRO PLAN
+                    ========================================= */}
+
                 <div
-  className={`upgrade-plan-card featured ${
-    selectedPlan === "Pro" ? "selected" : ""
-  }`}
-  onClick={() => handlePlanSelect("Pro")}
->
+                  className={`upgrade-plan-card featured ${
+                    selectedPlan === "Pro"
+                      ? "selected"
+                      : ""
+                  }`}
+                  onClick={() =>
+                    handlePlanSelect("Pro")
+                  }
+                >
+
                   <div className="upgrade-plan-icon">
                     ✦
                   </div>
@@ -157,11 +214,12 @@ function UpgradePlanPage() {
                   <button
                     type="button"
                     className="upgrade-plan-button primary"
-                    onClick={() =>
+                    onClick={(event) => {
+                      event.stopPropagation()
                       handlePlanSelect("Pro")
-                    }
+                    }}
                   >
-                    Get Pro plan
+                    Select Pro plan
                   </button>
 
                   <div className="upgrade-divider"></div>
@@ -197,13 +255,20 @@ function UpgradePlanPage() {
                 </div>
 
 
-                {/* MAX */}
+                {/* =========================================
+                    MAX PLAN
+                    ========================================= */}
+
                 <div
-  className={`upgrade-plan-card ${
-    selectedPlan === "Max" ? "selected" : ""
-  }`}
-  onClick={() => handlePlanSelect("Max")}
->
+                  className={`upgrade-plan-card ${
+                    selectedPlan === "Max"
+                      ? "selected"
+                      : ""
+                  }`}
+                  onClick={() =>
+                    handlePlanSelect("Max")
+                  }
+                >
 
                   <h2>
                     Max
@@ -221,11 +286,12 @@ function UpgradePlanPage() {
                   <button
                     type="button"
                     className="upgrade-plan-button primary"
-                    onClick={() =>
+                    onClick={(event) => {
+                      event.stopPropagation()
                       handlePlanSelect("Max")
-                    }
+                    }}
                   >
-                    Get Max plan
+                    Select Max plan
                   </button>
 
                   <div className="upgrade-divider"></div>
@@ -263,9 +329,13 @@ function UpgradePlanPage() {
               </div>
 
 
-              {/* Footer */}
+              {/* =========================================
+                  FOOTER
+                  ========================================= */}
+
               <div className="upgrade-footer">
-                Plans and subscription features will be connected to the backend.
+                Plans and subscription features will be connected
+                to the backend.
               </div>
 
             </div>

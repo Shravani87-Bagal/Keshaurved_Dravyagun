@@ -522,3 +522,199 @@
       padding-right: 40px;
     }
   }
+
+  /* =========================================
+   AYURVEDIC CLINICAL CONTEXT
+   ========================================= */
+
+.simple-search-factors {
+  margin-top: 26px;
+
+  padding-top: 22px;
+
+  border-top: 1px solid #e1e6df;
+}
+
+
+/* =========================================
+   FACTORS HEADER
+   ========================================= */
+
+.simple-search-factors-header {
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: space-between;
+
+  gap: 25px;
+
+  margin-bottom: 15px;
+}
+
+
+.factors-label {
+  display: block;
+
+  margin-bottom: 5px;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.3px;
+
+  color: #789081;
+}
+
+
+.simple-search-factors-header h3 {
+  margin: 0;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  color: #274637;
+}
+
+
+.simple-search-factors-header p {
+  margin: 0;
+
+  max-width: 330px;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+
+  color: #7a8780;
+
+  text-align: right;
+}
+
+
+/* =========================================
+   FACTOR GRID
+   ========================================= */
+
+.simple-search-factors-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 10px;
+}
+
+
+/* =========================================
+   INDIVIDUAL FACTOR
+   ========================================= */
+
+.simple-search-factor {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+
+.simple-search-factor label {
+  font-size: 11px;
+
+  font-weight: 600;
+
+  color: #52665b;
+}
+
+
+/* =========================================
+   SELECT
+   ========================================= */
+
+.simple-search-factor select {
+  width: 100%;
+
+  height: 40px;
+
+  padding: 0 11px;
+
+  border: 1px solid #d1dcd1;
+
+  border-radius: 7px;
+
+  background: #fbfcf9;
+
+  color: #365445;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  cursor: pointer;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.simple-search-factor select:hover {
+  border-color: #b5c8b8;
+
+  background: #ffffff;
+}
+
+
+.simple-search-factor select:focus {
+  border-color: #71977d;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 0 3px rgba(71, 112, 84, 0.08);
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 900px) {
+
+  .simple-search-factors-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .simple-search-factors-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 7px;
+  }
+
+
+  .simple-search-factors-header p {
+    max-width: none;
+
+    text-align: left;
+  }
+
+
+  .simple-search-factors-grid {
+    grid-template-columns: 1fr;
+  }
+
+}

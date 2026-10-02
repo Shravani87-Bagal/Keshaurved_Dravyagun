@@ -6,7 +6,10 @@ function HerbResultCard({ herb }) {
 
   const [isFavorite, setIsFavorite] = useState(false)
 
-  // Check whether this herb is already saved
+  // =========================================
+  // CHECK FAVORITE STATUS
+  // =========================================
+
   useEffect(() => {
     const savedFavorites = localStorage.getItem("favoriteHerbs")
 
@@ -29,7 +32,10 @@ function HerbResultCard({ herb }) {
     }
   }, [herb.id])
 
-  // Add / remove herb from favorites
+  // =========================================
+  // FAVORITE
+  // =========================================
+
   const handleFavorite = () => {
     const savedFavorites = localStorage.getItem("favoriteHerbs")
 
@@ -38,6 +44,10 @@ function HerbResultCard({ herb }) {
     if (savedFavorites) {
       try {
         favorites = JSON.parse(savedFavorites)
+
+        if (!Array.isArray(favorites)) {
+          favorites = []
+        }
       } catch (error) {
         console.error("Unable to read favorite herbs:", error)
         favorites = []
@@ -58,14 +68,14 @@ function HerbResultCard({ herb }) {
       setIsFavorite(false)
     } else {
       // Add herb
-      const updatedFavorites = {
+      const updatedHerb = {
         ...herb,
         id: herb.id || herb.englishName,
       }
 
       const updatedFavoritesList = [
         ...favorites,
-        updatedFavorites,
+        updatedHerb,
       ]
 
       localStorage.setItem(
@@ -77,12 +87,18 @@ function HerbResultCard({ herb }) {
     }
   }
 
-  // Open herb detail page
+  // =========================================
+  // VIEW HERB PROFILE
+  // =========================================
+
   const handleViewProfile = () => {
     navigate(`/herb/${herb.id}`)
   }
 
-  // Add herb to comparison
+  // =========================================
+  // COMPARE HERB
+  // =========================================
+
   const handleCompare = () => {
     const savedCompareHerbs =
       localStorage.getItem("selectedCompareHerbs")
@@ -92,6 +108,10 @@ function HerbResultCard({ herb }) {
     if (savedCompareHerbs) {
       try {
         compareHerbs = JSON.parse(savedCompareHerbs)
+
+        if (!Array.isArray(compareHerbs)) {
+          compareHerbs = []
+        }
       } catch (error) {
         console.error("Unable to read comparison herbs:", error)
         compareHerbs = []
@@ -125,14 +145,42 @@ function HerbResultCard({ herb }) {
     navigate("/compare")
   }
 
-  // Build Ayurvedic tags from the new dataset structure
+  // =========================================
+  // AYURVEDIC TAGS
+  // =========================================
+  //
+  // Real dataset:
+  // rasa       -> array
+  // guna       -> array
+  // virya      -> string
+  // vipaka     -> string
+  // karma      -> array
+  //
+  // We keep the same visual tag layout.
+  // =========================================
+
   const herbTags = [
-    herb.rasa,
-    herb.guna,
+    ...(Array.isArray(herb.rasa) ? herb.rasa : []),
+    ...(Array.isArray(herb.guna) ? herb.guna : []),
     herb.virya,
     herb.vipaka,
-    herb.importantKarma,
   ].filter(Boolean)
+
+  // =========================================
+  // INDICATIONS
+  // =========================================
+
+  const indications = Array.isArray(herb.indications)
+    ? herb.indications.join(", ")
+    : herb.indications || ""
+
+  // =========================================
+  // KARMA
+  // =========================================
+
+  const karma = Array.isArray(herb.karma)
+    ? herb.karma.join(", ")
+    : herb.karma || ""
 
   return (
     <article className="herb-result-card">
@@ -235,11 +283,13 @@ function HerbResultCard({ herb }) {
             match
           </span>
 
-          {herb.status && (
+          {herb.verificationStatus && (
             <span
-              className={`verification-badge ${herb.status.toLowerCase()}`}
+              className={`verification-badge ${
+                herb.verificationStatus.toLowerCase()
+              }`}
             >
-              ✓ {herb.status}
+              ✓ {herb.verificationStatus}
             </span>
           )}
 
@@ -269,15 +319,24 @@ function HerbResultCard({ herb }) {
 
           {herb.partUsed && (
             <>
-              <strong>Part used:</strong> {herb.partUsed}
+              <strong>Part used:</strong>{" "}
+              {herb.partUsed}
               {" "}
             </>
           )}
 
-          {herb.majorDiseases && (
+          {indications && (
             <>
               <strong>Major indications:</strong>{" "}
-              {herb.majorDiseases}
+              {indications}
+              {" "}
+            </>
+          )}
+
+          {karma && (
+            <>
+              <strong>Karma:</strong>{" "}
+              {karma}
             </>
           )}
 

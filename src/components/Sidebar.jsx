@@ -14,8 +14,22 @@ function Sidebar() {
   )
 
   const doctorName = savedUser?.fullName || "Doctor"
+  const profilePhoto = savedUser?.profilePhoto || ""
 
-  // Close dropdown when clicking outside
+  const doctorInitials = doctorName
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((name) => name[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase()
+
+
+  // =========================================
+  // CLOSE DROPDOWN WHEN CLICKING OUTSIDE
+  // =========================================
+
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (
@@ -26,14 +40,24 @@ function Sidebar() {
       }
     }
 
-    document.addEventListener("mousedown", handleOutsideClick)
+    document.addEventListener(
+      "mousedown",
+      handleOutsideClick
+    )
 
     return () => {
-      document.removeEventListener("mousedown", handleOutsideClick)
+      document.removeEventListener(
+        "mousedown",
+        handleOutsideClick
+      )
     }
   }, [])
 
-  // Close dropdown with Escape
+
+  // =========================================
+  // CLOSE DROPDOWN WITH ESCAPE
+  // =========================================
+
   useEffect(() => {
     const handleEscape = (event) => {
       if (event.key === "Escape") {
@@ -41,12 +65,23 @@ function Sidebar() {
       }
     }
 
-    document.addEventListener("keydown", handleEscape)
+    document.addEventListener(
+      "keydown",
+      handleEscape
+    )
 
     return () => {
-      document.removeEventListener("keydown", handleEscape)
+      document.removeEventListener(
+        "keydown",
+        handleEscape
+      )
     }
   }, [])
+
+
+  // =========================================
+  // PROFILE MENU ACTIONS
+  // =========================================
 
   const handleProfileAction = (action) => {
     setIsProfileOpen(false)
@@ -60,7 +95,7 @@ function Sidebar() {
     }
 
     if (action === "help") {
-      alert("Help and support will be available soon.")
+      navigate("/help-support")
     }
 
     if (action === "language") {
@@ -81,10 +116,14 @@ function Sidebar() {
     }
   }
 
+
   return (
     <aside className="sidebar">
 
-      {/* BRAND */}
+      {/* =========================================
+          BRAND
+      ========================================= */}
+
       <div className="sidebar-brand">
 
         <div className="brand-icon">
@@ -92,14 +131,22 @@ function Sidebar() {
         </div>
 
         <div className="brand-text">
-          <h1>Dravyaguna</h1>
-          <span>Ayurvedic Herb Intelligence</span>
+          <h1>
+            Dravyaguna
+          </h1>
+
+          <span>
+            Ayurvedic Herb Intelligence
+          </span>
         </div>
 
       </div>
 
 
-      {/* NAVIGATION */}
+      {/* =========================================
+          NAVIGATION
+      ========================================= */}
+
       <nav className="sidebar-nav">
 
         <div className="nav-section">
@@ -109,7 +156,8 @@ function Sidebar() {
           </p>
 
 
-          {/* Home */}
+          {/* HOME */}
+
           <Link
             to="/doctor"
             className={`nav-item ${
@@ -122,11 +170,14 @@ function Sidebar() {
               ⌂
             </span>
 
-            <span>Home</span>
+            <span>
+              Home
+            </span>
           </Link>
 
 
-          {/* Search */}
+          {/* SEARCH */}
+
           <Link
             to="/search"
             className={`nav-item ${
@@ -139,11 +190,14 @@ function Sidebar() {
               ⌕
             </span>
 
-            <span>Search</span>
+            <span>
+              Search
+            </span>
           </Link>
 
 
-          {/* Compare */}
+          {/* COMPARE */}
+
           <Link
             to="/compare"
             className={`nav-item ${
@@ -156,11 +210,14 @@ function Sidebar() {
               ⇄
             </span>
 
-            <span>Compare</span>
+            <span>
+              Compare
+            </span>
           </Link>
 
 
-          {/* Favorites */}
+          {/* FAVORITES */}
+
           <Link
             to="/favorites"
             className={`nav-item ${
@@ -173,7 +230,9 @@ function Sidebar() {
               ♡
             </span>
 
-            <span>Favorites</span>
+            <span>
+              Favorites
+            </span>
           </Link>
 
         </div>
@@ -181,7 +240,10 @@ function Sidebar() {
       </nav>
 
 
-      {/* BOTTOM PROFILE */}
+      {/* =========================================
+          BOTTOM PROFILE
+      ========================================= */}
+
       <div className="sidebar-bottom">
 
         <div
@@ -189,26 +251,49 @@ function Sidebar() {
           ref={profileRef}
         >
 
-<button
-  type="button"
-  className={`sidebar-profile ${
-    isProfileOpen
-      ? "profile-open"
-      : ""
-  }`}
-  onClick={() => {
-    setIsProfileOpen((previous) => !previous)
-  }}
->
+          {/* PROFILE BUTTON */}
+
+          <button
+            type="button"
+            className={`sidebar-profile ${
+              isProfileOpen
+                ? "profile-open"
+                : ""
+            }`}
+            onClick={() => {
+              setIsProfileOpen(
+                (previous) => !previous
+              )
+            }}
+          >
 
             <div className="profile-avatar">
-              DR
+
+              {profilePhoto ? (
+                <img
+                  src={profilePhoto}
+                  alt="Profile"
+                  className="sidebar-profile-photo"
+                />
+              ) : (
+                doctorInitials
+              )}
+
             </div>
 
+
             <div className="profile-info">
-              <strong>{doctorName}</strong>
-              <span>Ayurvedic Physician</span>
+
+              <strong>
+                {doctorName}
+              </strong>
+
+              <span>
+                Ayurvedic Physician
+              </span>
+
             </div>
+
 
             <span className="sidebar-profile-arrow">
               ▴
@@ -217,11 +302,16 @@ function Sidebar() {
           </button>
 
 
-          {/* Sidebar Dropdown */}
+          {/* =========================================
+              PROFILE DROPDOWN
+          ========================================= */}
+
           {isProfileOpen && (
+
             <div className="profile-dropdown sidebar-profile-dropdown">
 
-              {/* Account information */}
+              {/* ACCOUNT INFORMATION */}
+
               <div className="profile-dropdown-header">
 
                 <strong>
@@ -236,8 +326,11 @@ function Sidebar() {
               </div>
 
 
-              {/* Menu */}
+              {/* MENU */}
+
               <div className="profile-dropdown-menu">
+
+                {/* PROFILE */}
 
                 <button
                   className="profile-menu-item"
@@ -250,9 +343,13 @@ function Sidebar() {
                     ◉
                   </span>
 
-                  <span>Profile</span>
+                  <span>
+                    Profile
+                  </span>
                 </button>
 
+
+                {/* SETTINGS */}
 
                 <button
                   className="profile-menu-item"
@@ -265,9 +362,13 @@ function Sidebar() {
                     ⚙
                   </span>
 
-                  <span>Settings</span>
+                  <span>
+                    Settings
+                  </span>
                 </button>
 
+
+                {/* LANGUAGE */}
 
                 <button
                   className="profile-menu-item"
@@ -280,9 +381,13 @@ function Sidebar() {
                     ◎
                   </span>
 
-                  <span>Language</span>
+                  <span>
+                    Language
+                  </span>
                 </button>
 
+
+                {/* HELP & SUPPORT */}
 
                 <button
                   className="profile-menu-item"
@@ -295,9 +400,13 @@ function Sidebar() {
                     ?
                   </span>
 
-                  <span>Help & support</span>
+                  <span>
+                    Help & support
+                  </span>
                 </button>
 
+
+                {/* UPGRADE */}
 
                 <button
                   className="profile-menu-item"
@@ -310,9 +419,13 @@ function Sidebar() {
                     ✦
                   </span>
 
-                  <span>Upgrade plan</span>
+                  <span>
+                    Upgrade plan
+                  </span>
                 </button>
 
+
+                {/* LEARN MORE */}
 
                 <button
                   className="profile-menu-item"
@@ -325,7 +438,9 @@ function Sidebar() {
                     ◇
                   </span>
 
-                  <span>Learn more</span>
+                  <span>
+                    Learn more
+                  </span>
 
                   <span className="profile-menu-arrow">
                     ›
@@ -335,7 +450,10 @@ function Sidebar() {
               </div>
 
 
-              {/* Logout */}
+              {/* =========================================
+                  LOGOUT
+              ========================================= */}
+
               <div className="profile-dropdown-footer">
 
                 <button
@@ -345,16 +463,21 @@ function Sidebar() {
                     handleProfileAction("logout")
                   }
                 >
+
                   <span className="profile-menu-icon">
                     ↪
                   </span>
 
-                  <span>Log out</span>
+                  <span>
+                    Log out
+                  </span>
+
                 </button>
 
               </div>
 
             </div>
+
           )}
 
         </div>

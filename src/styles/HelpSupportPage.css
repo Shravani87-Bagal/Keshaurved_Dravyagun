@@ -1,0 +1,1000 @@
+/* =========================================
+   HELP & SUPPORT MODAL
+========================================= */
+
+.help-support-modal {
+    position: relative;
+  
+    width: min(1000px, calc(100vw - 70px));
+    max-height: calc(100vh - 60px);
+  
+    padding: 34px 30px 22px;
+  
+    background: #ffffff;
+  
+    border: 1px solid #d5ddd4;
+    border-radius: 12px;
+  
+    box-sizing: border-box;
+  
+    overflow-y: auto;
+  
+    box-shadow:
+      0 24px 60px rgba(18, 48, 34, 0.22),
+      0 8px 20px rgba(18, 48, 34, 0.10);
+  
+    animation: helpModalIn 0.18s ease-out;
+  }
+  
+  @keyframes helpModalIn {
+    from {
+      opacity: 0;
+      transform: scale(0.98) translateY(5px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+  
+  
+  /* =========================================
+     HEADER
+  ========================================= */
+  
+  .help-header {
+    padding: 5px 45px 22px 5px;
+  
+    border-bottom: 1px solid #e3e7e2;
+  }
+  
+  .help-label {
+    margin: 0 0 6px;
+  
+    font-size: 12px;
+    font-weight: 700;
+  
+    letter-spacing: 1.4px;
+  
+    color: #66806f;
+  }
+  
+  .help-header h1 {
+    margin: 0;
+  
+    font-size: 24px;
+    font-weight: 600;
+  
+    color: #304238;
+  }
+  
+  .help-header p:not(.help-label) {
+    margin: 7px 0 0;
+  
+    font-size: 13px;
+    line-height: 1.5;
+  
+    color: #7a8780;
+  }
+  
+  
+  /* =========================================
+     SEARCH
+  ========================================= */
+  
+  .help-search {
+    position: relative;
+  
+    display: flex;
+    align-items: center;
+  
+    margin-top: 20px;
+  
+    height: 44px;
+  
+    border: 1px solid #d5ddd4;
+    border-radius: 8px;
+  
+    background: #fbfcfa;
+  
+    transition:
+      border-color 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  
+  .help-search:focus-within {
+    border-color: #91a998;
+  
+    box-shadow:
+      0 0 0 3px rgba(73, 107, 63, 0.08);
+  }
+  
+  .help-search-icon {
+    margin-left: 14px;
+  
+    font-size: 16px;
+  
+    color: #718078;
+  }
+  
+  .help-search input {
+    flex: 1;
+  
+    height: 100%;
+  
+    padding: 0 12px;
+  
+    border: none;
+    outline: none;
+  
+    background: transparent;
+  
+    font-family: inherit;
+    font-size: 13px;
+  
+    color: #304238;
+  }
+  
+  .help-search input::placeholder {
+    color: #9aa39d;
+  }
+  
+  .help-search-clear {
+    width: 28px;
+    height: 28px;
+  
+    margin-right: 8px;
+  
+    border: none;
+    border-radius: 50%;
+  
+    background: transparent;
+  
+    color: #758178;
+  
+    font-size: 18px;
+  
+    cursor: pointer;
+  }
+  
+  .help-search-clear:hover {
+    background: #e9eee8;
+    color: #304238;
+  }
+  
+  
+  /* =========================================
+     GENERAL SECTION
+  ========================================= */
+  
+  .help-section {
+    margin-top: 25px;
+  }
+  
+  .help-section-heading {
+    margin-bottom: 13px;
+  }
+  
+  .help-section-heading h2 {
+    margin: 0;
+  
+    font-size: 17px;
+    font-weight: 600;
+  
+    color: #304238;
+  }
+  
+  .help-section-heading p {
+    margin: 4px 0 0;
+  
+    font-size: 12px;
+  
+    color: #7a8780;
+  }
+  
+  
+  /* =========================================
+     QUICK HELP GRID
+  ========================================= */
+  
+  .help-quick-grid {
+    display: grid;
+  
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  
+    gap: 12px;
+  }
+  
+  .help-quick-card {
+    display: grid;
+  
+    grid-template-columns:
+      40px minmax(0, 1fr) auto;
+  
+    align-items: center;
+  
+    gap: 12px;
+  
+    min-height: 82px;
+  
+    padding: 14px;
+  
+    border: 1px solid #d9e0d8;
+    border-radius: 9px;
+  
+    background: #fbfcfa;
+  
+    text-align: left;
+  
+    font-family: inherit;
+  
+    cursor: pointer;
+  
+    box-sizing: border-box;
+  
+    transition:
+      border-color 0.18s ease,
+      background 0.18s ease,
+      box-shadow 0.18s ease,
+      transform 0.18s ease;
+  }
+  
+  .help-quick-card:hover {
+    background: #f4f7f2;
+  
+    border-color: #91a998;
+  
+    transform: translateY(-1px);
+  
+    box-shadow:
+      0 4px 12px rgba(18, 48, 34, 0.07);
+  }
+  
+  .help-card-icon {
+    width: 40px;
+    height: 40px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    border-radius: 8px;
+  
+    background: #e9eee8;
+  
+    font-size: 19px;
+  }
+  
+  .help-quick-card h3 {
+    margin: 0;
+  
+    font-size: 13px;
+    font-weight: 600;
+  
+    color: #304238;
+  }
+  
+  .help-quick-card p {
+    margin: 4px 0 0;
+  
+    font-size: 11px;
+    line-height: 1.4;
+  
+    color: #7a8780;
+  }
+  
+  .help-card-arrow {
+    font-size: 17px;
+  
+    color: #66806f;
+  }
+  
+  
+  /* =========================================
+     FAQ
+  ========================================= */
+  
+  .faq-section {
+    margin-top: 28px;
+  }
+  
+  .faq-list {
+    border-top: 1px solid #e0e5df;
+  }
+  
+  .faq-item {
+    border-bottom: 1px solid #e0e5df;
+  }
+  
+  .faq-question {
+    width: 100%;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    gap: 15px;
+  
+    padding: 14px 4px;
+  
+    border: none;
+  
+    background: transparent;
+  
+    text-align: left;
+  
+    font-family: inherit;
+  
+    font-size: 13px;
+    font-weight: 600;
+  
+    color: #3c4c42;
+  
+    cursor: pointer;
+  }
+  
+  .faq-question:hover {
+    color: #315f4b;
+  }
+  
+  .faq-arrow {
+    flex-shrink: 0;
+  
+    font-size: 18px;
+    font-weight: 400;
+  
+    color: #6c7d72;
+  }
+  
+  .faq-answer {
+    padding: 0 30px 15px 4px;
+  }
+  
+  .faq-answer p {
+    margin: 0;
+  
+    font-size: 12px;
+    line-height: 1.6;
+  
+    color: #6e7b73;
+  }
+  
+  
+  /* =========================================
+     NO SEARCH RESULTS
+  ========================================= */
+  
+  .help-no-results {
+    padding: 35px 20px;
+  
+    text-align: center;
+  }
+  
+  .help-no-results > span {
+    font-size: 25px;
+  }
+  
+  .help-no-results h3 {
+    margin: 10px 0 4px;
+  
+    font-size: 14px;
+  
+    color: #304238;
+  }
+  
+  .help-no-results p {
+    margin: 0;
+  
+    font-size: 12px;
+  
+    color: #7a8780;
+  }
+  
+  
+  /* =========================================
+     CONTACT SUPPORT CARD
+  ========================================= */
+  
+  .help-support-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    gap: 20px;
+  
+    margin-top: 25px;
+    padding: 18px;
+  
+    border: 1px solid #d9e0d8;
+    border-radius: 9px;
+  
+    background: #f4f7f2;
+  
+    box-sizing: border-box;
+  }
+  
+  .help-support-content {
+    display: flex;
+    align-items: center;
+  
+    gap: 13px;
+  }
+  
+  .help-support-icon {
+    width: 40px;
+    height: 40px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    flex-shrink: 0;
+  
+    border-radius: 8px;
+  
+    background: #e1e9df;
+  
+    font-size: 18px;
+  }
+  
+  .help-support-content h2 {
+    margin: 0;
+  
+    font-size: 14px;
+    font-weight: 600;
+  
+    color: #304238;
+  }
+  
+  .help-support-content p {
+    max-width: 550px;
+  
+    margin: 4px 0 0;
+  
+    font-size: 11px;
+    line-height: 1.45;
+  
+    color: #748078;
+  }
+  
+  
+  /* =========================================
+     CONTACT BUTTON
+  ========================================= */
+  
+  .help-contact-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  
+    gap: 8px;
+  
+    flex-shrink: 0;
+  
+    min-width: 145px;
+    height: 38px;
+  
+    padding: 0 15px;
+  
+    border: 1px solid #3d735b;
+    border-radius: 7px;
+  
+    background: #3d735b;
+    color: #ffffff;
+  
+    font-family: inherit;
+  
+    font-size: 12px;
+    font-weight: 600;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease,
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  
+  .help-contact-button:hover {
+    background: #315f4b;
+    border-color: #315f4b;
+  
+    transform: translateY(-1px);
+  
+    box-shadow:
+      0 4px 12px rgba(49, 95, 75, 0.16);
+  }
+  
+  .help-contact-button:active {
+    transform: translateY(0);
+  }
+  
+  
+  /* =========================================
+     DETAIL VIEW
+  ========================================= */
+  
+  .help-detail-view,
+  .help-contact-view {
+    padding-top: 2px;
+  }
+  
+  .help-back-button {
+    display: inline-flex;
+    align-items: center;
+  
+    margin-bottom: 20px;
+  
+    padding: 7px 10px;
+  
+    border: none;
+    border-radius: 7px;
+  
+    background: transparent;
+  
+    color: #587064;
+  
+    font-family: inherit;
+  
+    font-size: 12px;
+    font-weight: 600;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.18s ease,
+      color 0.18s ease;
+  }
+  
+  .help-back-button:hover {
+    background: #e9eee8;
+    color: #304238;
+  }
+  
+  
+  /* =========================================
+     DETAIL HEADER
+  ========================================= */
+  
+  .help-detail-header,
+  .help-contact-header {
+    display: flex;
+    align-items: center;
+  
+    gap: 15px;
+  
+    padding-bottom: 22px;
+  
+    border-bottom: 1px solid #e3e7e2;
+  }
+  
+  .help-detail-icon {
+    width: 48px;
+    height: 48px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    flex-shrink: 0;
+  
+    border-radius: 10px;
+  
+    background: #e9eee8;
+  
+    font-size: 22px;
+  }
+  
+  .help-detail-header h1,
+  .help-contact-header h1 {
+    margin: 0;
+  
+    font-size: 23px;
+    font-weight: 600;
+  
+    color: #304238;
+  }
+  
+  .help-detail-header p:not(.help-label),
+  .help-contact-header p:not(.help-label) {
+    margin: 5px 0 0;
+  
+    font-size: 12px;
+    line-height: 1.5;
+  
+    color: #7a8780;
+  }
+  
+  
+  /* =========================================
+     DETAIL CONTENT
+  ========================================= */
+  
+  .help-detail-content {
+    margin-top: 22px;
+  }
+  
+  .help-detail-section {
+    padding: 16px 0;
+  
+    border-bottom: 1px solid #e7ebe5;
+  }
+  
+  .help-detail-section:first-child {
+    padding-top: 0;
+  }
+  
+  .help-detail-section h2 {
+    margin: 0 0 6px;
+  
+    font-size: 14px;
+    font-weight: 600;
+  
+    color: #304238;
+  }
+  
+  .help-detail-section p {
+    max-width: 800px;
+  
+    margin: 0;
+  
+    font-size: 12px;
+    line-height: 1.6;
+  
+    color: #69776e;
+  }
+  
+  
+  /* =========================================
+     DETAIL FOOTER
+  ========================================= */
+  
+  .help-detail-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    gap: 15px;
+  
+    margin-top: 22px;
+    padding: 15px;
+  
+    border-radius: 8px;
+  
+    background: #f4f7f2;
+  }
+  
+  .help-detail-footer p {
+    margin: 0;
+  
+    font-size: 12px;
+  
+    color: #65736a;
+  }
+  
+  
+  /* =========================================
+     CONTACT FORM
+  ========================================= */
+  
+  .help-contact-form {
+    max-width: 700px;
+  
+    margin: 25px auto 0;
+  }
+  
+  .help-form-group {
+    margin-bottom: 18px;
+  }
+  
+  .help-form-group label {
+    display: block;
+  
+    margin-bottom: 7px;
+  
+    font-size: 12px;
+    font-weight: 600;
+  
+    color: #3c4c42;
+  }
+  
+  .help-form-group select,
+  .help-form-group textarea {
+    width: 100%;
+  
+    box-sizing: border-box;
+  
+    border: 1px solid #d5ddd4;
+    border-radius: 8px;
+  
+    background: #fbfcfa;
+  
+    color: #304238;
+  
+    font-family: inherit;
+  
+    font-size: 12px;
+  
+    outline: none;
+  
+    transition:
+      border-color 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  
+  .help-form-group select {
+    height: 42px;
+  
+    padding: 0 12px;
+  
+    cursor: pointer;
+  }
+  
+  .help-form-group textarea {
+    min-height: 120px;
+  
+    padding: 12px;
+  
+    resize: vertical;
+  }
+  
+  .help-form-group select:focus,
+  .help-form-group textarea:focus {
+    border-color: #91a998;
+  
+    box-shadow:
+      0 0 0 3px rgba(73, 107, 63, 0.08);
+  }
+  
+  .help-form-group textarea::placeholder {
+    color: #9aa39d;
+  }
+  
+  
+  /* =========================================
+     SUBMIT BUTTON
+  ========================================= */
+  
+  .help-submit-button {
+    width: 100%;
+    height: 42px;
+  
+    border: 1px solid #3d735b;
+    border-radius: 8px;
+  
+    background: #3d735b;
+    color: #ffffff;
+  
+    font-family: inherit;
+  
+    font-size: 13px;
+    font-weight: 600;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.18s ease,
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  
+  .help-submit-button:hover {
+    background: #315f4b;
+  
+    transform: translateY(-1px);
+  
+    box-shadow:
+      0 5px 14px rgba(49, 95, 75, 0.16);
+  }
+  
+  .help-submit-button span {
+    margin-left: 7px;
+  }
+  
+  
+  /* =========================================
+     SUCCESS MESSAGE
+  ========================================= */
+  
+  .help-success-message {
+    max-width: 600px;
+  
+    margin: 55px auto;
+  
+    padding: 35px 25px;
+  
+    text-align: center;
+  
+    border: 1px solid #d9e0d8;
+    border-radius: 10px;
+  
+    background: #f7f9f5;
+  }
+  
+  .help-success-icon {
+    width: 48px;
+    height: 48px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    margin: 0 auto 15px;
+  
+    border-radius: 50%;
+  
+    background: #dfeae0;
+  
+    color: #347457;
+  
+    font-size: 24px;
+    font-weight: 700;
+  }
+  
+  .help-success-message h2 {
+    margin: 0;
+  
+    font-size: 18px;
+    font-weight: 600;
+  
+    color: #304238;
+  }
+  
+  .help-success-message p {
+    margin: 8px 0 0;
+  
+    font-size: 12px;
+    line-height: 1.5;
+  
+    color: #6e7b73;
+  }
+  
+  .help-success-note {
+    font-size: 11px !important;
+  
+    color: #8a948e !important;
+  }
+  
+  .help-back-home-button {
+    height: 38px;
+  
+    margin-top: 20px;
+  
+    padding: 0 18px;
+  
+    border: 1px solid #cfd8cf;
+    border-radius: 7px;
+  
+    background: #eef1ed;
+    color: #536259;
+  
+    font-family: inherit;
+  
+    font-size: 12px;
+    font-weight: 600;
+  
+    cursor: pointer;
+  }
+  
+  .help-back-home-button:hover {
+    background: #e5eae4;
+  }
+  
+  
+  /* =========================================
+     FOOTER
+  ========================================= */
+  
+  .help-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    gap: 8px;
+  
+    padding-top: 18px;
+  
+    font-size: 11px;
+  
+    color: #8a948e;
+  }
+  
+  
+  /* =========================================
+     SCROLLBAR
+  ========================================= */
+  
+  .help-support-modal::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  .help-support-modal::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .help-support-modal::-webkit-scrollbar-thumb {
+    background: #c5cec6;
+  
+    border-radius: 10px;
+  }
+  
+  
+  /* =========================================
+     RESPONSIVE
+  ========================================= */
+  
+  @media (max-width: 850px) {
+  
+    .help-support-modal {
+      width: calc(100vw - 40px);
+  
+      padding: 28px 20px 18px;
+    }
+  
+    .help-quick-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .help-support-card {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  
+    .help-contact-button {
+      width: 100%;
+    }
+  
+    .help-detail-footer {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  
+    .help-detail-footer .help-contact-button {
+      width: 100%;
+    }
+  }
+  
+  
+  @media (max-width: 600px) {
+  
+    .help-support-modal {
+      width: calc(100vw - 20px);
+  
+      max-height: calc(100vh - 20px);
+    }
+  
+    .help-header h1,
+    .help-detail-header h1,
+    .help-contact-header h1 {
+      font-size: 19px;
+    }
+  
+    .help-quick-card {
+      grid-template-columns:
+        36px minmax(0, 1fr) auto;
+  
+      padding: 12px;
+    }
+  
+    .help-card-icon {
+      width: 36px;
+      height: 36px;
+  
+      font-size: 17px;
+    }
+  
+    .help-detail-header,
+    .help-contact-header {
+      align-items: flex-start;
+    }
+  
+    .help-detail-icon {
+      width: 42px;
+      height: 42px;
+  
+      font-size: 19px;
+    }
+  }
