@@ -1,0 +1,527 @@
+/* =========================================================
+   ADMIN UPGRADE OVERLAY
+   ========================================================= */
+
+   .admin-upgrade-overlay {
+    position: fixed;
+  
+    inset: 0;
+  
+    z-index: 1500;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    padding: 28px;
+  
+    box-sizing: border-box;
+  
+    background: rgba(20, 31, 25, 0.32);
+  
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  
+    overflow: hidden;
+  }
+  
+  
+  /* =========================================================
+     UPGRADE MODAL
+     ========================================================= */
+  
+  .admin-upgrade-modal {
+    width: min(1050px, 100%);
+  
+    max-height: calc(100vh - 56px);
+  
+    overflow-y: auto;
+  
+    padding: 28px 30px 24px;
+  
+    box-sizing: border-box;
+  
+    background: #f8f9f6;
+  
+    border: 1px solid #dfe3dc;
+  
+    border-radius: 10px;
+  
+    box-shadow:
+      0 18px 50px rgba(24, 39, 30, 0.20);
+  
+    color: #26342c;
+  
+    font-family: Arial, Helvetica, sans-serif;
+  
+    animation: adminUpgradeOpen 0.18s ease-out;
+  }
+  
+  
+  /* =========================================================
+     OPEN ANIMATION
+     ========================================================= */
+  
+  @keyframes adminUpgradeOpen {
+  
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.985);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  
+  }
+  
+  
+  /* =========================================================
+     SCROLLBAR
+     ========================================================= */
+  
+  .admin-upgrade-modal::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  .admin-upgrade-modal::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .admin-upgrade-modal::-webkit-scrollbar-thumb {
+    background: #cbd3cc;
+    border-radius: 10px;
+  }
+  
+  .admin-upgrade-modal::-webkit-scrollbar-thumb:hover {
+    background: #aebbb1;
+  }
+  
+  
+  /* =========================================================
+     HEADER
+     ========================================================= */
+  
+  .admin-upgrade-header {
+    display: flex;
+  
+    align-items: flex-start;
+  
+    justify-content: space-between;
+  
+    gap: 20px;
+  
+    margin-bottom: 25px;
+  }
+  
+  .admin-upgrade-label {
+    margin: 0 0 6px;
+  
+    color: #668073;
+  
+    font-size: 11px;
+  
+    font-weight: 700;
+  
+    letter-spacing: 1.2px;
+  }
+  
+  .admin-upgrade-header h1 {
+    margin: 0;
+  
+    color: #17251d;
+  
+    font-size: 28px;
+  
+    font-weight: 650;
+  
+    line-height: 1.2;
+  }
+  
+  .admin-upgrade-description {
+    margin: 7px 0 0;
+  
+    color: #7b857e;
+  
+    font-size: 13px;
+  
+    line-height: 1.5;
+  }
+  
+  
+  /* =========================================================
+     CLOSE BUTTON
+     ========================================================= */
+  
+  .admin-upgrade-close-button {
+    width: 34px;
+  
+    height: 34px;
+  
+    flex-shrink: 0;
+  
+    display: flex;
+  
+    align-items: center;
+  
+    justify-content: center;
+  
+    padding: 0;
+  
+    border: 1px solid #ddd9d0;
+  
+    border-radius: 7px;
+  
+    background: #ffffff;
+  
+    color: #66736b;
+  
+    font-size: 22px;
+  
+    font-weight: 400;
+  
+    line-height: 1;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.15s ease,
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+  
+  .admin-upgrade-close-button:hover {
+    background: #edf3ee;
+  
+    border-color: #cbd8ce;
+  
+    color: #28533c;
+  }
+  
+  
+  /* =========================================================
+     PLAN GRID
+     ========================================================= */
+  
+  .admin-upgrade-plans {
+    display: grid;
+  
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  
+    gap: 16px;
+  
+    align-items: stretch;
+  }
+  
+  
+  /* =========================================================
+     PLAN CARD
+     ========================================================= */
+  
+  .admin-upgrade-card {
+    position: relative;
+  
+    display: flex;
+  
+    flex-direction: column;
+  
+    padding: 22px;
+  
+    box-sizing: border-box;
+  
+    background: #ffffff;
+  
+    border: 1px solid #e1e5e0;
+  
+    border-radius: 8px;
+  
+    box-shadow:
+      0 2px 8px rgba(35, 50, 40, 0.035);
+  
+    transition:
+      transform 0.15s ease,
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+  
+  .admin-upgrade-card:hover {
+    transform: translateY(-2px);
+  
+    border-color: #cbd8ce;
+  
+    box-shadow:
+      0 7px 18px rgba(35, 50, 40, 0.08);
+  }
+  
+  
+  /* =========================================================
+     FEATURED CARD
+     ========================================================= */
+  
+  .admin-upgrade-card-featured {
+    border: 1.5px solid #4d8967;
+  
+    box-shadow:
+      0 5px 18px rgba(60, 110, 80, 0.10);
+  }
+  
+  
+  /* =========================================================
+     RECOMMENDED LABEL
+     ========================================================= */
+  
+  .admin-upgrade-popular {
+    position: absolute;
+  
+    top: 12px;
+  
+    right: 12px;
+  
+    padding: 5px 8px;
+  
+    border-radius: 4px;
+  
+    background: #e3efe6;
+  
+    color: #3f7658;
+  
+    font-size: 9px;
+  
+    font-weight: 700;
+  
+    letter-spacing: 0.5px;
+  }
+  
+  
+  /* =========================================================
+     CARD HEADER
+     ========================================================= */
+  
+  .admin-upgrade-card-header h2 {
+    margin: 0;
+  
+    color: #24342a;
+  
+    font-size: 18px;
+  
+    font-weight: 650;
+  }
+  
+  .admin-upgrade-card-header p {
+    min-height: 42px;
+  
+    margin: 7px 0 0;
+  
+    color: #89918b;
+  
+    font-size: 11px;
+  
+    line-height: 1.5;
+  }
+  
+  
+  /* =========================================================
+     PRICE
+     ========================================================= */
+  
+  .admin-upgrade-price {
+    display: flex;
+  
+    align-items: baseline;
+  
+    gap: 5px;
+  
+    margin-top: 18px;
+  }
+  
+  .admin-upgrade-price strong {
+    color: #17552f;
+  
+    font-size: 25px;
+  
+    font-weight: 700;
+  }
+  
+  .admin-upgrade-price span {
+    color: #89918b;
+  
+    font-size: 11px;
+  }
+  
+  
+  /* =========================================================
+     DIVIDER
+     ========================================================= */
+  
+  .admin-upgrade-divider {
+    width: 100%;
+  
+    height: 1px;
+  
+    margin: 18px 0;
+  
+    background: #edf0ec;
+  }
+  
+  
+  /* =========================================================
+     FEATURES
+     ========================================================= */
+  
+  .admin-upgrade-includes {
+    margin: 0 0 8px;
+  
+    color: #526058;
+  
+    font-size: 11px;
+  
+    font-weight: 600;
+  }
+  
+  .admin-upgrade-features {
+    display: flex;
+  
+    flex-direction: column;
+  
+    gap: 9px;
+  
+    margin: 0;
+  
+    padding: 0;
+  
+    list-style: none;
+  
+    color: #59665e;
+  
+    font-size: 11px;
+  
+    line-height: 1.4;
+  }
+  
+  .admin-upgrade-features li {
+    display: flex;
+  
+    align-items: center;
+  
+    gap: 7px;
+  }
+  
+  
+  /* =========================================================
+     BUTTONS
+     ========================================================= */
+  
+  .admin-upgrade-primary-button,
+  .admin-upgrade-secondary-button {
+    width: 100%;
+  
+    height: 36px;
+  
+    margin-top: auto;
+  
+    padding: 0 14px;
+  
+    border-radius: 5px;
+  
+    font-family: Arial, Helvetica, sans-serif;
+  
+    font-size: 11px;
+  
+    font-weight: 600;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.15s ease,
+      border-color 0.15s ease,
+      color 0.15s ease;
+  }
+  
+  .admin-upgrade-primary-button {
+    margin-top: 22px;
+  
+    border: 1px solid #17552f;
+  
+    background: #17552f;
+  
+    color: #ffffff;
+  }
+  
+  .admin-upgrade-primary-button:hover {
+    background: #124726;
+  
+    border-color: #124726;
+  }
+  
+  .admin-upgrade-secondary-button {
+    margin-top: 22px;
+  
+    border: 1px solid #cbd9cf;
+  
+    background: #edf3ee;
+  
+    color: #28533c;
+  }
+  
+  .admin-upgrade-secondary-button:hover {
+    background: #dfeae2;
+  
+    border-color: #b8cbbd;
+  }
+  
+  
+  /* =========================================================
+     FOOTER
+     ========================================================= */
+  
+  .admin-upgrade-footer {
+    margin-top: 18px;
+  
+    text-align: center;
+  }
+  
+  .admin-upgrade-footer p {
+    margin: 0;
+  
+    color: #8a938d;
+  
+    font-size: 10px;
+  }
+  
+  
+  /* =========================================================
+     RESPONSIVE
+     ========================================================= */
+  
+  @media (max-width: 850px) {
+  
+    .admin-upgrade-plans {
+      grid-template-columns: 1fr;
+    }
+  
+    .admin-upgrade-card-header p {
+      min-height: auto;
+    }
+  
+  }
+  
+  
+  @media (max-width: 600px) {
+  
+    .admin-upgrade-overlay {
+      padding: 10px;
+    }
+  
+    .admin-upgrade-modal {
+      max-height: calc(100vh - 20px);
+  
+      padding: 20px;
+    }
+  
+    .admin-upgrade-header h1 {
+      font-size: 24px;
+    }
+  
+  }

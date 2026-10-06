@@ -11,323 +11,620 @@ function AuthPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-  // Sign Up fields
+  // =========================================
+  // SIGN UP FIELDS
+  // =========================================
+
   const [fullName, setFullName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
 
   const [language, setLanguage] = useState("English")
-  const [profession, setProfession] = useState("Ayurvedic Physician")
+  const [profession, setProfession] =
+    useState("Ayurvedic Physician")
 
-  // Login
+  // =========================================
+  // LOGIN
+  // =========================================
+
   const [rememberMe, setRememberMe] = useState(false)
 
-  /*
-   * Load remembered login information.
-   */
+  // =========================================
+  // ROLE NORMALIZATION
+  // =========================================
+
+  const getDisplayRole = (role) => {
+    if (!role) {
+      return ""
+    }
+
+    const normalizedRole = role.toLowerCase().trim()
+
+    if (normalizedRole === "admin") {
+      return "Admin"
+    }
+
+    if (
+      normalizedRole === "doctor"
+    ) {
+      return "Doctor"
+    }
+
+    if (
+      normalizedRole === "ayurvedic reviewer" ||
+      normalizedRole === "reviewer"
+    ) {
+      return "Ayurvedic Reviewer"
+    }
+
+    return role
+  }
+
+  // =========================================
+  // LOAD REMEMBERED LOGIN
+  // =========================================
+
   useEffect(() => {
-    const rememberedLogin = localStorage.getItem("rememberedLogin")
+    const rememberedLogin =
+      localStorage.getItem("rememberedLogin")
 
-    if (rememberedLogin) {
-      try {
-        const savedLogin = JSON.parse(rememberedLogin)
+    if (!rememberedLogin) {
+      return
+    }
 
-        setEmail(savedLogin.email || "")
-        setPassword(savedLogin.password || "")
-        setRememberMe(true)
+    try {
+      const savedLogin =
+        JSON.parse(rememberedLogin)
 
-        if (savedLogin.role) {
-          setSelectedRole(savedLogin.role)
-        }
-      } catch {
-        localStorage.removeItem("rememberedLogin")
+      setEmail(savedLogin.email || "")
+      setPassword(savedLogin.password || "")
+      setRememberMe(true)
+
+      if (savedLogin.role) {
+        setSelectedRole(
+          savedLogin.role.toLowerCase()
+        )
       }
+    } catch {
+      localStorage.removeItem("rememberedLogin")
     }
   }, [])
 
-  /*
-   * Change role
-   */
+  // =========================================
+  // ROLE CHANGE
+  // =========================================
+
   const handleRoleChange = (role) => {
     setSelectedRole(role)
 
-    // Clear login information when switching roles
     if (isLogin) {
       setEmail("")
       setPassword("")
       setRememberMe(false)
     }
 
-    // If Admin is selected, profession is not relevant.
-    // Keep language because Admin also has a language preference.
     if (role === "admin") {
       setProfession("Ayurvedic Physician")
     }
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
+  // =========================================
+  // GET DRAVYAGUNA USERS
+  // =========================================
 
-    const cleanEmail = email.trim().toLowerCase()
+  const getDravyagunaUsers = () => {
+    const savedUsers =
+      localStorage.getItem("dravyaguna_users")
 
-    // =========================================
-    // SIGN UP
-    // =========================================
+    if (!savedUsers) {
+      return []
+    }
 
-    if (!isLogin) {
-      if (
-        !fullName.trim() ||
-        !cleanEmail ||
-        !password ||
-        !confirmPassword
-      ) {
-        alert("Please fill in all required fields.")
-        return
+    try {
+      const users = JSON.parse(savedUsers)
+
+      if (!Array.isArray(users)) {
+        return []
       }
 
-      if (password !== confirmPassword) {
-        alert("Passwords do not match.")
-        return
+      return users
+    } catch {
+      return []
+    }
+  }
+
+  // =========================================
+  // GET HERB USERS
+  // =========================================
+
+  const getHerbUsers = () => {
+    const savedUsers =
+      localStorage.getItem("herbUsers")
+
+    if (!savedUsers) {
+      return []
+    }
+
+    try {
+      const users = JSON.parse(savedUsers)
+
+      if (!Array.isArray(users)) {
+        return []
       }
 
-      if (password.length < 6) {
-        alert("Password must contain at least 6 characters.")
-        return
-      }
+      return users
+    } catch {
+      return []
+    }
+  }
 
-      /*
-       * Get all registered users.
-       *
-       * This allows Doctor and Admin accounts
-       * to exist independently.
-       */
-      let users = []
+  // =========================================
+  // SIGN UP
+  // =========================================
 
-      const savedUsers = localStorage.getItem("herbUsers")
-
-      if (savedUsers) {
-        try {
-          users = JSON.parse(savedUsers)
-
-          if (!Array.isArray(users)) {
-            users = []
-          }
-        } catch {
-          users = []
-        }
-      }
-
-      /*
-       * Check whether this email already exists.
-       */
-      const existingUser = users.find(
-        (user) => user.email === cleanEmail
-      )
-
-      if (existingUser) {
-        alert(
-          "An account with this email already exists. Please log in."
-        )
-
-        setEmail(cleanEmail)
-        setPassword("")
-        setConfirmPassword("")
-        setIsLogin(true)
-
-        return
-      }
-
-      /*
-       * Create new user.
-       *
-       * Language is saved for both Doctor and Admin.
-       *
-       * Profession is saved only for Doctor.
-       */
-      const newUser = {
-        fullName: fullName.trim(),
-        email: cleanEmail,
-        password: password,
-        role: selectedRole,
-        language: language,
-        profession:
-          selectedRole === "doctor"
-            ? profession
-            : null,
-      }
-
-      users.push(newUser)
-
-      localStorage.setItem(
-        "herbUsers",
-        JSON.stringify(users)
-      )
-
-      /*
-       * Keep the old herbUser key as the
-       * currently created account.
-       */
-      localStorage.setItem(
-        "herbUser",
-        JSON.stringify(newUser)
-      )
-
-      /*
-       * Automatically remember login
-       * after creating the account.
-       */
-      localStorage.setItem(
-        "rememberedLogin",
-        JSON.stringify({
-          email: cleanEmail,
-          password: password,
-          role: selectedRole,
-        })
-      )
-
+  const handleSignUp = () => {
+    if (
+      !fullName.trim() ||
+      !email.trim() ||
+      !password ||
+      !confirmPassword
+    ) {
       alert(
-        "Account created successfully! You can now log in."
+        "Please fill in all required fields."
       )
 
-      // Move to login
+      return
+    }
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.")
+
+      return
+    }
+
+    if (password.length < 6) {
+      alert(
+        "Password must contain at least 6 characters."
+      )
+
+      return
+    }
+
+    const cleanEmail =
+      email.trim().toLowerCase()
+
+    // =========================================
+    // CHECK DRAVYAGUNA USERS
+    // =========================================
+
+    const dravyagunaUsers =
+      getDravyagunaUsers()
+
+    const existingDravyagunaUser =
+      dravyagunaUsers.find(
+        (user) =>
+          user.email?.toLowerCase() ===
+          cleanEmail
+      )
+
+    if (existingDravyagunaUser) {
+      alert(
+        "An account with this email already exists. Please log in."
+      )
+
       setEmail(cleanEmail)
-      setPassword(password)
+      setPassword("")
       setConfirmPassword("")
       setIsLogin(true)
-      setRememberMe(true)
 
       return
     }
 
     // =========================================
-    // LOGIN
+    // CHECK HERB USERS
     // =========================================
 
-    if (!cleanEmail || !password) {
-      alert("Please enter your email and password.")
+    const herbUsers =
+      getHerbUsers()
+
+    const existingHerbUser =
+      herbUsers.find(
+        (user) =>
+          user.email?.toLowerCase() ===
+          cleanEmail
+      )
+
+    if (existingHerbUser) {
+      alert(
+        "An account with this email already exists. Please log in."
+      )
+
+      setEmail(cleanEmail)
+      setPassword("")
+      setConfirmPassword("")
+      setIsLogin(true)
+
       return
     }
 
-    /*
-     * Get all registered users.
-     */
-    let users = []
+    // =========================================
+    // CREATE USER
+    // =========================================
 
-    const savedUsers = localStorage.getItem("herbUsers")
+    const roleForManagement =
+      getDisplayRole(selectedRole)
 
-    if (savedUsers) {
-      try {
-        users = JSON.parse(savedUsers)
+    const initials =
+      fullName
+        .trim()
+        .split(" ")
+        .filter(Boolean)
+        .map((word) => word[0])
+        .join("")
+        .slice(0, 2)
+        .toUpperCase()
 
-        if (!Array.isArray(users)) {
-          users = []
-        }
-      } catch {
-        users = []
-      }
+    const now =
+      new Date().toISOString()
+
+    // =========================================
+    // CREATE USER FOR ADMIN MANAGEMENT
+    // =========================================
+
+    const newManagementUser = {
+      id:
+        "USR-" +
+        Date.now(),
+
+      name:
+        fullName.trim(),
+
+      fullName:
+        fullName.trim(),
+
+      initials:
+        initials,
+
+      email:
+        cleanEmail,
+
+      password:
+        password,
+
+      role:
+        roleForManagement,
+
+      status:
+        "Active",
+
+      language:
+        language,
+
+      profession:
+        selectedRole === "doctor"
+          ? profession
+          : null,
+
+      lastActive:
+        now,
+
+      createdAt:
+        now,
     }
 
-    /*
-     * Backward compatibility:
-     *
-     * If an older account was created using
-     * the previous herbUser system, include it.
-     */
-    const oldUser = localStorage.getItem("herbUser")
+    // =========================================
+    // SAVE TO DRAVYAGUNA USERS
+    // =========================================
 
-    if (oldUser) {
-      try {
-        const parsedOldUser = JSON.parse(oldUser)
+    const updatedDravyagunaUsers = [
+      ...dravyagunaUsers,
+      newManagementUser,
+    ]
 
-        const alreadyExists = users.some(
-          (user) => user.email === parsedOldUser.email
-        )
-
-        if (!alreadyExists) {
-          users.push(parsedOldUser)
-        }
-      } catch {
-        // Ignore invalid old account
-      }
-    }
-
-    /*
-     * Find account by BOTH email and selected role.
-     *
-     * This is important because Doctor and Admin
-     * are different account types.
-     */
-    const user = users.find(
-      (account) =>
-        account.email === cleanEmail &&
-        account.role === selectedRole
+    localStorage.setItem(
+      "dravyaguna_users",
+      JSON.stringify(
+        updatedDravyagunaUsers
+      )
     )
 
-    /*
-     * No matching account.
-     */
+    // =========================================
+    // ALSO SAVE TO HERB USERS
+    // =========================================
+
+    const newHerbUser = {
+      fullName:
+        fullName.trim(),
+
+      email:
+        cleanEmail,
+
+      password:
+        password,
+
+      role:
+        selectedRole,
+
+      language:
+        language,
+
+      profession:
+        selectedRole === "doctor"
+          ? profession
+          : null,
+    }
+
+    const updatedHerbUsers = [
+      ...herbUsers,
+      newHerbUser,
+    ]
+
+    localStorage.setItem(
+      "herbUsers",
+      JSON.stringify(
+        updatedHerbUsers
+      )
+    )
+
+    // =========================================
+    // CURRENT USER
+    // =========================================
+
+    localStorage.setItem(
+      "herbUser",
+      JSON.stringify(
+        newManagementUser
+      )
+    )
+
+    // =========================================
+    // REMEMBER LOGIN
+    // =========================================
+
+    localStorage.setItem(
+      "rememberedLogin",
+      JSON.stringify({
+        email:
+          cleanEmail,
+
+        password:
+          password,
+
+        role:
+          selectedRole,
+      })
+    )
+
+    alert(
+      "Account created successfully! You can now log in."
+    )
+
+    // =========================================
+    // MOVE TO LOGIN
+    // =========================================
+
+    setEmail(cleanEmail)
+    setPassword(password)
+    setConfirmPassword("")
+    setIsLogin(true)
+    setRememberMe(true)
+  }
+
+  // =========================================
+  // LOGIN
+  // =========================================
+
+  const handleLogin = () => {
+    const cleanEmail =
+      email.trim().toLowerCase()
+
+    if (!cleanEmail || !password) {
+      alert(
+        "Please enter your email and password."
+      )
+
+      return
+    }
+
+    // =========================================
+    // IMPORTANT:
+    // MAIN LOGIN SOURCE = DRAVYAGUNA USERS
+    // =========================================
+
+    const dravyagunaUsers =
+      getDravyagunaUsers()
+
+    // =========================================
+    // FIND USER BY EMAIL + ROLE
+    // =========================================
+
+    const user =
+      dravyagunaUsers.find(
+        (account) => {
+          const accountEmail =
+            account.email
+              ?.trim()
+              .toLowerCase()
+
+          const accountRole =
+            account.role
+              ?.trim()
+              .toLowerCase()
+
+          return (
+            accountEmail === cleanEmail &&
+            accountRole === selectedRole
+          )
+        }
+      )
+
+    // =========================================
+    // USER NOT FOUND
+    // =========================================
+
     if (!user) {
-      if (selectedRole === "admin") {
-        alert(
-          "No admin account found with this email. Please sign up first."
-        )
-      } else {
-        alert(
-          "No doctor account found with this email. Please sign up first."
-        )
-      }
+      alert(
+        `No ${getDisplayRole(
+          selectedRole
+        )} account found with this email. Please sign up first.`
+      )
 
       return
     }
 
-    /*
-     * Account exists but password is incorrect.
-     */
-    if (user.password !== password) {
-      alert("Incorrect password. Please try again.")
+    // =========================================
+    // CHECK ACCOUNT STATUS
+    // =========================================
+
+    const userStatus =
+      user.status
+        ?.trim()
+        .toLowerCase()
+
+    // =========================================
+    // BLOCK INACTIVE ACCOUNT
+    // =========================================
+
+    if (
+      userStatus === "inactive"
+    ) {
+      alert(
+        "This account is blocked by admin. Please contact the admin."
+      )
+
       return
     }
 
-    /*
-     * Remember login if selected.
-     */
+    // =========================================
+    // BLOCK PENDING ACCOUNT
+    // =========================================
+
+    if (
+      userStatus === "pending"
+    ) {
+      alert(
+        "This account is pending approval. Please contact the admin."
+      )
+
+      return
+    }
+
+    // =========================================
+    // CHECK PASSWORD
+    // =========================================
+
+    if (
+      user.password !== password
+    ) {
+      alert(
+        "Incorrect password. Please try again."
+      )
+
+      return
+    }
+
+    // =========================================
+    // UPDATE LAST ACTIVE
+    // =========================================
+
+    const updatedUsers =
+      dravyagunaUsers.map(
+        (account) =>
+          account.id === user.id
+            ? {
+                ...account,
+                lastActive:
+                  new Date().toISOString(),
+              }
+            : account
+      )
+
+    localStorage.setItem(
+      "dravyaguna_users",
+      JSON.stringify(
+        updatedUsers
+      )
+    )
+
+    // =========================================
+    // REMEMBER LOGIN
+    // =========================================
+
     if (rememberMe) {
       localStorage.setItem(
         "rememberedLogin",
         JSON.stringify({
-          email: cleanEmail,
-          password: password,
-          role: selectedRole,
+          email:
+            cleanEmail,
+
+          password:
+            password,
+
+          role:
+            selectedRole,
         })
       )
     } else {
-      localStorage.removeItem("rememberedLogin")
+      localStorage.removeItem(
+        "rememberedLogin"
+      )
     }
 
-    /*
-     * Save currently logged-in user.
-     */
+    // =========================================
+    // SAVE CURRENT USER
+    // =========================================
+
+    const loggedInUser = {
+      ...user,
+      lastActive:
+        new Date().toISOString(),
+    }
+
     localStorage.setItem(
       "herbUser",
-      JSON.stringify(user)
+      JSON.stringify(
+        loggedInUser
+      )
     )
 
-    /*
-     * Authentication state.
-     */
+    // =========================================
+    // AUTHENTICATED
+    // =========================================
+
     localStorage.setItem(
       "isAuthenticated",
       "true"
     )
 
-    /*
-     * Redirect according to selected role.
-     */
-    if (selectedRole === "doctor") {
+    // =========================================
+    // REDIRECT
+    // =========================================
+
+    if (
+      selectedRole === "doctor"
+    ) {
       navigate("/doctor")
-    } else if (selectedRole === "admin") {
+    }
+
+    if (
+      selectedRole === "admin"
+    ) {
       navigate("/admin")
+    }
+  }
+
+  // =========================================
+  // SUBMIT
+  // =========================================
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    if (isLogin) {
+      handleLogin()
+    } else {
+      handleSignUp()
     }
   }
 
@@ -339,35 +636,48 @@ function AuthPage() {
     setIsLogin(true)
 
     const rememberedLogin =
-      localStorage.getItem("rememberedLogin")
+      localStorage.getItem(
+        "rememberedLogin"
+      )
 
-    if (rememberedLogin) {
-      try {
-        const savedLogin =
-          JSON.parse(rememberedLogin)
-
-        setEmail(savedLogin.email || "")
-        setPassword(savedLogin.password || "")
-        setRememberMe(true)
-
-        if (savedLogin.role) {
-          setSelectedRole(savedLogin.role)
-        }
-      } catch {
-        setEmail("")
-        setPassword("")
-      }
+    if (!rememberedLogin) {
+      setEmail("")
+      setPassword("")
+      setRememberMe(false)
 
       return
     }
 
-    /*
-     * If there is no remembered login,
-     * leave fields empty.
-     */
-    setEmail("")
-    setPassword("")
-    setRememberMe(false)
+    try {
+      const savedLogin =
+        JSON.parse(
+          rememberedLogin
+        )
+
+      setEmail(
+        savedLogin.email || ""
+      )
+
+      setPassword(
+        savedLogin.password || ""
+      )
+
+      setRememberMe(true)
+
+      if (savedLogin.role) {
+        setSelectedRole(
+          savedLogin.role.toLowerCase()
+        )
+      }
+    } catch {
+      localStorage.removeItem(
+        "rememberedLogin"
+      )
+
+      setEmail("")
+      setPassword("")
+      setRememberMe(false)
+    }
   }
 
   // =========================================
@@ -379,19 +689,16 @@ function AuthPage() {
 
     setPassword("")
     setConfirmPassword("")
-
-    /*
-     * Keep selected role so the user
-     * can continue signup for that role.
-     */
   }
+
+  // =========================================
+  // UI
+  // =========================================
 
   return (
     <div className="auth-page">
 
-      {/* =========================================
-          BACK TO HOME
-      ========================================= */}
+      {/* BACK TO HOME */}
 
       <Link
         to="/"
@@ -402,9 +709,7 @@ function AuthPage() {
       </Link>
 
 
-      {/* =========================================
-          BRAND
-      ========================================= */}
+      {/* BRAND */}
 
       <div className="auth-brand">
 
@@ -427,23 +732,21 @@ function AuthPage() {
       </div>
 
 
-      {/* =========================================
-          AUTH CARD
-      ========================================= */}
+      {/* AUTH CARD */}
 
       <div className="auth-card">
 
 
-        {/* =========================================
-            LOGIN / SIGN UP TABS
-        ========================================= */}
+        {/* LOGIN / SIGN UP */}
 
         <div className="auth-tabs">
 
           <button
             type="button"
             className={`auth-tab ${
-              isLogin ? "active" : ""
+              isLogin
+                ? "active"
+                : ""
             }`}
             onClick={switchToLogin}
           >
@@ -454,7 +757,9 @@ function AuthPage() {
           <button
             type="button"
             className={`auth-tab ${
-              !isLogin ? "active" : ""
+              !isLogin
+                ? "active"
+                : ""
             }`}
             onClick={switchToSignUp}
           >
@@ -464,9 +769,7 @@ function AuthPage() {
         </div>
 
 
-        {/* =========================================
-            ROLE
-        ========================================= */}
+        {/* ROLE */}
 
         <div className="auth-section">
 
@@ -484,7 +787,9 @@ function AuthPage() {
                   : ""
               }`}
               onClick={() =>
-                handleRoleChange("doctor")
+                handleRoleChange(
+                  "doctor"
+                )
               }
             >
               <span className="role-icon">
@@ -505,7 +810,9 @@ function AuthPage() {
                   : ""
               }`}
               onClick={() =>
-                handleRoleChange("admin")
+                handleRoleChange(
+                  "admin"
+                )
               }
             >
               <span className="role-icon">
@@ -522,16 +829,12 @@ function AuthPage() {
         </div>
 
 
-        {/* =========================================
-            SIGN UP OPTIONS
-        ========================================= */}
+        {/* SIGN UP OPTIONS */}
 
         {!isLogin && (
           <>
 
-            {/* LANGUAGE
-                Available for BOTH Doctor and Admin
-            */}
+            {/* LANGUAGE */}
 
             <div className="auth-field">
 
@@ -543,9 +846,12 @@ function AuthPage() {
                 id="language"
                 value={language}
                 onChange={(event) =>
-                  setLanguage(event.target.value)
+                  setLanguage(
+                    event.target.value
+                  )
                 }
               >
+
                 <option value="English">
                   English
                 </option>
@@ -557,17 +863,17 @@ function AuthPage() {
                 <option value="Hindi">
                   Hindi
                 </option>
+
               </select>
 
             </div>
 
 
-            {/* =====================================
-                PROFESSION
-                ONLY FOR DOCTOR
-            ===================================== */}
+            {/* PROFESSION */}
 
-            {selectedRole === "doctor" && (
+            {selectedRole ===
+              "doctor" && (
+
               <div className="auth-field">
 
                 <label htmlFor="profession">
@@ -578,7 +884,9 @@ function AuthPage() {
                   id="profession"
                   value={profession}
                   onChange={(event) =>
-                    setProfession(event.target.value)
+                    setProfession(
+                      event.target.value
+                    )
                   }
                 >
 
@@ -605,15 +913,14 @@ function AuthPage() {
                 </select>
 
               </div>
+
             )}
 
           </>
         )}
 
 
-        {/* =========================================
-            FORM
-        ========================================= */}
+        {/* FORM */}
 
         <form
           className="auth-form"
@@ -624,6 +931,7 @@ function AuthPage() {
           {/* FULL NAME */}
 
           {!isLogin && (
+
             <div className="auth-field">
 
               <label htmlFor="fullName">
@@ -640,12 +948,15 @@ function AuthPage() {
                 }
                 value={fullName}
                 onChange={(event) =>
-                  setFullName(event.target.value)
+                  setFullName(
+                    event.target.value
+                  )
                 }
                 autoComplete="name"
               />
 
             </div>
+
           )}
 
 
@@ -667,7 +978,9 @@ function AuthPage() {
               }
               value={email}
               onChange={(event) =>
-                setEmail(event.target.value)
+                setEmail(
+                  event.target.value
+                )
               }
               autoComplete="email"
             />
@@ -695,7 +1008,9 @@ function AuthPage() {
                 placeholder="••••••••"
                 value={password}
                 onChange={(event) =>
-                  setPassword(event.target.value)
+                  setPassword(
+                    event.target.value
+                  )
                 }
                 autoComplete={
                   isLogin
@@ -708,7 +1023,9 @@ function AuthPage() {
                 type="button"
                 className="password-toggle"
                 onClick={() =>
-                  setShowPassword(!showPassword)
+                  setShowPassword(
+                    !showPassword
+                  )
                 }
                 aria-label={
                   showPassword
@@ -716,7 +1033,9 @@ function AuthPage() {
                     : "Show password"
                 }
               >
-                {showPassword ? "◉" : "◌"}
+                {showPassword
+                  ? "◉"
+                  : "◌"}
               </button>
 
             </div>
@@ -727,6 +1046,7 @@ function AuthPage() {
           {/* CONFIRM PASSWORD */}
 
           {!isLogin && (
+
             <div className="auth-field">
 
               <label htmlFor="confirmPassword">
@@ -774,14 +1094,14 @@ function AuthPage() {
               </div>
 
             </div>
+
           )}
 
 
-          {/* =========================================
-              REMEMBER ME - LOGIN ONLY
-          ========================================= */}
+          {/* REMEMBER ME */}
 
           {isLogin && (
+
             <div className="remember-login">
 
               <label className="remember-checkbox">
@@ -803,12 +1123,11 @@ function AuthPage() {
               </label>
 
             </div>
+
           )}
 
 
-          {/* =========================================
-              SUBMIT
-          ========================================= */}
+          {/* SUBMIT */}
 
           <button
             type="submit"
@@ -822,9 +1141,7 @@ function AuthPage() {
         </form>
 
 
-        {/* =========================================
-            BOTTOM SWITCH
-        ========================================= */}
+        {/* BOTTOM SWITCH */}
 
         <div className="auth-switch">
 
@@ -836,7 +1153,9 @@ function AuthPage() {
 
               <button
                 type="button"
-                onClick={switchToSignUp}
+                onClick={
+                  switchToSignUp
+                }
               >
                 Sign Up
               </button>
@@ -849,7 +1168,9 @@ function AuthPage() {
 
               <button
                 type="button"
-                onClick={switchToLogin}
+                onClick={
+                  switchToLogin
+                }
               >
                 Log In
               </button>
@@ -861,9 +1182,7 @@ function AuthPage() {
       </div>
 
 
-      {/* =========================================
-          DISCLAIMER
-      ========================================= */}
+      {/* DISCLAIMER */}
 
       <p className="auth-disclaimer">
 

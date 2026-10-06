@@ -184,12 +184,12 @@
      ========================================= */
   
   .scoring-parameter-row {
-    min-height: 76px;
+    min-height: 90px;
     display: grid;
     grid-template-columns: 105px minmax(180px, 1fr) 58px 35px;
     align-items: center;
     column-gap: 14px;
-    padding: 0 17px;
+    padding: 15px 17px;
     box-sizing: border-box;
     border-bottom: 1px solid #e5e2db;
   }

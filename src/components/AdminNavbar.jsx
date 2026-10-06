@@ -1,38 +1,44 @@
-function AdminNavbar() {
-    return (
-      <header className="admin-topbar">
-  
-        <span className="admin-topbar-title">
-          Admin Dashboard
-        </span>
-  
-        <div className="admin-topbar-actions">
-  
-          <div className="admin-search">
-            <span>⌕</span>
-  
-            <input
-              type="text"
-              placeholder="Quick search..."
-            />
-          </div>
+import { useState } from "react"
 
-          <button
-            type="button"
-            className="admin-notification"
-          >
-            ♧
-            <span></span>
-          </button>
-  
-          <div className="admin-top-avatar">
-            AD
-          </div>
+function AdminNavbar() {
+
+  return (
+    <header className="admin-topbar">
+
+      <span className="admin-topbar-title">
+        Admin Dashboard
+      </span>
+
+      <div className="admin-topbar-actions">
+
+        {/* Quick Search */}
+        <div className="admin-search">
+
+          <span>
+            ⌕
+          </span>
+
+          <input
+            type="text"
+            placeholder="Quick search..."
+          />
 
         </div>
-  
-      </header>
-    )
-  }
-  
-  export default AdminNavbar 
+
+
+        {/* Notification */}
+        <button
+          type="button"
+          className="admin-notification"
+        >
+          ♧
+          <span></span>
+        </button>
+
+      </div>
+
+    </header>
+  )
+}
+
+export default AdminNavbar

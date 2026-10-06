@@ -11,7 +11,6 @@
     font-family: Arial, Helvetica, sans-serif;
   }
   
-  
   /* =========================================
      ADMIN SIDEBAR
      ========================================= */
@@ -64,7 +63,6 @@
     font-size: 10px;
     line-height: 1.3;
   }
-  
   
   /* =========================================
      SIDEBAR NAVIGATION
@@ -129,7 +127,6 @@
     color: #a7d8b8;
   }
   
-  
   /* =========================================
      ADMIN PROFILE
      ========================================= */
@@ -185,7 +182,6 @@
     font-size: 12px;
   }
   
-  
   /* =========================================
      MAIN AREA
      ========================================= */
@@ -195,7 +191,6 @@
     min-height: 100vh;
     margin-left: 232px;
   }
-  
   
   /* =========================================
      TOP NAVBAR
@@ -294,7 +289,6 @@
     font-weight: 700;
   }
   
-  
   /* =========================================
      MAIN CONTENT
      ========================================= */
@@ -325,7 +319,6 @@
     font-size: 14px;
     line-height: 1.5;
   }
-  
   
   /* =========================================
      STATISTICS CARDS
@@ -384,7 +377,6 @@
     line-height: 1.4;
   }
   
-  
   /* =========================================
      VERIFICATION + DATA QUALITY
      ========================================= */
@@ -433,7 +425,6 @@
     color: #7d8780;
     font-size: 12px;
   }
-  
   
   /* =========================================
      VERIFICATION OVERVIEW
@@ -499,7 +490,6 @@
     color: #8a938d;
     font-size: 11px;
   }
-  
   
   /* =========================================
      DATA QUALITY ALERTS
@@ -598,7 +588,6 @@
     text-decoration: underline;
   }
   
-  
   /* =========================================
      RECENT ACTIVITY
      ========================================= */
@@ -628,7 +617,6 @@
   .admin-view-all-button:hover {
     text-decoration: underline;
   }
-  
   
   /* =========================================
      RECENT HERB ACTIVITY
@@ -720,7 +708,6 @@
     text-align: right;
   }
   
-  
   /* =========================================
      RECENT SEARCH ACTIVITY
      ========================================= */
@@ -799,7 +786,6 @@
     font-size: 10px;
   }
   
-  
   /* =========================================
      QUICK ACTIONS
      ========================================= */
@@ -808,30 +794,25 @@
     width: 100%;
     margin-bottom: 18px;
   }
-  
   .admin-quick-actions-panel {
     width: 100%;
     padding: 17px;
   }
-  
   .admin-quick-actions-panel .admin-panel-header {
     margin-bottom: 12px;
   }
-  
   .admin-quick-actions-panel .admin-panel-header h2 {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     font-weight: 600;
     color: #17251d;
   }
-  
   .admin-quick-actions-grid {
     display: flex;
     align-items: center;
     gap: 9px;
     flex-wrap: wrap;
   }
-  
   .admin-quick-action {
     height: 34px;
     display: flex;
@@ -852,22 +833,18 @@
     font-size: 13px;
     line-height: 1;
   }
-  
   .admin-quick-action strong {
     font-size: 12px;
     font-weight: 500;
     white-space: nowrap;
   }
-  
   .admin-quick-action.primary {
     background: #17552f;
     color: #ffffff;
   }
-  
   .admin-quick-action.primary > span {
     color: #ffffff;
   }
-  
   .admin-quick-action:hover {
     background: #dce8df;
   }
@@ -875,7 +852,6 @@
   .admin-quick-action.primary:hover {
     background: #124726;
   }
-  
   
   /* =========================================
      RESPONSIVE
@@ -896,7 +872,6 @@
       grid-template-columns: 1fr;
     }
   }
-  
   
   @media (max-width: 800px) {
   
@@ -929,7 +904,6 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
-  
   
   @media (max-width: 650px) {
   
@@ -1010,3 +984,292 @@
       grid-template-columns: 1fr;
     }
   }
+
+ /* =========================================
+   ADMIN PROFILE DROPDOWN
+   ========================================= */
+
+.admin-profile-dropdown-wrapper {
+  position: relative;
+  width: 100%;
+  z-index: 2000;
+}
+
+
+/* =========================================
+   SIDEBAR PROFILE WRAPPER
+   ========================================= */
+
+.admin-profile-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+
+/* =========================================
+   SIDEBAR PROFILE BUTTON
+   ========================================= */
+
+.admin-profile-wrapper .admin-profile {
+  width: 100%;
+
+  min-height: 67px;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 10px 14px;
+  box-sizing: border-box;
+
+  border: none;
+  border-top: 1px solid #26372b;
+
+  background: transparent;
+
+  color: #ffffff;
+
+  font-family: inherit;
+  text-align: left;
+
+  cursor: pointer;
+}
+
+
+/* Sidebar profile hover */
+
+.admin-profile-wrapper .admin-profile:hover {
+  background: #1d3326;
+}
+
+
+/* =========================================
+   SIDEBAR PROFILE AVATAR
+   ========================================= */
+
+.admin-profile-avatar {
+  width: 29px;
+  height: 29px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #4b8765;
+  color: #ffffff;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+/* =========================================
+   SIDEBAR PROFILE INFORMATION
+   ========================================= */
+
+.admin-profile-info {
+  min-width: 0;
+
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+.admin-profile-info strong {
+  color: #dce7df;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.admin-profile-info span {
+  margin-top: 3px;
+
+  color: #708578;
+
+  font-size: 10px;
+}
+
+
+/* =========================================
+   PROFILE ARROW
+   ========================================= */
+
+.admin-profile-arrow {
+  color: #81968a;
+
+  font-size: 12px;
+
+  transition: transform 0.2s ease;
+}
+
+
+.admin-profile-arrow.open {
+  transform: rotate(180deg);
+}
+
+
+/* =========================================
+   SIDEBAR DROPDOWN MENU
+   IMPORTANT:
+   THIS OPENS UPWARD
+   ========================================= */
+
+.admin-profile-wrapper
+.admin-profile-dropdown-menu {
+  position: absolute;
+
+  /*
+    Anchor the bottom of the dropdown
+    to the top of the profile wrapper.
+  */
+  bottom: calc(100% + 8px);
+
+  left: 10px;
+
+  width: 220px;
+
+  padding: 7px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #ddd9d0;
+
+  border-radius: 8px;
+
+  box-shadow:
+    0 8px 24px rgba(25, 42, 31, 0.14);
+
+  z-index: 3000;
+}
+
+
+/* =========================================
+   DROPDOWN OPTIONS
+   ========================================= */
+
+.admin-profile-wrapper
+.admin-profile-dropdown-menu button {
+  width: 100%;
+
+  min-height: 37px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 8px 10px;
+
+  box-sizing: border-box;
+
+  border: none;
+  border-radius: 5px;
+
+  background: transparent;
+
+  color: #344139;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 12px;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+
+.admin-profile-wrapper
+.admin-profile-dropdown-menu button:hover {
+  background: #edf3ee;
+  color: #28533c;
+}
+
+
+/* =========================================
+   DROPDOWN ICONS
+   ========================================= */
+
+.admin-profile-wrapper
+.admin-profile-dropdown-menu
+button span:first-child {
+  width: 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #668073;
+
+  font-size: 14px;
+}
+
+
+/* =========================================
+   DROPDOWN TEXT
+   ========================================= */
+
+.admin-profile-wrapper
+.admin-profile-dropdown-menu
+button span:last-child {
+  flex: 1;
+}
+
+
+/* =========================================
+   DROPDOWN DIVIDER
+   ========================================= */
+
+.admin-profile-wrapper
+.admin-profile-dropdown-divider {
+  height: 1px;
+
+  margin: 6px 4px;
+
+  background: #e7e4dc;
+}
+
+
+/* =========================================
+   LOGOUT
+   ========================================= */
+
+.admin-profile-wrapper
+.admin-profile-dropdown-menu
+.admin-profile-logout {
+  color: #a34f42;
+}
+
+
+.admin-profile-wrapper
+.admin-profile-dropdown-menu
+.admin-profile-logout span:first-child {
+  color: #a34f42;
+}
+
+
+.admin-profile-wrapper
+.admin-profile-dropdown-menu
+.admin-profile-logout:hover {
+  background: #f8ece9;
+  color: #9b4135;
+}

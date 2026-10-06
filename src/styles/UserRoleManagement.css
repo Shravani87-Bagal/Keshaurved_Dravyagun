@@ -590,3 +590,260 @@
       min-height: 72px;
     }
   }
+
+  /* =========================================
+   VIEW USER MODAL
+   ========================================= */
+
+.user-view-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 41, 35, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+}
+
+.user-view-modal {
+  width: 100%;
+  max-width: 560px;
+  background: #ffffff;
+  border: 1px solid #dfe5dc;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(32, 45, 36, 0.18);
+  overflow: hidden;
+}
+
+.user-view-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 28px;
+  border-bottom: 1px solid #e5e9e2;
+}
+
+.user-view-header > div {
+  position: relative;
+  padding-left: 76px;
+  min-height: 58px;
+}
+
+.user-view-avatar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #e7eee4;
+  color: #405642;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.user-view-header h2 {
+  margin: 2px 0 5px;
+  font-size: 21px;
+  font-weight: 650;
+  color: #263329;
+}
+
+.user-view-header p {
+  margin: 0;
+  color: #748077;
+  font-size: 14px;
+}
+
+.user-view-close {
+  border: none;
+  background: transparent;
+  color: #69746c;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.user-view-close:hover {
+  color: #263329;
+}
+
+.user-view-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: #e5e9e2;
+}
+
+.user-view-detail {
+  background: #ffffff;
+  padding: 18px 22px;
+}
+
+.user-view-detail span {
+  display: block;
+  margin-bottom: 6px;
+  color: #7a847c;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.user-view-detail strong {
+  color: #303b33;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.user-view-status.active {
+  color: #4f7557;
+}
+
+.user-view-status.inactive {
+  color: #9a5b50;
+}
+
+.user-view-status.pending {
+  color: #9a7a42;
+}
+
+.user-view-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 18px 22px;
+  border-top: 1px solid #e5e9e2;
+}
+
+.user-view-footer button {
+  border: 1px solid #cfd8cc;
+  background: #ffffff;
+  color: #445148;
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.user-view-footer button:hover {
+  background: #f5f7f3;
+}
+
+
+@media (max-width: 600px) {
+
+  .user-view-overlay {
+    padding: 16px;
+  }
+
+  .user-view-details {
+    grid-template-columns: 1fr;
+  }
+
+  .user-view-header {
+    padding: 22px;
+  }
+
+}
+
+/* =========================================
+   EDIT USER MODAL SPACING
+   ========================================= */
+
+   .user-view-modal {
+    padding: 28px 32px;
+    box-sizing: border-box;
+  }
+  
+  
+  /* =========================================
+     EDIT FORM
+     ========================================= */
+  
+  .user-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  
+    margin-top: 24px;
+  }
+  
+  
+  /* =========================================
+     EDIT FIELD
+     ========================================= */
+  
+  .user-edit-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  
+  
+  /* =========================================
+     LABEL
+     ========================================= */
+  
+  .user-edit-field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #4f5d4f;
+  }
+  
+  
+  /* =========================================
+     INPUT + SELECT
+     ========================================= */
+  
+  .user-edit-field input,
+  .user-edit-field select {
+    width: 100%;
+    box-sizing: border-box;
+  
+    padding: 11px 13px;
+  
+    border: 1px solid #dfe5dc;
+    border-radius: 8px;
+  
+    background: #ffffff;
+  
+    color: #273027;
+  
+    font-size: 14px;
+  
+    outline: none;
+  
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  
+  
+  /* =========================================
+     FOCUS
+     ========================================= */
+  
+  .user-edit-field input:focus,
+  .user-edit-field select:focus {
+    border-color: #7c9275;
+  
+    box-shadow: 0 0 0 3px rgba(124, 146, 117, 0.12);
+  }
+  
+  
+  /* =========================================
+     FOOTER
+     ========================================= */
+  
+  .user-view-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+  
+    margin-top: 25px;
+  }

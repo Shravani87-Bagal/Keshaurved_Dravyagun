@@ -1,577 +1,1219 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
+
+import { getSearchHistory } from "../utils/searchHistory"
+
 import "../styles/SearchAnalytics.css"
+
+
+/* =========================================
+   HELPERS
+   ========================================= */
+
+function formatSearchLabel(search) {
+  if (search.mode === "detailed") {
+    const parameterGroups =
+      Object.entries(search.parameters || {})
+
+    const selectedOptions =
+      parameterGroups.flatMap(
+        ([parameter, options]) =>
+          options.map(
+            (option) =>
+              `${parameter}: ${option}`
+          )
+      )
+
+    if (selectedOptions.length === 0) {
+      return "Structured parameter search"
+    }
+
+    return selectedOptions.join(" · ")
+  }
+
+  return search.query || "Empty search"
+}
+
+
+function getSearchDisplayName(search) {
+  if (search.mode === "detailed") {
+    return "Structured parameter search"
+  }
+
+  return search.query || "Empty search"
+}
+
+
+function getSearchType(search) {
+  return search.mode === "detailed"
+    ? "Detailed"
+    : "Simple"
+}
+
+
+function getMonthKey(date) {
+  return `${date.getFullYear()}-${String(
+    date.getMonth() + 1
+  ).padStart(2, "0")}`
+}
+
+
+/* =========================================
+   SEARCH ANALYTICS
+   ========================================= */
 
 function SearchAnalytics() {
 
-  const [selectedRange, setSelectedRange] = useState("30 days")
+  const [selectedRange, setSelectedRange] =
+    useState("30 days")
 
-  const searchRanges = [
-    "7 days",
-    "30 days",
-    "3 months",
-    "Custom"
-  ]
 
-  const frequentSearches = [
-    {
-      query: "Digestive disorders with Vata...",
-      parameters: "Rasa, Dosha, Karma",
-      count: 124,
-      match: 72
-    },
-    {
-      query: "Skin inflammation — Pitta do...",
-      parameters: "Dosha, Guna, Virya",
-      count: 98,
-      match: 68
-    },
-    {
-      query: "Respiratory Kapha conditions",
-      parameters: "Dosha, Srotas, Karma",
-      count: 76,
-      match: 74
-    },
-    {
-      query: "Rasayana herbs for vitality",
-      parameters: "Karma, Dhatu, Guna",
-      count: 63,
-      match: 81
-    },
-    {
-      query: "Fever management Tikta Kar...",
-      parameters: "Rasa, Virya, Karma",
-      count: 41,
-      match: 54
-    },
-    {
-      query: "Medhya — cognitive support",
-      parameters: "Karma, Dhatu, Srotas",
-      count: 38,
-      match: 77
+  /* =========================================
+     READ SEARCH HISTORY
+     ========================================= */
+
+  const searchHistory = getSearchHistory()
+
+
+  /* =========================================
+     DATE RANGE
+     ========================================= */
+
+  const filteredHistory = useMemo(() => {
+
+    const now = new Date()
+
+    let days = 30
+
+    if (selectedRange === "7 days") {
+      days = 7
     }
-  ]
 
-  const weakSearches = [
-    {
-      query: "Autoimmune inflammat...",
-      parameters: "Dosha, Karma",
-      count: 29,
-      match: 31
-    },
-    {
-      query: "Neuroprotective Vata di...",
-      parameters: "Dhatu, Karma",
-      count: 22,
-      match: 28
-    },
-    {
-      query: "Hormonal Kapha-Pitta i...",
-      parameters: "Dosha, Dhatu",
-      count: 19,
-      match: 33
-    },
-    {
-      query: "Post-viral fatigue Ojas d...",
-      parameters: "Karma, Dhatu",
-      count: 17,
-      match: 24
+    if (selectedRange === "30 days") {
+      days = 30
     }
-  ]
 
-  const rarelyTopResults = [
-    {
-      herb: "Manjistha",
-      appearances: 3,
-      topTen: 1,
-      lastSeen: "2 weeks ago",
-      status: "Verified"
-    },
-    {
-      herb: "Vidari Kanda",
-      appearances: 5,
-      topTen: 2,
-      lastSeen: "3 weeks ago",
-      status: "Reviewed"
-    },
-    {
-      herb: "Prishniparni",
-      appearances: 2,
-      topTen: 0,
-      lastSeen: "1 month ago",
-      status: "Draft"
-    },
-    {
-      herb: "Kantakari",
-      appearances: 4,
-      topTen: 1,
-      lastSeen: "3 weeks ago",
-      status: "Verified"
+    if (selectedRange === "90 days") {
+      days = 90
     }
-  ]
 
-  const insights = [
-    {
-      icon: "⌕",
-      text: "12 recurring searches return weak matches (below 40%).",
-      action: "Review parameters →"
-    },
-    {
-      icon: "⚖",
-      text: "8 Ayurvedic parameters are frequently used but have limited herb coverage.",
-      action: "Expand coverage →"
-    },
-    {
-      icon: "🌿",
-      text: "24 herbs have not appeared in top results in the past 30 days.",
-      action: "Check scoring →"
-    },
-    {
-      icon: "▥",
-      text: "Srotas affinity missing in 34 verified herbs, reducing recall.",
-      action: "Complete data →"
-    }
-  ]
+    const startDate =
+      new Date(now)
+
+    startDate.setDate(
+      startDate.getDate() - days
+    )
+
+    return searchHistory.filter(
+      (search) => {
+
+        if (!search.timestamp) {
+          return false
+        }
+
+        const searchDate =
+          new Date(search.timestamp)
+
+        return searchDate >= startDate
+      }
+    )
+
+  }, [
+    searchHistory,
+    selectedRange,
+  ])
+
+
+  /* =========================================
+     OVERVIEW STATISTICS
+     ========================================= */
+
+  const totalSearches =
+    filteredHistory.length
+
+
+  const searchesThisMonth =
+    searchHistory.filter(
+      (search) => {
+
+        if (!search.timestamp) {
+          return false
+        }
+
+        const searchDate =
+          new Date(search.timestamp)
+
+        const now = new Date()
+
+        return (
+          searchDate.getMonth() ===
+            now.getMonth() &&
+          searchDate.getFullYear() ===
+            now.getFullYear()
+        )
+      }
+    ).length
+
+
+  const averageMatch =
+    filteredHistory.length > 0
+      ? Math.round(
+          filteredHistory.reduce(
+            (total, search) =>
+              total +
+              Number(
+                search.averageMatch || 0
+              ),
+            0
+          ) /
+            filteredHistory.length
+        )
+      : 0
+
+
+  const zeroMatchSearches =
+    filteredHistory.filter(
+      (search) =>
+        search.zeroMatch
+    ).length
+
+
+  const weakMatchSearches =
+    filteredHistory.filter(
+      (search) =>
+        search.weakMatch
+    ).length
+
+
+  /* =========================================
+     FREQUENT SEARCHES
+     ========================================= */
+
+  const frequentSearches =
+    useMemo(() => {
+
+      const searchMap = new Map()
+
+      filteredHistory.forEach(
+        (search) => {
+
+          const key =
+            search.mode === "detailed"
+              ? JSON.stringify(
+                  search.parameters || {}
+                )
+              : search.query
+                  ?.trim()
+                  .toLowerCase()
+
+          if (!key) {
+            return
+          }
+
+          if (!searchMap.has(key)) {
+            searchMap.set(
+              key,
+              {
+                label:
+                  getSearchDisplayName(
+                    search
+                  ),
+
+                display:
+                  formatSearchLabel(
+                    search
+                  ),
+
+                type:
+                  getSearchType(
+                    search
+                  ),
+
+                count: 0,
+
+                totalMatch: 0,
+
+                resultCount: 0,
+              }
+            )
+          }
+
+          const current =
+            searchMap.get(key)
+
+          current.count += 1
+
+          current.totalMatch +=
+            Number(
+              search.averageMatch ||
+                0
+            )
+
+          current.resultCount +=
+            Number(
+              search.resultCount ||
+                0
+            )
+        }
+      )
+
+      return [...searchMap.values()]
+        .map((item) => ({
+          ...item,
+
+          averageMatch:
+            item.count > 0
+              ? Math.round(
+                  item.totalMatch /
+                    item.count
+                )
+              : 0,
+
+          averageResults:
+            item.count > 0
+              ? Math.round(
+                  item.resultCount /
+                    item.count
+                )
+              : 0,
+        }))
+        .sort(
+          (a, b) =>
+            b.count - a.count
+        )
+        .slice(0, 5)
+
+    }, [
+      filteredHistory,
+    ])
+
+
+  /* =========================================
+     WEAK SEARCHES
+     ========================================= */
+
+  const weakSearches =
+    useMemo(() => {
+
+      return filteredHistory
+        .filter(
+          (search) =>
+            search.weakMatch ||
+            search.zeroMatch
+        )
+        .sort(
+          (a, b) =>
+            Number(
+              a.averageMatch || 0
+            ) -
+            Number(
+              b.averageMatch || 0
+            )
+        )
+        .slice(0, 5)
+
+    }, [
+      filteredHistory,
+    ])
+
+
+  /* =========================================
+     TOP RESULTS
+     ========================================= */
+
+  const topResults =
+    useMemo(() => {
+
+      const resultMap =
+        new Map()
+
+      filteredHistory.forEach(
+        (search) => {
+
+          if (
+            !Array.isArray(
+              search.topResults
+            )
+          ) {
+            return
+          }
+
+          search.topResults.forEach(
+            (herbName) => {
+
+              if (!herbName) {
+                return
+              }
+
+              const current =
+                resultMap.get(
+                  herbName
+                ) || 0
+
+              resultMap.set(
+                herbName,
+                current + 1
+              )
+            }
+          )
+        }
+      )
+
+      return [...resultMap.entries()]
+        .map(
+          ([name, count]) => ({
+            name,
+            count,
+          })
+        )
+        .sort(
+          (a, b) =>
+            b.count - a.count
+        )
+        .slice(0, 5)
+
+    }, [
+      filteredHistory,
+    ])
+
+
+  /* =========================================
+     SEARCH MODE BREAKDOWN
+     ========================================= */
+
+  const simpleSearches =
+    filteredHistory.filter(
+      (search) =>
+        search.mode === "simple"
+    ).length
+
+
+  const detailedSearches =
+    filteredHistory.filter(
+      (search) =>
+        search.mode === "detailed"
+    ).length
+
+
+  /* =========================================
+     MONTHLY TREND
+     ========================================= */
+
+  const searchTrend =
+    useMemo(() => {
+
+      const monthMap =
+        new Map()
+
+      filteredHistory.forEach(
+        (search) => {
+
+          if (!search.timestamp) {
+            return
+          }
+
+          const date =
+            new Date(
+              search.timestamp
+            )
+
+          const key =
+            getMonthKey(date)
+
+          const label =
+            date.toLocaleDateString(
+              "en-US",
+              {
+                month: "short",
+              }
+            )
+
+          if (!monthMap.has(key)) {
+            monthMap.set(
+              key,
+              {
+                key,
+                label,
+                count: 0,
+              }
+            )
+          }
+
+          monthMap.get(
+            key
+          ).count += 1
+        }
+      )
+
+      return [...monthMap.values()]
+        .sort(
+          (a, b) =>
+            a.key.localeCompare(
+              b.key
+            )
+        )
+
+    }, [
+      filteredHistory,
+    ])
+
+
+  /* =========================================
+     RENDER
+     ========================================= */
 
   return (
-    <div className="search-analytics-page">
+    <div className="analytics-page">
 
-      {/* =========================================
-          PAGE HEADER
-      ========================================= */}
-
-      <div className="search-analytics-header">
-
-        <div>
-
-          <p className="search-analytics-label">
-            USAGE & KNOWLEDGE ANALYTICS
-          </p>
-
-          <h1>
-            Search Analytics
-          </h1>
-
-          <p className="search-analytics-description">
-            Understand how clinicians use the system and identify gaps in the
-            Ayurvedic knowledge base.
-          </p>
-
-        </div>
-
-      </div>
+      <div className="analytics-content">
 
 
-      {/* =========================================
-          OVERVIEW STATISTICS
-      ========================================= */}
+        {/* =========================================
+            HEADER
+           ========================================= */}
 
-      <section className="analytics-stats-grid">
+        <section className="analytics-header">
 
-        <div className="analytics-stat-card">
-          <strong>4,821</strong>
-          <span>Total Searches</span>
-          <small>All time</small>
-        </div>
+          <div>
 
-        <div className="analytics-stat-card">
-          <strong>643</strong>
-          <span>Searches This Month</span>
-          <small className="positive-change">+12%</small>
-        </div>
+            <p className="analytics-label">
+              SEARCH ANALYTICS
+            </p>
 
-        <div className="analytics-stat-card">
-          <strong>67%</strong>
-          <span>Avg Match Score</span>
-          <small>Across all queries</small>
-        </div>
+            <h1>
+              Understand how the herb
+              intelligence engine is being used
+            </h1>
 
-        <div className="analytics-stat-card">
-          <strong>38</strong>
-          <span>Zero-Match Searches</span>
-          <small className="warning-text">No results returned</small>
-        </div>
-
-        <div className="analytics-stat-card">
-          <strong>112</strong>
-          <span>Weak-Match Searches</span>
-          <small className="warning-text">Score below 40%</small>
-        </div>
-
-      </section>
-
-
-      {/* =========================================
-          SEARCH TRENDS
-      ========================================= */}
-
-      <section className="analytics-trend-card">
-
-        <div className="analytics-section-header">
-
-          <h2>
-            Search Trends
-          </h2>
-
-          <div className="analytics-range-buttons">
-
-            {searchRanges.map((range) => (
-
-              <button
-                key={range}
-                type="button"
-                className={
-                  selectedRange === range
-                    ? "active"
-                    : ""
-                }
-                onClick={() => setSelectedRange(range)}
-              >
-                {range}
-              </button>
-
-            ))}
+            <p className="analytics-description">
+              Review search behaviour,
+              matching quality, and areas
+              where the knowledge base may
+              need improvement.
+            </p>
 
           </div>
 
-        </div>
 
+          <div className="analytics-range">
 
-        <div className="analytics-chart">
+            <button
+              type="button"
+              className={
+                selectedRange === "7 days"
+                  ? "active"
+                  : ""
+              }
+              onClick={() =>
+                setSelectedRange(
+                  "7 days"
+                )
+              }
+            >
+              7 days
+            </button>
 
-          <div className="analytics-chart-line">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
+            <button
+              type="button"
+              className={
+                selectedRange === "30 days"
+                  ? "active"
+                  : ""
+              }
+              onClick={() =>
+                setSelectedRange(
+                  "30 days"
+                )
+              }
+            >
+              30 days
+            </button>
 
-          <div className="analytics-chart-labels">
-            <span>01 Sep</span>
-            <span>08 Sep</span>
-            <span>15 Sep</span>
-            <span>22 Sep</span>
-            <span>30 Sep</span>
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* =========================================
-          FREQUENT + WEAK SEARCHES
-      ========================================= */}
-
-      <section className="analytics-two-column">
-
-        {/* MOST FREQUENT SEARCHES */}
-
-        <div className="analytics-panel">
-
-          <div className="analytics-panel-header">
-            <h2>
-              Most Frequent Searches
-            </h2>
-          </div>
-
-          <div className="analytics-table-wrapper">
-
-            <table className="analytics-table">
-
-              <thead>
-                <tr>
-                  <th>QUERY</th>
-                  <th>COUNT</th>
-                  <th>AVG %</th>
-                </tr>
-              </thead>
-
-              <tbody>
-
-                {frequentSearches.map((search) => (
-
-                  <tr key={search.query}>
-
-                    <td>
-
-                      <strong>
-                        {search.query}
-                      </strong>
-
-                      <small>
-                        {search.parameters}
-                      </small>
-
-                    </td>
-
-                    <td className="analytics-count">
-                      {search.count}
-                    </td>
-
-                    <td>
-
-                      <div className="match-score">
-
-                        <div className="match-bar">
-                          <span
-                            style={{
-                              width: `${search.match}%`
-                            }}
-                          ></span>
-                        </div>
-
-                        <span>
-                          {search.match}%
-                        </span>
-
-                      </div>
-
-                    </td>
-
-                  </tr>
-
-                ))}
-
-              </tbody>
-
-            </table>
+            <button
+              type="button"
+              className={
+                selectedRange === "90 days"
+                  ? "active"
+                  : ""
+              }
+              onClick={() =>
+                setSelectedRange(
+                  "90 days"
+                )
+              }
+            >
+              90 days
+            </button>
 
           </div>
 
-        </div>
+        </section>
 
 
-        {/* WEAK / ZERO MATCH */}
+        {/* =========================================
+            OVERVIEW CARDS
+           ========================================= */}
 
-        <div className="analytics-panel">
+        <section className="analytics-overview-grid">
 
-          <div className="analytics-panel-header analytics-weak-header">
+          <article className="analytics-stat-card">
+
+            <strong>
+              {totalSearches}
+            </strong>
+
+            <span>
+              Total Searches
+            </span>
+
+            <p>
+              Searches in selected period
+            </p>
+
+          </article>
+
+
+          <article className="analytics-stat-card">
+
+            <strong>
+              {searchesThisMonth}
+            </strong>
+
+            <span>
+              Searches This Month
+            </span>
+
+            <p>
+              Current calendar month
+            </p>
+
+          </article>
+
+
+          <article className="analytics-stat-card">
+
+            <strong>
+              {averageMatch}%
+            </strong>
+
+            <span>
+              Average Match Score
+            </span>
+
+            <p>
+              Across recorded searches
+            </p>
+
+          </article>
+
+
+          <article className="analytics-stat-card">
+
+            <strong>
+              {zeroMatchSearches}
+            </strong>
+
+            <span>
+              Zero-Match Searches
+            </span>
+
+            <p>
+              Searches with no results
+            </p>
+
+          </article>
+
+
+          <article className="analytics-stat-card">
+
+            <strong>
+              {weakMatchSearches}
+            </strong>
+
+            <span>
+              Weak-Match Searches
+            </span>
+
+            <p>
+              Average match below 40%
+            </p>
+
+          </article>
+
+        </section>
+
+
+        {/* =========================================
+            SEARCH SUMMARY
+           ========================================= */}
+
+        <section className="analytics-summary-grid">
+
+          <article className="analytics-panel">
+
+            <div className="analytics-panel-header">
+
+              <div>
+
+                <p className="analytics-panel-label">
+                  SEARCH MODES
+                </p>
+
+                <h2>
+                  How searches are performed
+                </h2>
+
+              </div>
+
+            </div>
+
+
+            <div className="analytics-mode-row">
+
+              <span>
+                Simple Search
+              </span>
+
+              <strong>
+                {simpleSearches}
+              </strong>
+
+            </div>
+
+
+            <div className="analytics-mode-row">
+
+              <span>
+                Detailed Search
+              </span>
+
+              <strong>
+                {detailedSearches}
+              </strong>
+
+            </div>
+
+
+            <div className="analytics-mode-total">
+
+              <span>
+                Total
+              </span>
+
+              <strong>
+                {totalSearches}
+              </strong>
+
+            </div>
+
+          </article>
+
+
+          <article className="analytics-panel">
+
+            <div className="analytics-panel-header">
+
+              <div>
+
+                <p className="analytics-panel-label">
+                  SEARCH QUALITY
+                </p>
+
+                <h2>
+                  Matching quality overview
+                </h2>
+
+              </div>
+
+            </div>
+
+
+            <div className="analytics-quality-row">
+
+              <span>
+                Strong matches
+              </span>
+
+              <strong>
+                {Math.max(
+                  totalSearches -
+                    zeroMatchSearches -
+                    weakMatchSearches,
+                  0
+                )}
+              </strong>
+
+            </div>
+
+
+            <div className="analytics-quality-row">
+
+              <span>
+                Weak matches
+              </span>
+
+              <strong>
+                {weakMatchSearches}
+              </strong>
+
+            </div>
+
+
+            <div className="analytics-quality-row">
+
+              <span>
+                No matches
+              </span>
+
+              <strong>
+                {zeroMatchSearches}
+              </strong>
+
+            </div>
+
+          </article>
+
+        </section>
+
+
+        {/* =========================================
+            MOST FREQUENT SEARCHES
+           ========================================= */}
+
+        <section className="analytics-section">
+
+          <div className="analytics-section-header">
 
             <div>
 
+              <p className="analytics-panel-label">
+                SEARCH DEMAND
+              </p>
+
               <h2>
-                Weak / Zero Match Searches
+                Most frequent searches
               </h2>
 
-              <span className="data-gap-badge">
-                Data gap indicator
-              </span>
+              <p>
+                Queries and parameter combinations
+                users search most often.
+              </p>
 
             </div>
 
           </div>
 
-          <div className="analytics-table-wrapper">
 
-            <table className="analytics-table weak-search-table">
+          {frequentSearches.length === 0 ? (
 
-              <thead>
-                <tr>
-                  <th>QUERY</th>
-                  <th>COUNT</th>
-                  <th>AVG %</th>
-                  <th>ACTION</th>
-                </tr>
-              </thead>
+            <div className="analytics-empty-state">
 
-              <tbody>
+              No search history available yet.
 
-                {weakSearches.map((search) => (
+            </div>
 
-                  <tr key={search.query}>
+          ) : (
 
-                    <td>
+            <div className="analytics-table-wrapper">
 
-                      <strong>
-                        {search.query}
-                      </strong>
+              <table className="analytics-table">
 
-                      <small>
-                        {search.parameters}
-                      </small>
+                <thead>
 
-                    </td>
+                  <tr>
 
-                    <td className="analytics-count weak-count">
-                      {search.count}
-                    </td>
+                    <th>
+                      Search
+                    </th>
 
-                    <td>
-                      <span className="weak-match-badge">
-                        {search.match}%
-                      </span>
-                    </td>
+                    <th>
+                      Type
+                    </th>
 
-                    <td>
-                      <button
-                        type="button"
-                        className="analytics-action-link"
-                      >
-                        Add herbs
-                      </button>
-                    </td>
+                    <th>
+                      Searches
+                    </th>
+
+                    <th>
+                      Avg. Match
+                    </th>
+
+                    <th>
+                      Avg. Results
+                    </th>
 
                   </tr>
 
-                ))}
-
-              </tbody>
-
-            </table>
-
-          </div>
-
-        </div>
-
-      </section>
+                </thead>
 
 
-      {/* =========================================
-          RARELY TOP RESULTS + DATA GAP INSIGHTS
-      ========================================= */}
+                <tbody>
 
-      <section className="analytics-two-column analytics-bottom-grid">
+                  {frequentSearches.map(
+                    (search, index) => (
 
-        {/* RARELY IN TOP RESULTS */}
-
-        <div className="analytics-panel">
-
-          <div className="analytics-panel-header">
-            <h2>
-              Herbs Rarely in Top Results
-            </h2>
-          </div>
-
-          <div className="analytics-table-wrapper">
-
-            <table className="analytics-table rare-herbs-table">
-
-              <thead>
-                <tr>
-                  <th>HERB</th>
-                  <th>APPEARANCES</th>
-                  <th>TOP-10</th>
-                  <th>LAST SEEN</th>
-                  <th>STATUS</th>
-                </tr>
-              </thead>
-
-              <tbody>
-
-                {rarelyTopResults.map((herb) => (
-
-                  <tr key={herb.herb}>
-
-                    <td>
-                      <strong>
-                        {herb.herb}
-                      </strong>
-                    </td>
-
-                    <td className="rare-number">
-                      {herb.appearances}
-                    </td>
-
-                    <td>
-                      {herb.topTen}
-                    </td>
-
-                    <td>
-                      <span className="last-seen">
-                        {herb.lastSeen}
-                      </span>
-                    </td>
-
-                    <td>
-
-                      <span
-                        className={`herb-analytics-status ${
-                          herb.status.toLowerCase()
-                        }`}
+                      <tr
+                        key={`${search.label}-${index}`}
                       >
-                        {herb.status}
-                      </span>
 
-                    </td>
+                        <td>
+
+                          <strong>
+                            {search.label}
+                          </strong>
+
+                          {search.type ===
+                            "Detailed" && (
+
+                            <small>
+                              {search.display}
+                            </small>
+
+                          )}
+
+                        </td>
+
+                        <td>
+                          {search.type}
+                        </td>
+
+                        <td>
+                          {search.count}
+                        </td>
+
+                        <td>
+                          {search.averageMatch}%
+                        </td>
+
+                        <td>
+                          {search.averageResults}
+                        </td>
+
+                      </tr>
+
+                    )
+                  )}
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          )}
+
+        </section>
+
+
+        {/* =========================================
+            WEAK SEARCHES
+           ========================================= */}
+
+        <section className="analytics-section">
+
+          <div className="analytics-section-header">
+
+            <div>
+
+              <p className="analytics-panel-label">
+                KNOWLEDGE GAPS
+              </p>
+
+              <h2>
+                Weak and zero-match searches
+              </h2>
+
+              <p>
+                Searches that may indicate
+                missing or insufficient herb
+                knowledge.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          {weakSearches.length === 0 ? (
+
+            <div className="analytics-empty-state">
+
+              No weak or zero-match searches
+              recorded in this period.
+
+            </div>
+
+          ) : (
+
+            <div className="analytics-table-wrapper">
+
+              <table className="analytics-table">
+
+                <thead>
+
+                  <tr>
+
+                    <th>
+                      Search
+                    </th>
+
+                    <th>
+                      Type
+                    </th>
+
+                    <th>
+                      Results
+                    </th>
+
+                    <th>
+                      Match
+                    </th>
+
+                    <th>
+                      Status
+                    </th>
 
                   </tr>
 
-                ))}
+                </thead>
 
-              </tbody>
 
-            </table>
+                <tbody>
+
+                  {weakSearches.map(
+                    (search, index) => (
+
+                      <tr
+                        key={`${search.id}-${index}`}
+                      >
+
+                        <td>
+
+                          <strong>
+                            {getSearchDisplayName(
+                              search
+                            )}
+                          </strong>
+
+                          {search.mode ===
+                            "detailed" && (
+
+                            <small>
+                              {formatSearchLabel(
+                                search
+                              )}
+                            </small>
+
+                          )}
+
+                        </td>
+
+                        <td>
+                          {getSearchType(
+                            search
+                          )}
+                        </td>
+
+                        <td>
+                          {search.resultCount}
+                        </td>
+
+                        <td>
+                          {search.averageMatch}%
+                        </td>
+
+                        <td>
+
+                          {search.zeroMatch ? (
+                            <span className="analytics-status zero">
+                              No match
+                            </span>
+                          ) : (
+                            <span className="analytics-status weak">
+                              Weak match
+                            </span>
+                          )}
+
+                        </td>
+
+                      </tr>
+
+                    )
+                  )}
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          )}
+
+        </section>
+
+
+        {/* =========================================
+            TOP RESULT PROFILES
+           ========================================= */}
+
+        <section className="analytics-section">
+
+          <div className="analytics-section-header">
+
+            <div>
+
+              <p className="analytics-panel-label">
+                RESULT DEMAND
+              </p>
+
+              <h2>
+                Frequently surfaced herbs
+              </h2>
+
+              <p>
+                Herb profiles appearing most often
+                among recorded search results.
+              </p>
+
+            </div>
 
           </div>
 
-        </div>
+
+          {topResults.length === 0 ? (
+
+            <div className="analytics-empty-state">
+
+              No result profiles available yet.
+
+            </div>
+
+          ) : (
+
+            <div className="analytics-result-list">
+
+              {topResults.map(
+                (result, index) => (
+
+                  <div
+                    className="analytics-result-row"
+                    key={result.name}
+                  >
+
+                    <span className="analytics-rank">
+                      {index + 1}
+                    </span>
+
+                    <strong>
+                      {result.name}
+                    </strong>
+
+                    <span>
+                      surfaced{" "}
+                      {result.count}{" "}
+                      {result.count === 1
+                        ? "time"
+                        : "times"}
+                    </span>
+
+                  </div>
+
+                )
+              )}
+
+            </div>
+
+          )}
+
+        </section>
 
 
-        {/* DATA GAP INSIGHTS */}
+        {/* =========================================
+            SEARCH TREND
+           ========================================= */}
 
-        <div className="analytics-panel insights-panel">
+        <section className="analytics-section">
 
-          <div className="analytics-panel-header">
+          <div className="analytics-section-header">
 
-            <h2>
-              Data Gap Insights
-            </h2>
+            <div>
+
+              <p className="analytics-panel-label">
+                SEARCH ACTIVITY
+              </p>
+
+              <h2>
+                Search trend
+              </h2>
+
+              <p>
+                Recorded searches by month.
+              </p>
+
+            </div>
 
           </div>
 
-          <div className="analytics-insights">
 
-            {insights.map((insight, index) => (
+          {searchTrend.length === 0 ? (
 
-              <div
-                className="analytics-insight"
-                key={index}
-              >
+            <div className="analytics-empty-state">
 
-                <span className="analytics-insight-icon">
-                  {insight.icon}
-                </span>
+              Search activity will appear here
+              after searches are recorded.
 
-                <div>
+            </div>
 
-                  <p>
-                    {insight.text}
-                  </p>
+          ) : (
 
-                  <button type="button">
-                    {insight.action}
-                  </button>
+            <div className="analytics-trend-list">
 
-                </div>
+              {searchTrend.map(
+                (month) => (
 
-              </div>
+                  <div
+                    className="analytics-trend-row"
+                    key={month.key}
+                  >
 
-            ))}
+                    <span>
+                      {month.label}
+                    </span>
 
-          </div>
+                    <div className="analytics-trend-bar">
 
-        </div>
+                      <div
+                        className="analytics-trend-fill"
+                        style={{
+                          width: `${Math.min(
+                            month.count * 10,
+                            100
+                          )}%`,
+                        }}
+                      />
 
-      </section>
+                    </div>
+
+                    <strong>
+                      {month.count}
+                    </strong>
+
+                  </div>
+
+                )
+              )}
+
+            </div>
+
+          )}
+
+        </section>
+
+
+      </div>
 
     </div>
   )
 }
+
 
 export default SearchAnalytics

@@ -1,10 +1,12 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 
 import DashboardNavbar from "../components/DashboardNavbar"
 import Sidebar from "../components/Sidebar"
 import HerbResultCard from "../components/HerbResultCard"
 import herbDataset from "../data/herbDataset"
+
+import { addSearchHistory } from "../utils/searchHistory"
 
 import "../styles/SearchResults.css"
 
@@ -816,6 +818,62 @@ function SearchResults() {
       filters,
       sortOption,
     ])
+
+    // =========================================
+// RECORD SEARCH HISTORY
+// =========================================
+
+useEffect(() => {
+
+  if (
+    !query &&
+    mode !== "detailed"
+  ) {
+    return
+  }
+
+  const averageMatch =
+    herbResults.length > 0
+      ? Math.round(
+          herbResults.reduce(
+            (total, herb) =>
+              total + (herb.match || 0),
+            0
+          ) / herbResults.length
+        )
+      : 0
+
+  const topResults =
+    herbResults
+      .slice(0, 5)
+      .map(
+        (herb) =>
+          herb.englishName
+      )
+
+  addSearchHistory({
+
+    mode,
+
+    query,
+
+    parameters:
+      selectedParameters,
+
+    resultCount:
+      herbResults.length,
+
+    averageMatch,
+
+    topResults
+
+  })
+
+}, [
+  mode,
+  query,
+  selectedParameters
+])
 
 
   /* =========================================

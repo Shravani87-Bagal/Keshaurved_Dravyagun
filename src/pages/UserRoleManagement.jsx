@@ -1,199 +1,517 @@
+import { useEffect, useState } from "react"
+import { users as initialUsers } from "../data/users"
 import "../styles/UserRoleManagement.css"
+
+
+function formatDate(dateValue) {
+  if (!dateValue) {
+    return "—"
+  }
+
+  const date = new Date(dateValue)
+
+  if (Number.isNaN(date.getTime())) {
+    return "—"
+  }
+
+  return date.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  })
+}
+
+
+function formatDateTime(dateValue) {
+  if (!dateValue) {
+    return "—"
+  }
+
+  const date = new Date(dateValue)
+
+  if (Number.isNaN(date.getTime())) {
+    return "—"
+  }
+
+  return (
+    <>
+      {date.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })}
+      <br />
+      {date.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      })}
+    </>
+  )
+}
+
 
 function UserRoleManagement() {
 
-  const users = [
-    {
-      initials: "DA",
-      name: "Dr. Anand Sharma",
-      email: "anand@dravya.guna.in",
-      role: "Admin",
-      status: "Active",
-      lastActive: "Today,\n10:42 AM",
-      created: "01 Jan\n2025"
-    },
-    {
-      initials: "DP",
-      name: "Dr. Priya Patel",
-      email: "priya@dravyaguna.in",
-      role: "Ayurvedic Reviewer",
-      status: "Active",
-      lastActive: "Today,\n09:15 AM",
-      created: "15 Mar\n2025"
-    },
-    {
-      initials: "DR",
-      name: "Dr. Ramesh Mehta",
-      email: "ramesh@dravyaguna.in",
-      role: "Ayurvedic Reviewer",
-      status: "Active",
-      lastActive: "Yesterday",
-      created: "20 Apr\n2025"
-    },
-    {
-      initials: "DS",
-      name: "Dr. Sunita Joshi",
-      email: "sunita@dravyaguna.in",
-      role: "Doctor",
-      status: "Active",
-      lastActive: "07 Sep\n2026",
-      created: "01 Jun\n2025"
-    },
-    {
-      initials: "DK",
-      name: "Dr. Kavita Rao",
-      email: "kavita@dravyaguna.in",
-      role: "Doctor",
-      status: "Active",
-      lastActive: "05 Sep\n2026",
-      created: "15 Jul\n2025"
-    },
-    {
-      initials: "DA",
-      name: "Dr. Arun Nair",
-      email: "arun@dravyaguna.in",
-      role: "Doctor",
-      status: "Inactive",
-      lastActive: "01 Aug\n2026",
-      created: "10 Aug\n2025"
-    },
-    {
-      initials: "DM",
-      name: "Dr. Meena Rao",
-      email: "meena@dravyaguna.in",
-      role: "Doctor",
-      status: "Pending",
-      lastActive: "—",
-      created: "07 Sep\n2026"
-    }
-  ]
+  /* =========================================
+     USER DATA
+     ========================================= */
 
-  const permissions = [
+  const [userList, setUserList] = useState(() => {
+
+    const savedUsers = localStorage.getItem(
+      "dravyaguna_users"
+    )
+
+    if (savedUsers) {
+      try {
+        return JSON.parse(savedUsers)
+      } catch {
+        return initialUsers
+      }
+    }
+
+    return initialUsers
+  })
+
+
+  /* =========================================
+     MODAL STATES
+     ========================================= */
+
+  const [selectedUser, setSelectedUser] =
+    useState(null)
+
+  const [editingUser, setEditingUser] =
+    useState(null)
+
+  const [editForm, setEditForm] = useState({
+    name: "",
+    email: "",
+    role: "",
+    status: "",
+  })
+
+
+  /* =========================================
+     SEARCH
+     ========================================= */
+
+  const [searchTerm, setSearchTerm] =
+    useState("")
+
+
+  /* =========================================
+     DEACTIVATE USER
+     ========================================= */
+
+  const handleDeactivate = (userId) => {
+
+    const user = userList.find(
+      (user) => user.id === userId
+    )
+
+    if (!user) {
+      return
+    }
+
+    const confirmed = window.confirm(
+      `Are you sure you want to deactivate ${user.name}?`
+    )
+
+    if (!confirmed) {
+      return
+    }
+
+    setUserList((currentUsers) =>
+      currentUsers.map((user) =>
+        user.id === userId
+          ? {
+              ...user,
+              status: "Inactive",
+            }
+          : user
+      )
+    )
+  }
+
+
+  /* =========================================
+     ACTIVATE USER
+     ========================================= */
+
+  const handleActivate = (userId) => {
+
+    const user = userList.find(
+      (user) => user.id === userId
+    )
+
+    if (!user) {
+      return
+    }
+
+    const confirmed = window.confirm(
+      `Are you sure you want to activate ${user.name}?`
+    )
+
+    if (!confirmed) {
+      return
+    }
+
+    setUserList((currentUsers) =>
+      currentUsers.map((user) =>
+        user.id === userId
+          ? {
+              ...user,
+              status: "Active",
+            }
+          : user
+      )
+    )
+  }
+
+
+  /* =========================================
+     ROLE PERMISSION RULES
+     
+     This is the central permission configuration.
+     
+     true  = role has permission
+     false = role does not have permission
+     ========================================= */
+
+  const permissionRules = {
+
+    "Admin": {
+      "Search herbs": true,
+      "View herb details": true,
+      "Add herbs": true,
+      "Edit herbs": true,
+      "Review herbs": true,
+      "Verify herbs": true,
+      "Manage vocabulary": true,
+      "Change scoring weights": true,
+      "View analytics": true,
+      "Manage users": true,
+      "View audit log": true,
+    },
+
+    "Ayurvedic Reviewer": {
+      "Search herbs": true,
+      "View herb details": true,
+      "Add herbs": true,
+      "Edit herbs": true,
+      "Review herbs": true,
+      "Verify herbs": false,
+      "Manage vocabulary": false,
+      "Change scoring weights": false,
+      "View analytics": true,
+      "Manage users": false,
+      "View audit log": true,
+    },
+
+    "Doctor": {
+      "Search herbs": true,
+      "View herb details": true,
+      "Add herbs": false,
+      "Edit herbs": false,
+      "Review herbs": false,
+      "Verify herbs": false,
+      "Manage vocabulary": false,
+      "Change scoring weights": false,
+      "View analytics": false,
+      "Manage users": false,
+      "View audit log": false,
+    },
+
+  }
+
+
+  /* =========================================
+     PERMISSION LIST
+     
+     The table rows are generated from this list.
+     ========================================= */
+
+  const permissionList = [
     {
       permission: "Search herbs",
-      admin: true,
-      reviewer: true,
-      doctor: true
     },
     {
       permission: "View herb details",
-      admin: true,
-      reviewer: true,
-      doctor: true
     },
     {
       permission: "Add herbs",
-      admin: true,
-      reviewer: true,
-      doctor: false
     },
     {
       permission: "Edit herbs",
-      admin: true,
-      reviewer: true,
-      doctor: false
     },
     {
       permission: "Review herbs",
-      admin: true,
-      reviewer: true,
-      doctor: false
     },
     {
       permission: "Verify herbs",
-      admin: true,
-      reviewer: false,
-      doctor: false,
-      restricted: true
+      restricted: true,
     },
     {
       permission: "Manage vocabulary",
-      admin: true,
-      reviewer: false,
-      doctor: false
     },
     {
       permission: "Change scoring weights",
-      admin: true,
-      reviewer: false,
-      doctor: false
     },
     {
       permission: "View analytics",
-      admin: true,
-      reviewer: true,
-      doctor: false
     },
     {
       permission: "Manage users",
-      admin: true,
-      reviewer: false,
-      doctor: false
     },
     {
       permission: "View audit log",
-      admin: true,
-      reviewer: true,
-      doctor: false
-    }
+    },
   ]
 
+
+  /* =========================================
+     DYNAMIC ROLES
+     
+     Roles are collected from the actual
+     users currently present in userList.
+     
+     This means if a new role is added to
+     the users data, it can appear automatically.
+     ========================================= */
+
+  const roles = [
+    ...new Set(
+      userList
+        .map((user) => user.role)
+        .filter(Boolean)
+    ),
+  ]
+
+
+  /* =========================================
+     ROLE ORDER
+     
+     Keeps the normal order:
+     Admin → Ayurvedic Reviewer → Doctor
+     
+     Any other newly-created roles are added
+     after these.
+     ========================================= */
+
+  const preferredRoleOrder = [
+    "Admin",
+    "Ayurvedic Reviewer",
+    "Doctor",
+  ]
+
+
+  const orderedRoles = [
+    ...preferredRoleOrder.filter(
+      (role) => roles.includes(role)
+    ),
+
+    ...roles.filter(
+      (role) => !preferredRoleOrder.includes(role)
+    ),
+  ]
+
+
+  /* =========================================
+     GET PERMISSION FOR ROLE
+     ========================================= */
+
+  const hasPermission = (
+    role,
+    permission
+  ) => {
+
+    return (
+      permissionRules[role]?.[permission] === true
+    )
+  }
+
+
+  /* =========================================
+     SAVE USERS TO LOCAL STORAGE
+     ========================================= */
+
+  useEffect(() => {
+
+    localStorage.setItem(
+      "dravyaguna_users",
+      JSON.stringify(userList)
+    )
+
+  }, [userList])
+
+
+  /* =========================================
+     DYNAMIC STATISTICS
+     ========================================= */
+
+  const totalUsers =
+    userList.length
+
+  const doctorCount =
+    userList.filter(
+      (user) => user.role === "Doctor"
+    ).length
+
+  const reviewerCount =
+    userList.filter(
+      (user) => user.role === "Ayurvedic Reviewer"
+    ).length
+
+  const adminCount =
+    userList.filter(
+      (user) => user.role === "Admin"
+    ).length
+
+  const pendingCount =
+    userList.filter(
+      (user) => user.status === "Pending"
+    ).length
+
+
+  /* =========================================
+     FILTER USERS
+     ========================================= */
+
+  const filteredUsers =
+    userList.filter((user) => {
+
+      const search =
+        searchTerm.toLowerCase().trim()
+
+      if (!search) {
+        return true
+      }
+
+      return (
+        user.name
+          ?.toLowerCase()
+          .includes(search) ||
+
+        user.email
+          ?.toLowerCase()
+          .includes(search) ||
+
+        user.role
+          ?.toLowerCase()
+          .includes(search) ||
+
+        user.status
+          ?.toLowerCase()
+          .includes(search)
+      )
+    })
+
+
+  /* =========================================
+     OPEN EDIT USER
+     ========================================= */
+
+  function handleEditUser(user) {
+
+    setEditingUser(user)
+
+    setEditForm({
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      status: user.status,
+    })
+  }
+
+
+  /* =========================================
+     SAVE EDITED USER
+     ========================================= */
+
+  function handleSaveEdit() {
+
+    setUserList((currentUsers) =>
+      currentUsers.map((user) =>
+        user.id === editingUser.id
+          ? {
+              ...user,
+              name: editForm.name,
+              email: editForm.email,
+              role: editForm.role,
+              status: editForm.status,
+
+              initials: editForm.name
+                .split(" ")
+                .filter(Boolean)
+                .map((word) => word[0])
+                .join("")
+                .slice(0, 2)
+                .toUpperCase(),
+            }
+          : user
+      )
+    )
+
+    setEditingUser(null)
+  }
+
+
   return (
+
     <div className="user-role-page">
+
 
       {/* =========================================
           PAGE HEADER
-          ========================================= */}
+         ========================================= */}
 
       <div className="user-role-header">
 
         <div>
-          <h1>User & Role Management</h1>
+
+          <h1>
+            User & Role Management
+          </h1>
 
           <p>
-            Manage users, roles, account status, and system permissions.
+            Manage users, roles, account status,
+            and system permissions.
           </p>
-        </div>
 
-        <button
-          type="button"
-          className="user-role-add-button"
-        >
-          <span>＋</span>
-          Add User
-        </button>
+        </div>
 
       </div>
 
 
       {/* =========================================
           STATISTICS
-          ========================================= */}
+         ========================================= */}
 
       <section className="user-role-stats">
 
         <div className="user-role-stat-card">
-          <strong>7</strong>
+          <strong>{totalUsers}</strong>
           <span>Total Users</span>
         </div>
 
         <div className="user-role-stat-card">
-          <strong>4</strong>
+          <strong>{doctorCount}</strong>
           <span>Doctors</span>
         </div>
 
         <div className="user-role-stat-card">
-          <strong>2</strong>
+          <strong>{reviewerCount}</strong>
           <span>Reviewers</span>
         </div>
 
         <div className="user-role-stat-card">
-          <strong>1</strong>
+          <strong>{adminCount}</strong>
           <span>Administrators</span>
         </div>
 
         <div className="user-role-stat-card">
-          <strong>1</strong>
+          <strong>{pendingCount}</strong>
           <span>Pending Accounts</span>
         </div>
 
@@ -202,13 +520,15 @@ function UserRoleManagement() {
 
       {/* =========================================
           ALL USERS
-          ========================================= */}
+         ========================================= */}
 
       <section className="user-role-panel">
 
         <div className="user-role-panel-header">
 
-          <h2>All Users</h2>
+          <h2>
+            All Users
+          </h2>
 
           <div className="user-role-search">
 
@@ -217,6 +537,10 @@ function UserRoleManagement() {
             <input
               type="text"
               placeholder="Search users..."
+              value={searchTerm}
+              onChange={(event) =>
+                setSearchTerm(event.target.value)
+              }
             />
 
           </div>
@@ -229,6 +553,7 @@ function UserRoleManagement() {
           <table className="user-role-table">
 
             <thead>
+
               <tr>
                 <th>NAME</th>
                 <th>EMAIL</th>
@@ -238,114 +563,308 @@ function UserRoleManagement() {
                 <th>CREATED</th>
                 <th>ACTIONS</th>
               </tr>
+
             </thead>
+
 
             <tbody>
 
-              {users.map((user) => (
+              {filteredUsers.length > 0 ? (
 
-                <tr key={user.email}>
+                filteredUsers.map((user) => (
 
-                  <td>
+                  <tr key={user.id}>
 
-                    <div className="user-name-cell">
+                    {/* NAME */}
 
-                      <div className="user-avatar-small">
-                        {user.initials}
+                    <td>
+
+                      <div className="user-name-cell">
+
+                        <div className="user-avatar-small">
+                          {user.initials}
+                        </div>
+
+                        <strong>
+                          {user.name}
+                        </strong>
+
                       </div>
 
-                      <strong>
-                        {user.name}
-                      </strong>
+                    </td>
 
-                    </div>
 
-                  </td>
+                    {/* EMAIL */}
 
-                  <td>
-                    <span className="user-email">
-                      {user.email}
-                    </span>
-                  </td>
+                    <td>
 
-                  <td>
+                      <span className="user-email">
+                        {user.email}
+                      </span>
 
-                    <span
-                      className={`user-role-badge ${
-                        user.role === "Admin"
-                          ? "admin"
-                          : user.role === "Ayurvedic Reviewer"
+                    </td>
+
+
+                    {/* ROLE */}
+
+                    <td>
+
+                      <span
+                        className={`user-role-badge ${
+                          user.role === "Admin"
+                            ? "admin"
+                            : user.role ===
+                              "Ayurvedic Reviewer"
                             ? "reviewer"
                             : "doctor"
-                      }`}
-                    >
-                      {user.role}
-                    </span>
+                        }`}
+                      >
+                        {user.role}
+                      </span>
 
+                    </td>
+
+
+                    {/* STATUS */}
+
+                    <td>
+
+                      <span
+                        className={`user-status-badge ${
+                          user.status?.toLowerCase()
+                        }`}
+                      >
+                        {user.status}
+                      </span>
+
+                    </td>
+
+
+                    {/* LAST ACTIVE */}
+
+                    <td>
+
+                      <span className="user-table-date">
+
+                        {formatDateTime(
+                          user.lastActive
+                        )}
+
+                      </span>
+
+                    </td>
+
+
+                    {/* CREATED */}
+
+                    <td>
+
+                      <span className="user-table-date">
+
+                        {formatDate(
+                          user.createdAt
+                        )}
+
+                      </span>
+
+                    </td>
+
+
+                    {/* ACTIONS */}
+
+                    <td>
+
+                      <div className="user-actions">
+
+                        {/* VIEW */}
+
+                        <button
+                          type="button"
+                          title="View user"
+                          onClick={() =>
+                            setSelectedUser(user)
+                          }
+                        >
+                          ◉
+                        </button>
+
+
+                        {/* EDIT */}
+
+                        <button
+                          type="button"
+                          title="Edit user"
+                          onClick={() =>
+                            handleEditUser(user)
+                          }
+                        >
+                          ✎
+                        </button>
+
+
+                        {/* ACTIVATE / DEACTIVATE */}
+
+                        {user.status === "Inactive" ? (
+
+                          <button
+                            type="button"
+                            className="activate-button"
+                            onClick={() =>
+                              handleActivate(user.id)
+                            }
+                          >
+                            Activate
+                          </button>
+
+                        ) : (
+
+                          <button
+                            type="button"
+                            className="deactivate-button"
+                            onClick={() =>
+                              handleDeactivate(user.id)
+                            }
+                          >
+                            Deactivate
+                          </button>
+
+                        )}
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                ))
+
+              ) : (
+
+                <tr>
+
+                  <td
+                    colSpan="7"
+                    className="no-users-found"
+                  >
+                    No users found.
                   </td>
+
+                </tr>
+
+              )}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </section>
+
+
+      {/* =========================================
+          DYNAMIC ROLE PERMISSIONS MATRIX
+         ========================================= */}
+
+      <section className="user-role-panel permissions-panel">
+
+        <div className="permissions-header">
+
+          <h2>
+            Role Permissions Matrix
+          </h2>
+
+          <p>
+            Defines what each role can access
+            and perform within Dravyaguna.
+          </p>
+
+        </div>
+
+
+        <div className="permissions-table-wrapper">
+
+          <table className="permissions-table">
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  PERMISSION
+                </th>
+
+                {orderedRoles.map((role) => (
+
+                  <th key={role}>
+                    {role.toUpperCase()}
+                  </th>
+
+                ))}
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              {permissionList.map((item) => (
+
+                <tr
+                  key={item.permission}
+                  className={
+                    item.restricted
+                      ? "restricted-row"
+                      : ""
+                  }
+                >
+
+                  {/* PERMISSION NAME */}
 
                   <td>
 
-                    <span
-                      className={`user-status-badge ${
-                        user.status.toLowerCase()
-                      }`}
-                    >
-                      {user.status}
+                    <span>
+                      {item.permission}
                     </span>
+
+                    {item.restricted && (
+
+                      <small className="restricted-badge">
+                        Restricted
+                      </small>
+
+                    )}
 
                   </td>
 
-                  <td>
-                    <span className="user-table-date">
-                      {user.lastActive.split("\n").map((line, index) => (
-                        <span key={index}>
-                          {line}
-                          {index < user.lastActive.split("\n").length - 1 && <br />}
+
+                  {/* DYNAMIC ROLE COLUMNS */}
+
+                  {orderedRoles.map((role) => (
+
+                    <td key={`${role}-${item.permission}`}>
+
+                      {hasPermission(
+                        role,
+                        item.permission
+                      ) ? (
+
+                        <span className="permission-check">
+                          ✓
                         </span>
-                      ))}
-                    </span>
-                  </td>
 
-                  <td>
-                    <span className="user-table-date">
-                      {user.created.split("\n").map((line, index) => (
-                        <span key={index}>
-                          {line}
-                          {index < user.created.split("\n").length - 1 && <br />}
+                      ) : (
+
+                        <span className="permission-dash">
+                          —
                         </span>
-                      ))}
-                    </span>
-                  </td>
 
-                  <td>
+                      )}
 
-                    <div className="user-actions">
+                    </td>
 
-                      <button
-                        type="button"
-                        title="View user"
-                      >
-                        ◉
-                      </button>
-
-                      <button
-                        type="button"
-                        title="Edit user"
-                      >
-                        ✎
-                      </button>
-
-                      <button
-                        type="button"
-                        className="deactivate-button"
-                      >
-                        Deactivate
-                      </button>
-
-                    </div>
-
-                  </td>
+                  ))}
 
                 </tr>
 
@@ -361,100 +880,358 @@ function UserRoleManagement() {
 
 
       {/* =========================================
-          ROLE PERMISSIONS MATRIX
-          ========================================= */}
+          VIEW USER MODAL
+         ========================================= */}
 
-      <section className="user-role-panel permissions-panel">
+      {selectedUser && (
 
-        <div className="permissions-header">
+        <div
+          className="user-view-overlay"
+          onClick={() =>
+            setSelectedUser(null)
+          }
+        >
 
-          <h2>
-            Role Permissions Matrix
-          </h2>
+          <div
+            className="user-view-modal"
+            onClick={(event) =>
+              event.stopPropagation()
+            }
+          >
 
-          <p>
-            Defines what each role can access and perform within Dravyaguna.
-          </p>
+            <div className="user-view-header">
+
+              <div>
+
+                <div className="user-view-avatar">
+                  {selectedUser.initials}
+                </div>
+
+                <h2>
+                  {selectedUser.name}
+                </h2>
+
+                <p>
+                  {selectedUser.email}
+                </p>
+
+              </div>
+
+
+              <button
+                type="button"
+                className="user-view-close"
+                onClick={() =>
+                  setSelectedUser(null)
+                }
+              >
+                ×
+              </button>
+
+            </div>
+
+
+            <div className="user-view-details">
+
+              <div className="user-view-detail">
+
+                <span>
+                  User ID
+                </span>
+
+                <strong>
+                  {selectedUser.id}
+                </strong>
+
+              </div>
+
+
+              <div className="user-view-detail">
+
+                <span>
+                  Role
+                </span>
+
+                <strong>
+                  {selectedUser.role}
+                </strong>
+
+              </div>
+
+
+              <div className="user-view-detail">
+
+                <span>
+                  Status
+                </span>
+
+                <strong
+                  className={`user-view-status ${
+                    selectedUser.status?.toLowerCase()
+                  }`}
+                >
+                  {selectedUser.status}
+                </strong>
+
+              </div>
+
+
+              <div className="user-view-detail">
+
+                <span>
+                  Created
+                </span>
+
+                <strong>
+                  {formatDate(
+                    selectedUser.createdAt
+                  )}
+                </strong>
+
+              </div>
+
+
+              <div className="user-view-detail">
+
+                <span>
+                  Last Active
+                </span>
+
+                <strong>
+                  {formatDateTime(
+                    selectedUser.lastActive
+                  )}
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <div className="user-view-footer">
+
+              <button
+                type="button"
+                onClick={() =>
+                  setSelectedUser(null)
+                }
+              >
+                Close
+              </button>
+
+            </div>
+
+          </div>
 
         </div>
 
+      )}
 
-        <div className="permissions-table-wrapper">
 
-          <table className="permissions-table">
+      {/* =========================================
+          EDIT USER MODAL
+         ========================================= */}
 
-            <thead>
+      {editingUser && (
 
-              <tr>
-                <th>PERMISSION</th>
-                <th>ADMIN</th>
-                <th>AYURVEDIC REVIEWER</th>
-                <th>DOCTOR</th>
-              </tr>
+        <div
+          className="user-view-overlay"
+          onClick={() =>
+            setEditingUser(null)
+          }
+        >
 
-            </thead>
+          <div
+            className="user-view-modal"
+            onClick={(event) =>
+              event.stopPropagation()
+            }
+          >
 
-            <tbody>
+            <div className="user-view-header">
 
-              {permissions.map((item) => (
+              <div>
 
-                <tr
-                  key={item.permission}
-                  className={item.restricted ? "restricted-row" : ""}
+                <div className="user-view-avatar">
+                  {editingUser.initials}
+                </div>
+
+                <h2>
+                  Edit User
+                </h2>
+
+                <p>
+                  Update user information
+                </p>
+
+              </div>
+
+
+              <button
+                type="button"
+                className="user-view-close"
+                onClick={() =>
+                  setEditingUser(null)
+                }
+              >
+                ×
+              </button>
+
+            </div>
+
+
+            {/* EDIT FORM */}
+
+            <div className="user-edit-form">
+
+              {/* NAME */}
+
+              <div className="user-edit-field">
+
+                <label>
+                  Name
+                </label>
+
+                <input
+                  type="text"
+                  value={editForm.name}
+                  onChange={(event) =>
+                    setEditForm({
+                      ...editForm,
+                      name: event.target.value,
+                    })
+                  }
+                />
+
+              </div>
+
+
+              {/* EMAIL */}
+
+              <div className="user-edit-field">
+
+                <label>
+                  Email
+                </label>
+
+                <input
+                  type="email"
+                  value={editForm.email}
+                  onChange={(event) =>
+                    setEditForm({
+                      ...editForm,
+                      email: event.target.value,
+                    })
+                  }
+                />
+
+              </div>
+
+
+              {/* ROLE */}
+
+              <div className="user-edit-field">
+
+                <label>
+                  Role
+                </label>
+
+                <select
+                  value={editForm.role}
+                  onChange={(event) =>
+                    setEditForm({
+                      ...editForm,
+                      role: event.target.value,
+                    })
+                  }
                 >
 
-                  <td>
+                  <option value="Admin">
+                    Admin
+                  </option>
 
-                    <span>
-                      {item.permission}
-                    </span>
+                  <option value="Ayurvedic Reviewer">
+                    Ayurvedic Reviewer
+                  </option>
 
-                    {item.restricted && (
-                      <small className="restricted-badge">
-                        Restricted
-                      </small>
-                    )}
+                  <option value="Doctor">
+                    Doctor
+                  </option>
 
-                  </td>
+                </select>
 
-                  <td>
-                    {item.admin ? (
-                      <span className="permission-check">✓</span>
-                    ) : (
-                      <span className="permission-dash">—</span>
-                    )}
-                  </td>
+              </div>
 
-                  <td>
-                    {item.reviewer ? (
-                      <span className="permission-check">✓</span>
-                    ) : (
-                      <span className="permission-dash">—</span>
-                    )}
-                  </td>
 
-                  <td>
-                    {item.doctor ? (
-                      <span className="permission-check">✓</span>
-                    ) : (
-                      <span className="permission-dash">—</span>
-                    )}
-                  </td>
+              {/* STATUS */}
 
-                </tr>
+              <div className="user-edit-field">
 
-              ))}
+                <label>
+                  Status
+                </label>
 
-            </tbody>
+                <select
+                  value={editForm.status}
+                  onChange={(event) =>
+                    setEditForm({
+                      ...editForm,
+                      status: event.target.value,
+                    })
+                  }
+                >
 
-          </table>
+                  <option value="Active">
+                    Active
+                  </option>
+
+                  <option value="Inactive">
+                    Inactive
+                  </option>
+
+                  <option value="Pending">
+                    Pending
+                  </option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+
+            {/* EDIT FOOTER */}
+
+            <div className="user-view-footer">
+
+              <button
+                type="button"
+                onClick={() =>
+                  setEditingUser(null)
+                }
+              >
+                Cancel
+              </button>
+
+
+              <button
+                type="button"
+                onClick={handleSaveEdit}
+              >
+                Save Changes
+              </button>
+
+            </div>
+
+          </div>
 
         </div>
 
-      </section>
+      )}
 
     </div>
   )
 }
+
 
 export default UserRoleManagement

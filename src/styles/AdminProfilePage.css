@@ -1,0 +1,792 @@
+/* =========================================================
+   ADMIN PROFILE MODAL OVERLAY
+   ========================================================= */
+
+   .admin-profile-page {
+    position: fixed;
+  
+    inset: 0;
+    display: block;
+    z-index: 5000;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    padding: 35px;
+  
+    box-sizing: border-box;
+  
+    background: rgba(28, 40, 32, 0.28);
+  
+    /*
+      Blur the Admin Dashboard behind the profile.
+    */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  
+    font-family: Arial, Helvetica, sans-serif;
+  
+    color: #26342c;
+  }
+  
+  
+  /* =========================================================
+     PROFILE MODAL
+     ========================================================= */
+  
+  .admin-profile-page::before {
+    content: "";
+  
+    position: absolute;
+  
+    inset: 0;
+  
+    background: rgba(255, 255, 255, 0.08);
+  
+    pointer-events: none;
+  }
+  
+  
+  /* =========================================================
+     PAGE CONTENT BECOMES THE MODAL
+     ========================================================= */
+  
+  .admin-profile-page > * {
+    position: relative;
+  }
+  
+  
+  /*
+     We cannot turn the whole page into the modal directly
+     because the page contains all sections.
+  
+     Therefore use the page itself as the modal.
+  */
+  
+  .admin-profile-page {
+    overflow: hidden;
+    display: block;
+  }
+  
+  
+  /* =========================================================
+     MODAL CONTAINER EFFECT
+     ========================================================= */
+  
+  .admin-profile-page {
+    width: min(920px, calc(100vw - 70px));
+    max-width: 920px;
+  
+    height: min(88vh, 850px);
+    max-height: 88vh;
+  
+    margin: auto;
+  
+    padding: 28px 30px 30px;
+  
+    box-sizing: border-box;
+  
+    overflow-y: auto;
+    display: block;
+    background: #ffffff;
+  
+    border: 1px solid #dedfd9;
+  
+    border-radius: 10px;
+  
+    box-shadow:
+      0 20px 60px rgba(24, 38, 29, 0.22),
+      0 4px 14px rgba(24, 38, 29, 0.08);
+  
+    scrollbar-width: thin;
+    scrollbar-color: #c8d0c9 transparent;
+  }
+  
+  
+  /* =========================================================
+     MODAL SCROLLBAR
+     ========================================================= */
+  
+  .admin-profile-page::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  .admin-profile-page::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .admin-profile-page::-webkit-scrollbar-thumb {
+    background: #c8d0c9;
+    border-radius: 10px;
+  }
+  
+  .admin-profile-page::-webkit-scrollbar-thumb:hover {
+    background: #aebbb1;
+  }
+  
+  
+  /* =========================================================
+     PAGE HEADER
+     ========================================================= */
+  
+  .admin-profile-page-header {
+    position: relative;
+  
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  
+    margin-bottom: 24px;
+  
+    padding-right: 5px;
+  }
+  
+  
+  .admin-profile-page-label {
+    margin: 0 0 6px;
+  
+    color: #668073;
+  
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+  }
+  
+  
+  .admin-profile-page-header h1 {
+    margin: 0;
+  
+    color: #17251d;
+  
+    font-size: 28px;
+    font-weight: 650;
+    line-height: 1.2;
+  }
+  
+  
+  .admin-profile-page-description {
+    margin: 7px 0 0;
+  
+    color: #7b857e;
+  
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  
+  
+  /* =========================================================
+     CLOSE BUTTON
+     ========================================================= */
+  
+  .admin-profile-close-button {
+    width: 34px;
+    height: 34px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    flex-shrink: 0;
+  
+    padding: 0;
+  
+    border: none;
+    border-radius: 6px;
+  
+    background: transparent;
+    color: #66736b;
+  
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 1;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.15s ease,
+      color 0.15s ease;
+  }
+  
+  
+  .admin-profile-close-button:hover {
+    background: #edf3ee;
+    color: #28533c;
+  }
+  
+  .admin-profile-modal-content {
+    display: block;
+  }
+  
+  /* =========================================================
+     COMMON SECTION
+     ========================================================= */
+  
+     .admin-profile-section {
+      width: 100%;
+      display: block;
+    
+      margin: 0 0 18px;
+      padding: 20px;
+    
+      box-sizing: border-box;
+    
+      background: #ffffff;
+    
+      border: 1px solid #e3e5df;
+      border-radius: 8px;
+    
+      box-shadow: 0 2px 8px rgba(35, 50, 40, 0.035);
+    }
+  
+  
+  /* =========================================================
+     SECTION HEADER
+     ========================================================= */
+  
+  .admin-profile-section-header {
+    margin-bottom: 18px;
+  }
+  
+  
+  .admin-profile-section-header h2 {
+    margin: 0;
+  
+    color: #24342a;
+  
+    font-size: 16px;
+    font-weight: 650;
+  }
+  
+  
+  .admin-profile-section-header p {
+    margin: 5px 0 0;
+  
+    color: #89918b;
+  
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  
+  
+  /* =========================================================
+     PROFILE PHOTO
+     ========================================================= */
+  
+  .admin-profile-photo-section {
+    display: flex;
+    align-items: center;
+  
+    gap: 18px;
+  }
+  
+  
+  .admin-profile-large-avatar {
+    width: 82px;
+    height: 82px;
+  
+    flex-shrink: 0;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    overflow: hidden;
+  
+    border-radius: 50%;
+  
+    background: #4d8967;
+    color: #ffffff;
+  
+    font-size: 25px;
+    font-weight: 700;
+  
+    box-shadow:
+      0 3px 10px rgba(42, 76, 55, 0.12);
+  }
+  
+  
+  .admin-profile-photo {
+    width: 100%;
+    height: 100%;
+  
+    display: block;
+  
+    object-fit: cover;
+  }
+  
+  
+  .admin-profile-photo-input {
+    display: none;
+  }
+  
+  
+  /* =========================================================
+     PHOTO BUTTONS
+     ========================================================= */
+  
+  .admin-profile-photo-actions {
+    display: flex;
+    align-items: center;
+  
+    gap: 9px;
+  
+    flex-wrap: wrap;
+  }
+  
+  
+  .admin-profile-change-photo,
+  .admin-profile-delete-photo {
+    height: 34px;
+  
+    padding: 0 13px;
+  
+    border-radius: 5px;
+  
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.15s ease,
+      border-color 0.15s ease,
+      color 0.15s ease;
+  }
+  
+  
+  .admin-profile-change-photo {
+    border: 1px solid #cbd9cf;
+  
+    background: #edf3ee;
+    color: #28533c;
+  }
+  
+  
+  .admin-profile-change-photo:hover {
+    background: #dfeae2;
+    border-color: #b8cbbd;
+  }
+  
+  
+  .admin-profile-delete-photo {
+    border: 1px solid #ead3ce;
+  
+    background: #ffffff;
+    color: #a34f42;
+  }
+  
+  
+  .admin-profile-delete-photo:hover {
+    background: #f8ece9;
+    border-color: #dfbdb6;
+  }
+  
+  
+  /* =========================================================
+     PROFILE FORM
+     ========================================================= */
+  
+  .admin-profile-form {
+    display: grid;
+  
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  
+    gap: 18px 20px;
+  }
+  
+  
+  .admin-profile-field {
+    min-width: 0;
+  
+    display: flex;
+    flex-direction: column;
+  
+    gap: 6px;
+  }
+  
+  
+  .admin-profile-field label {
+    color: #39483f;
+  
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  
+  .admin-profile-field input {
+    width: 100%;
+    height: 38px;
+  
+    padding: 0 11px;
+  
+    box-sizing: border-box;
+  
+    border: 1px solid #d9ddd8;
+    border-radius: 5px;
+  
+    outline: none;
+  
+    background: #ffffff;
+    color: #29372f;
+  
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+  
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+  
+  
+  .admin-profile-field input:focus {
+    border-color: #6c9a7b;
+  
+    box-shadow:
+      0 0 0 2px rgba(77, 137, 103, 0.10);
+  }
+  
+  
+  .admin-profile-field-help {
+    color: #909891;
+  
+    font-size: 10px;
+    line-height: 1.4;
+  }
+  
+  
+  /* =========================================================
+     READ ONLY FIELD
+     ========================================================= */
+  
+  .admin-profile-readonly {
+    width: 100%;
+    min-height: 38px;
+  
+    display: flex;
+    align-items: center;
+  
+    padding: 0 11px;
+  
+    box-sizing: border-box;
+  
+    border: 1px solid #e1e4df;
+    border-radius: 5px;
+  
+    background: #f7f8f5;
+  
+    color: #657169;
+  
+    font-size: 12px;
+  }
+  
+  
+  /* =========================================================
+     ACCOUNT INFORMATION
+     ========================================================= */
+  
+  .admin-profile-info-grid {
+    display: grid;
+  
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  
+    gap: 10px;
+  }
+  
+  
+  .admin-profile-info-card {
+    min-height: 70px;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  
+    padding: 12px;
+  
+    box-sizing: border-box;
+  
+    border: 1px solid #e3e7e2;
+    border-radius: 6px;
+  
+    background: #f8faf7;
+  }
+  
+  
+  .admin-profile-info-card span {
+    margin-bottom: 5px;
+  
+    color: #89918b;
+  
+    font-size: 10px;
+  }
+  
+  
+  .admin-profile-info-card strong {
+    color: #34483b;
+  
+    font-size: 12px;
+    font-weight: 650;
+  }
+  
+  
+  .admin-status-active {
+    color: #3f7a53 !important;
+  }
+  
+  
+  /* =========================================================
+     ADMIN PERMISSIONS
+     ========================================================= */
+  
+  .admin-profile-permissions {
+    display: grid;
+  
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  
+    gap: 9px;
+  }
+  
+  
+  .admin-permission-item {
+    min-height: 38px;
+  
+    display: flex;
+    align-items: center;
+  
+    gap: 9px;
+  
+    padding: 8px 11px;
+  
+    box-sizing: border-box;
+  
+    border: 1px solid #e3e7e2;
+    border-radius: 5px;
+  
+    background: #f8faf7;
+  
+    color: #435148;
+  
+    font-size: 12px;
+  }
+  
+  
+  .admin-permission-item > span:first-child {
+    width: 19px;
+    height: 19px;
+  
+    flex-shrink: 0;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    border-radius: 50%;
+  
+    background: #e3efe6;
+    color: #3f7658;
+  
+    font-size: 11px;
+    font-weight: 700;
+  }
+  
+  
+  /* =========================================================
+     ACTION BUTTONS
+     ========================================================= */
+  
+  .admin-profile-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  
+    gap: 9px;
+  
+    margin-top: 4px;
+  }
+  
+  
+  .admin-profile-cancel-button,
+  .admin-profile-save-button {
+    height: 36px;
+  
+    padding: 0 16px;
+  
+    border-radius: 5px;
+  
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.15s ease,
+      border-color 0.15s ease,
+      color 0.15s ease;
+  }
+  
+  
+  .admin-profile-cancel-button {
+    border: 1px solid #d8ddd8;
+  
+    background: #ffffff;
+    color: #59655e;
+  }
+  
+  
+  .admin-profile-cancel-button:hover {
+    background: #f4f6f3;
+  }
+  
+  
+  .admin-profile-save-button {
+    border: 1px solid #17552f;
+  
+    background: #17552f;
+    color: #ffffff;
+  }
+  
+  
+  .admin-profile-save-button:hover {
+    background: #124726;
+    border-color: #124726;
+  }
+  
+  
+  /* =========================================================
+     SUCCESS MESSAGE
+     ========================================================= */
+  
+  .admin-profile-save-message {
+    margin: 12px 0 0;
+  
+    text-align: right;
+  
+    color: #3f7658;
+  
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  
+  /* =========================================================
+     RESPONSIVE
+     ========================================================= */
+  
+  @media (max-width: 900px) {
+  
+    .admin-profile-page {
+      width: calc(100vw - 40px);
+      height: 90vh;
+    }
+  
+    .admin-profile-info-grid {
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    }
+  
+  }
+  
+  
+  @media (max-width: 700px) {
+  
+    .admin-profile-page {
+      width: calc(100vw - 24px);
+  
+      height: 92vh;
+  
+      padding: 20px;
+    }
+  
+    .admin-profile-form {
+      grid-template-columns: 1fr;
+    }
+  
+    .admin-profile-permissions {
+      grid-template-columns: 1fr;
+    }
+  
+  }
+  
+  
+  @media (max-width: 500px) {
+  
+    .admin-profile-page {
+      width: calc(100vw - 16px);
+  
+      height: 94vh;
+  
+      padding: 16px;
+    }
+  
+    .admin-profile-section {
+      padding: 15px;
+    }
+  
+    .admin-profile-photo-section {
+      align-items: flex-start;
+  
+      flex-direction: column;
+    }
+  
+    .admin-profile-info-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .admin-profile-page-header h1 {
+      font-size: 24px;
+    }
+  
+    .admin-profile-actions {
+      justify-content: stretch;
+    }
+  
+    .admin-profile-cancel-button,
+    .admin-profile-save-button {
+      flex: 1;
+    }
+  
+  }
+
+  /* =========================================================
+   ADMIN PROFILE DROPDOWN AVATAR IMAGE
+   ========================================================= */
+
+.admin-profile-avatar {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border-radius: 50%;
+
+  background: #4d8967;
+  color: #ffffff;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+
+/* Profile photo inside dropdown avatar */
+
+.admin-profile-avatar-image {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+
+  border-radius: 50%;
+}

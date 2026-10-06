@@ -26,6 +26,10 @@ import ScoringConfiguration from "./pages/ScoringConfiguration"
 import SearchAnalytics from "./pages/SearchAnalytics"
 import UserRoleManagement from "./pages/UserRoleManagement"
 import AuditLog from "./pages/AuditLog"
+import AdminProfilePage from "./pages/AdminProfilePage"
+import AdminSettingsPage from "./pages/AdminSettingsPage"
+import AdminLanguagePage from "./pages/AdminLanguagePage"
+import AdminUpgradePlanPage from "./pages/AdminUpgradePlanPage"
 
 function App() {
   return (
@@ -48,6 +52,14 @@ function App() {
            <Route path="search-analytics" element={<SearchAnalytics />} />
            <Route path="users" element={<UserRoleManagement />} />
            <Route path="audit-log" element={<AuditLog />} />
+           <Route path="profile" element={<AdminProfilePage />} />
+           <Route path="settings" element={<AdminSettingsPage />} />
+           <Route path="/admin/language" element={<AdminLanguagePage />}/>
+           <Route
+    path="/admin/upgrade-plan"
+    element={<AdminUpgradePlanPage />}
+  />
+
       </Route>
 
         {/* Search */}

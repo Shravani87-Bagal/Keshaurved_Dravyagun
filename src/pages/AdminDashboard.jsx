@@ -1,8 +1,358 @@
+import { useEffect, useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "../styles/AdminDashboard.css"
 
 function AdminDashboard() {
   const navigate = useNavigate()
+
+  const [herbs, setHerbs] = useState([])
+
+  // =====================================================
+  // LOAD REAL HERB DATA
+  // =====================================================
+
+  const loadHerbs = () => {
+    try {
+      const savedHerbs = JSON.parse(
+        localStorage.getItem("herbs") || "[]"
+      )
+
+      if (Array.isArray(savedHerbs)) {
+        setHerbs(savedHerbs)
+      } else {
+        setHerbs([])
+      }
+    } catch (error) {
+      console.error("Failed to load herbs:", error)
+      setHerbs([])
+    }
+  }
+
+  useEffect(() => {
+    loadHerbs()
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        loadHerbs()
+      }
+    }
+
+    window.addEventListener(
+      "storage",
+      loadHerbs
+    )
+
+    document.addEventListener(
+      "visibilitychange",
+      handleVisibilityChange
+    )
+
+    return () => {
+      window.removeEventListener(
+        "storage",
+        loadHerbs
+      )
+
+      document.removeEventListener(
+        "visibilitychange",
+        handleVisibilityChange
+      )
+    }
+  }, [])
+
+  // =====================================================
+  // REAL DASHBOARD STATISTICS
+  // =====================================================
+
+  const totalHerbs = herbs.length
+
+  const verifiedHerbs = herbs.filter(
+    (herb) =>
+      herb.verificationStatus === "Verified"
+  ).length
+
+  const reviewedHerbs = herbs.filter(
+    (herb) =>
+      herb.verificationStatus === "Reviewed"
+  ).length
+
+  const draftHerbs = herbs.filter(
+    (herb) =>
+      !herb.verificationStatus ||
+      herb.verificationStatus === "Draft"
+  ).length
+
+  const verifiedPercentage =
+    totalHerbs > 0
+      ? Math.round(
+          (verifiedHerbs / totalHerbs) * 100
+        )
+      : 0
+
+  const reviewedPercentage =
+    totalHerbs > 0
+      ? Math.round(
+          (reviewedHerbs / totalHerbs) * 100
+        )
+      : 0
+
+  const draftPercentage =
+    totalHerbs > 0
+      ? Math.round(
+          (draftHerbs / totalHerbs) * 100
+        )
+      : 0
+
+  // =====================================================
+  // DATA QUALITY
+  // =====================================================
+
+  const pendingVerification = reviewedHerbs
+
+  const missingAyurvedicParameters = herbs.filter(
+    (herb) => {
+      const missingRasa =
+        !Array.isArray(herb.rasa) ||
+        herb.rasa.length === 0
+
+      const missingGuna =
+        !Array.isArray(herb.guna) ||
+        herb.guna.length === 0
+
+      const missingVirya =
+        !herb.virya
+
+      const missingVipaka =
+        !herb.vipaka
+
+      return (
+        missingRasa ||
+        missingGuna ||
+        missingVirya ||
+        missingVipaka
+      )
+    }
+  ).length
+
+  // Active vocabulary conflicts can be calculated
+  // from the real vocabulary dataset.
+
+  const vocabularyConflicts = useMemo(() => {
+    try {
+      const vocabulary = JSON.parse(
+        localStorage.getItem("vocabulary") || "[]"
+      )
+
+      if (!Array.isArray(vocabulary)) {
+        return 0
+      }
+
+      const seenTerms = new Set()
+      let conflicts = 0
+
+      vocabulary.forEach((item) => {
+        if (item.status !== "Active") {
+          return
+        }
+
+        const normalizedTerm =
+          `${item.category}:${item.term}`
+            .trim()
+            .toLowerCase()
+
+        if (seenTerms.has(normalizedTerm)) {
+          conflicts += 1
+        } else {
+          seenTerms.add(normalizedTerm)
+        }
+      })
+
+      return conflicts
+    } catch {
+      return 0
+    }
+  }, [herbs])
+
+  // =====================================================
+  // RECENT HERB ACTIVITY
+  // =====================================================
+
+  const recentHerbs = useMemo(() => {
+    return [...herbs]
+      .sort((a, b) => {
+        const dateA = new Date(
+          a.updatedAt ||
+          a.savedAt ||
+          0
+        ).getTime()
+
+        const dateB = new Date(
+          b.updatedAt ||
+          b.savedAt ||
+          0
+        ).getTime()
+
+        return dateB - dateA
+      })
+      .slice(0, 4)
+  }, [herbs])
+
+  // =====================================================
+  // TIME FORMATTER
+  // =====================================================
+
+  const formatRelativeTime = (date) => {
+    if (!date) {
+      return "No date"
+    }
+
+    const timestamp =
+      new Date(date).getTime()
+
+    if (Number.isNaN(timestamp)) {
+      return "No date"
+    }
+
+    const difference =
+      Date.now() - timestamp
+
+    const minutes = Math.floor(
+      difference / (1000 * 60)
+    )
+
+    if (minutes < 1) {
+      return "Just now"
+    }
+
+    if (minutes < 60) {
+      return `${minutes} min ago`
+    }
+
+    const hours = Math.floor(
+      minutes / 60
+    )
+
+    if (hours < 24) {
+      return `${hours} hr ago`
+    }
+
+    const days = Math.floor(
+      hours / 24
+    )
+
+    if (days === 1) {
+      return "Yesterday"
+    }
+
+    if (days < 7) {
+      return `${days} days ago`
+    }
+
+    return new Date(
+      timestamp
+    ).toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    })
+  }
+
+  // =====================================================
+  // ACTIVITY DESCRIPTION
+  // =====================================================
+
+  const getActivityDescription = (herb) => {
+    const history =
+      herb.verificationHistory || []
+
+    const lastHistory =
+      history.length > 0
+        ? history[history.length - 1]
+        : null
+
+    if (lastHistory) {
+      if (
+        lastHistory.newStatus === "Verified"
+      ) {
+        return "Profile verified"
+      }
+
+      if (
+        lastHistory.newStatus === "Reviewed"
+      ) {
+        return "Profile reviewed"
+      }
+
+      if (
+        lastHistory.newStatus === "Draft"
+      ) {
+        return "Profile saved as draft"
+      }
+    }
+
+    if (herb.updatedAt) {
+      return "Profile updated"
+    }
+
+    return "Herb profile added"
+  }
+
+  // =====================================================
+  // ACTIVITY ICON
+  // =====================================================
+
+  const getActivityIcon = (herb) => {
+    const status =
+      herb.verificationStatus
+
+    if (status === "Verified") {
+      return "✓"
+    }
+
+    if (status === "Reviewed") {
+      return "◉"
+    }
+
+    return "✦"
+  }
+
+  // =====================================================
+  // QUICK QUALITY ALERTS
+  // =====================================================
+
+  const qualityAlerts = [
+    {
+      title: "Herbs pending verification",
+      description:
+        "Herb profiles are waiting for verification.",
+      count: pendingVerification,
+      type: "warning",
+    },
+    {
+      title: "Missing Ayurvedic parameters",
+      description:
+        "Some profiles have incomplete Ayurvedic attributes.",
+      count: missingAyurvedicParameters,
+      type: "warning",
+    },
+    {
+      title: "Vocabulary conflicts",
+      description:
+        "Terms require standardization.",
+      count: vocabularyConflicts,
+      type: "warning",
+    },
+  ]
+
+  const activeAlerts =
+    qualityAlerts.filter(
+      (alert) => alert.count > 0
+    )
+
+  // =====================================================
+  // RENDER
+  // =====================================================
+
   return (
     <>
       {/* =========================
@@ -16,8 +366,8 @@ function AdminDashboard() {
         </h1>
 
         <p>
-          Monitor the Ayurvedic knowledge base, verification activity,
-          and search performance.
+          Monitor the Ayurvedic knowledge base,
+          verification activity, and search performance.
         </p>
 
       </div>
@@ -29,12 +379,12 @@ function AdminDashboard() {
 
       <section className="admin-stats-grid">
 
-        {/* Total Herbs */}
+        {/* TOTAL HERBS */}
 
         <div className="admin-stat-card">
 
           <div className="admin-stat-number">
-            350+
+            {totalHerbs}
           </div>
 
           <div className="admin-stat-title">
@@ -48,12 +398,12 @@ function AdminDashboard() {
         </div>
 
 
-        {/* Verified Herbs */}
+        {/* VERIFIED */}
 
         <div className="admin-stat-card">
 
           <div className="admin-stat-number verified">
-            245
+            {verifiedHerbs}
           </div>
 
           <div className="admin-stat-title">
@@ -67,31 +417,31 @@ function AdminDashboard() {
         </div>
 
 
-        {/* Pending Review */}
+        {/* REVIEWED */}
 
         <div className="admin-stat-card">
 
           <div className="admin-stat-number pending">
-            68
+            {reviewedHerbs}
           </div>
 
           <div className="admin-stat-title">
-            Pending Review
+            Reviewed Herbs
           </div>
 
           <div className="admin-stat-description">
-            Require verification
+            Reviewed and awaiting verification
           </div>
 
         </div>
 
 
-        {/* Draft Herbs */}
+        {/* DRAFT */}
 
         <div className="admin-stat-card">
 
           <div className="admin-stat-number draft">
-            37
+            {draftHerbs}
           </div>
 
           <div className="admin-stat-title">
@@ -113,7 +463,7 @@ function AdminDashboard() {
 
       <section className="admin-overview-grid">
 
-        {/* Verification Overview */}
+        {/* VERIFICATION OVERVIEW */}
 
         <div className="admin-panel">
 
@@ -132,7 +482,7 @@ function AdminDashboard() {
             </div>
 
             <span className="admin-panel-total">
-              350 herbs
+              {totalHerbs} herbs
             </span>
 
           </div>
@@ -140,7 +490,7 @@ function AdminDashboard() {
 
           <div className="verification-list">
 
-            {/* Verified */}
+            {/* VERIFIED */}
 
             <div className="verification-item">
 
@@ -151,7 +501,7 @@ function AdminDashboard() {
                 </span>
 
                 <strong>
-                  245
+                  {verifiedHerbs}
                 </strong>
 
               </div>
@@ -160,19 +510,21 @@ function AdminDashboard() {
 
                 <div
                   className="verification-progress-fill verified-fill"
-                  style={{ width: "70%" }}
-                ></div>
+                  style={{
+                    width: `${verifiedPercentage}%`,
+                  }}
+                />
 
               </div>
 
               <span className="verification-percentage">
-                70%
+                {verifiedPercentage}%
               </span>
 
             </div>
 
 
-            {/* Reviewed */}
+            {/* REVIEWED */}
 
             <div className="verification-item">
 
@@ -183,7 +535,7 @@ function AdminDashboard() {
                 </span>
 
                 <strong>
-                  68
+                  {reviewedHerbs}
                 </strong>
 
               </div>
@@ -192,19 +544,21 @@ function AdminDashboard() {
 
                 <div
                   className="verification-progress-fill reviewed-fill"
-                  style={{ width: "19%" }}
-                ></div>
+                  style={{
+                    width: `${reviewedPercentage}%`,
+                  }}
+                />
 
               </div>
 
               <span className="verification-percentage">
-                19%
+                {reviewedPercentage}%
               </span>
 
             </div>
 
 
-            {/* Draft */}
+            {/* DRAFT */}
 
             <div className="verification-item">
 
@@ -215,7 +569,7 @@ function AdminDashboard() {
                 </span>
 
                 <strong>
-                  37
+                  {draftHerbs}
                 </strong>
 
               </div>
@@ -224,13 +578,15 @@ function AdminDashboard() {
 
                 <div
                   className="verification-progress-fill draft-fill"
-                  style={{ width: "11%" }}
-                ></div>
+                  style={{
+                    width: `${draftPercentage}%`,
+                  }}
+                />
 
               </div>
 
               <span className="verification-percentage">
-                11%
+                {draftPercentage}%
               </span>
 
             </div>
@@ -240,7 +596,7 @@ function AdminDashboard() {
         </div>
 
 
-        {/* Data Quality Alerts */}
+        {/* DATA QUALITY ALERTS */}
 
         <div className="admin-panel">
 
@@ -259,7 +615,7 @@ function AdminDashboard() {
             </div>
 
             <span className="alert-count">
-              4 alerts
+              {activeAlerts.length} alerts
             </span>
 
           </div>
@@ -267,104 +623,38 @@ function AdminDashboard() {
 
           <div className="quality-alert-list">
 
-            <div className="quality-alert">
+            {qualityAlerts.map((alert) => (
 
-              <div className="quality-alert-icon warning">
-                !
-              </div>
+              <div
+                className="quality-alert"
+                key={alert.title}
+              >
 
-              <div className="quality-alert-content">
+                <div
+                  className={`quality-alert-icon ${alert.type}`}
+                >
+                  !
+                </div>
 
-                <strong>
-                  Herbs pending verification
-                </strong>
+                <div className="quality-alert-content">
 
-                <span>
-                  68 herb profiles require review.
+                  <strong>
+                    {alert.title}
+                  </strong>
+
+                  <span>
+                    {alert.description}
+                  </span>
+
+                </div>
+
+                <span className="quality-alert-count">
+                  {alert.count}
                 </span>
 
               </div>
 
-              <span className="quality-alert-count">
-                68
-              </span>
-
-            </div>
-
-
-            <div className="quality-alert">
-
-              <div className="quality-alert-icon warning">
-                !
-              </div>
-
-              <div className="quality-alert-content">
-
-                <strong>
-                  Missing Ayurvedic parameters
-                </strong>
-
-                <span>
-                  Some profiles have incomplete attributes.
-                </span>
-
-              </div>
-
-              <span className="quality-alert-count">
-                12
-              </span>
-
-            </div>
-
-
-            <div className="quality-alert">
-
-              <div className="quality-alert-icon warning">
-                !
-              </div>
-
-              <div className="quality-alert-content">
-
-                <strong>
-                  Vocabulary conflicts
-                </strong>
-
-                <span>
-                  Terms require standardization.
-                </span>
-
-              </div>
-
-              <span className="quality-alert-count">
-                7
-              </span>
-
-            </div>
-
-
-            <div className="quality-alert">
-
-              <div className="quality-alert-icon info">
-                i
-              </div>
-
-              <div className="quality-alert-content">
-
-                <strong>
-                  Low-confidence mappings
-                </strong>
-
-                <span>
-                  Review mappings before verification.
-                </span>
-
-              </div>
-
-              <span className="quality-alert-count">
-                5
-              </span>
-
-            </div>
+            ))}
 
           </div>
 
@@ -372,6 +662,9 @@ function AdminDashboard() {
           <button
             type="button"
             className="view-alerts-button"
+            onClick={() =>
+              navigate("/admin/manage-herbs")
+            }
           >
             View all alerts →
           </button>
@@ -387,7 +680,7 @@ function AdminDashboard() {
 
       <section className="admin-recent-grid">
 
-        {/* Recent Herb Activity */}
+        {/* RECENT HERB ACTIVITY */}
 
         <div className="admin-panel admin-recent-panel">
 
@@ -406,139 +699,87 @@ function AdminDashboard() {
             </div>
 
             <button
-             type="button"
-             className="admin-view-all-button"
-             onClick={() => navigate("/admin/manage-herbs")}
-             >
+              type="button"
+              className="admin-view-all-button"
+              onClick={() =>
+                navigate("/admin/manage-herbs")
+              }
+            >
               View all →
-              </button>
+            </button>
 
           </div>
 
 
           <div className="admin-activity-list">
 
-            <div className="admin-activity-item">
+            {recentHerbs.length > 0 ? (
 
-              <div className="admin-activity-icon">
-                ✦
+              recentHerbs.map((herb) => (
+
+                <div
+                  className="admin-activity-item"
+                  key={herb.id}
+                >
+
+                  <div className="admin-activity-icon">
+                    {getActivityIcon(herb)}
+                  </div>
+
+                  <div className="admin-activity-content">
+
+                    <strong>
+                      {herb.herbNameEnglish ||
+                        herb.sanskritName ||
+                        "Unnamed Herb"}
+                    </strong>
+
+                    <span>
+                      {getActivityDescription(herb)}
+                    </span>
+
+                  </div>
+
+                  <span
+                    className={`admin-activity-status ${
+                      herb.verificationStatus ===
+                      "Verified"
+                        ? "verified-status"
+                        : herb.verificationStatus ===
+                          "Reviewed"
+                        ? "reviewed-status"
+                        : "draft-status"
+                    }`}
+                  >
+                    {herb.verificationStatus ||
+                      "Draft"}
+                  </span>
+
+                  <span className="admin-activity-time">
+                    {formatRelativeTime(
+                      herb.updatedAt ||
+                        herb.savedAt
+                    )}
+                  </span>
+
+                </div>
+
+              ))
+
+            ) : (
+
+              <div className="admin-empty-state">
+                No herb activity yet.
               </div>
 
-              <div className="admin-activity-content">
-
-                <strong>
-                  Ashwagandha
-                </strong>
-
-                <span>
-                  Herb profile added
-                </span>
-
-              </div>
-
-              <span className="admin-activity-status draft-status">
-                Draft
-              </span>
-
-              <span className="admin-activity-time">
-                12 min ago
-              </span>
-
-            </div>
-
-
-            <div className="admin-activity-item">
-
-              <div className="admin-activity-icon">
-                ✓
-              </div>
-
-              <div className="admin-activity-content">
-
-                <strong>
-                  Guduchi
-                </strong>
-
-                <span>
-                  Profile verified
-                </span>
-
-              </div>
-
-              <span className="admin-activity-status verified-status">
-                Verified
-              </span>
-
-              <span className="admin-activity-time">
-                34 min ago
-              </span>
-
-            </div>
-
-
-            <div className="admin-activity-item">
-
-              <div className="admin-activity-icon">
-                ◉
-              </div>
-
-              <div className="admin-activity-content">
-
-                <strong>
-                  Brahmi
-                </strong>
-
-                <span>
-                  Profile updated
-                </span>
-
-              </div>
-
-              <span className="admin-activity-status reviewed-status">
-                Reviewed
-              </span>
-
-              <span className="admin-activity-time">
-                1 hr ago
-              </span>
-
-            </div>
-
-
-            <div className="admin-activity-item">
-
-              <div className="admin-activity-icon">
-                ✦
-              </div>
-
-              <div className="admin-activity-content">
-
-                <strong>
-                  Haritaki
-                </strong>
-
-                <span>
-                  Herb profile added
-                </span>
-
-              </div>
-
-              <span className="admin-activity-status draft-status">
-                Draft
-              </span>
-
-              <span className="admin-activity-time">
-                2 hrs ago
-              </span>
-
-            </div>
+            )}
 
           </div>
 
         </div>
 
 
-        {/* Recent Search Activity */}
+        {/* RECENT SEARCH ACTIVITY */}
 
         <div className="admin-panel admin-recent-panel">
 
@@ -557,163 +798,25 @@ function AdminDashboard() {
             </div>
 
             <button
-  type="button"
-  className="admin-view-all-button"
-  onClick={() => navigate("/admin/search-analytics")}
->
-  View all →
-</button>
+              type="button"
+              className="admin-view-all-button"
+              onClick={() =>
+                navigate(
+                  "/admin/search-analytics"
+                )
+              }
+            >
+              View all →
+            </button>
 
           </div>
 
 
           <div className="admin-search-activity-list">
 
-            <div className="admin-search-activity-item">
-
-              <div className="admin-search-activity-icon">
-                ⌕
-              </div>
-
-              <div className="admin-search-activity-content">
-
-                <strong>
-                  Vata + Tikta + Laghu
-                </strong>
-
-                <span>
-                  Detailed Search
-                </span>
-
-              </div>
-
-              <div className="admin-search-result">
-
-                <strong>
-                  18
-                </strong>
-
-                <span>
-                  matches
-                </span>
-
-              </div>
-
-              <span className="admin-activity-time">
-                8 min ago
-              </span>
-
-            </div>
-
-
-            <div className="admin-search-activity-item">
-
-              <div className="admin-search-activity-icon">
-                ⌕
-              </div>
-
-              <div className="admin-search-activity-content">
-
-                <strong>
-                  Digestive disorders
-                </strong>
-
-                <span>
-                  Simple Search
-                </span>
-
-              </div>
-
-              <div className="admin-search-result">
-
-                <strong>
-                  24
-                </strong>
-
-                <span>
-                  matches
-                </span>
-
-              </div>
-
-              <span className="admin-activity-time">
-                21 min ago
-              </span>
-
-            </div>
-
-
-            <div className="admin-search-activity-item">
-
-              <div className="admin-search-activity-icon">
-                ⌕
-              </div>
-
-              <div className="admin-search-activity-content">
-
-                <strong>
-                  Pranavaha Srotas
-                </strong>
-
-                <span>
-                  Detailed Search
-                </span>
-
-              </div>
-
-              <div className="admin-search-result">
-
-                <strong>
-                  11
-                </strong>
-
-                <span>
-                  matches
-                </span>
-
-              </div>
-
-              <span className="admin-activity-time">
-                46 min ago
-              </span>
-
-            </div>
-
-
-            <div className="admin-search-activity-item">
-
-              <div className="admin-search-activity-icon">
-                ⌕
-              </div>
-
-              <div className="admin-search-activity-content">
-
-                <strong>
-                  Rasayana herbs
-                </strong>
-
-                <span>
-                  Simple Search
-                </span>
-
-              </div>
-
-              <div className="admin-search-result">
-
-                <strong>
-                  32
-                </strong>
-
-                <span>
-                  matches
-                </span>
-
-              </div>
-
-              <span className="admin-activity-time">
-                1 hr ago
-              </span>
-
+            <div className="admin-empty-state">
+              Search activity will appear here
+              once search analytics are connected.
             </div>
 
           </div>
@@ -746,58 +849,73 @@ function AdminDashboard() {
 
           <div className="admin-quick-actions-grid">
 
-          <button
-  type="button"
-  className="admin-quick-action primary"
-  onClick={() => navigate("/admin/add-herb")}
->
-  <span>＋</span>
-  <strong>
-    Add New Herb
-  </strong>
-</button>
+            <button
+              type="button"
+              className="admin-quick-action primary"
+              onClick={() =>
+                navigate("/admin/add-herb")
+              }
+            >
+              <span>＋</span>
+
+              <strong>
+                Add New Herb
+              </strong>
+            </button>
 
 
             <button
-  type="button"
-  className="admin-quick-action"
-  onClick={() => navigate("/admin/manage-herbs")}
->
-  <span>♧</span>
-  <strong>
-    Review Pending Herbs
-  </strong>
-</button>
+              type="button"
+              className="admin-quick-action"
+              onClick={() =>
+                navigate("/admin/manage-herbs")
+              }
+            >
+              <span>♧</span>
+
+              <strong>
+                Review Pending Herbs
+              </strong>
+            </button>
 
 
-<button
-  type="button"
-  className="admin-quick-action"
-  onClick={() => navigate("/admin/vocabulary")}
->
-  <span>▣</span>
-  <strong>
-    Manage Vocabulary
-  </strong>
-</button>
+            <button
+              type="button"
+              className="admin-quick-action"
+              onClick={() =>
+                navigate("/admin/vocabulary")
+              }
+            >
+              <span>▣</span>
+
+              <strong>
+                Manage Vocabulary
+              </strong>
+            </button>
 
 
-<button
-  type="button"
-  className="admin-quick-action"
-  onClick={() => navigate("/admin/search-analytics")}
->
-  <span>⌁</span>
-  <strong>
-    View Search Analytics
-  </strong>
-</button>
+            <button
+              type="button"
+              className="admin-quick-action"
+              onClick={() =>
+                navigate(
+                  "/admin/search-analytics"
+                )
+              }
+            >
+              <span>⌁</span>
+
+              <strong>
+                View Search Analytics
+              </strong>
+            </button>
 
           </div>
 
         </div>
 
       </section>
+
     </>
   )
 }

@@ -1,32 +1,59 @@
+import { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
+import AdminProfileDropdown from "./AdminProfileDropdown"
 
 function AdminSidebar() {
   const location = useLocation()
 
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] =
+    useState(false)
+
   return (
     <aside className="admin-sidebar">
 
-      {/* Brand */}
+      {/* =====================================================
+          BRAND
+         ===================================================== */}
+
       <div className="admin-brand">
-        <div className="admin-brand-icon">🌿</div>
+
+        <div className="admin-brand-icon">
+          🌿
+        </div>
 
         <div className="admin-brand-text">
-          <h2>Dravyaguna</h2>
-          <span>Ayurvedic Herb Intelligence</span>
+
+          <h2>
+            Dravyaguna
+          </h2>
+
+          <span>
+            Ayurvedic Herb Intelligence
+          </span>
+
         </div>
+
       </div>
 
 
-      {/* Navigation */}
+      {/* =====================================================
+          NAVIGATION
+         ===================================================== */}
+
       <nav className="admin-navigation">
 
-        <p className="admin-nav-label">WORKSPACE</p>
+        <p className="admin-nav-label">
+          WORKSPACE
+        </p>
+
 
         {/* Dashboard */}
         <Link
           to="/admin"
           className={`admin-nav-item ${
-            location.pathname === "/admin" ? "active" : ""
+            location.pathname === "/admin"
+              ? "active"
+              : ""
           }`}
         >
           <span>▦</span>
@@ -38,7 +65,9 @@ function AdminSidebar() {
         <Link
           to="/admin/manage-herbs"
           className={`admin-nav-item ${
-            location.pathname === "/admin/manage-herbs" ? "active" : ""
+            location.pathname === "/admin/manage-herbs"
+              ? "active"
+              : ""
           }`}
         >
           <span>♧</span>
@@ -47,95 +76,114 @@ function AdminSidebar() {
 
 
         {/* Add Herb */}
-<Link
-  to="/admin/add-herb"
-  className={`admin-nav-item ${
-    location.pathname === "/admin/add-herb" ? "active" : ""
-  }`}
->
-  <span>＋</span>
-  <span>Add Herb</span>
-</Link>
+        <Link
+          to="/admin/add-herb"
+          className={`admin-nav-item ${
+            location.pathname === "/admin/add-herb"
+              ? "active"
+              : ""
+          }`}
+        >
+          <span>＋</span>
+          <span>Add Herb</span>
+        </Link>
 
 
         {/* Vocabulary */}
-<Link
-  to="/admin/vocabulary"
-  className={`admin-nav-item ${
-    location.pathname === "/admin/vocabulary" ? "active" : ""
-  }`}
->
-  <span>▣</span>
-  <span>Vocabulary</span>
-</Link>
+        <Link
+          to="/admin/vocabulary"
+          className={`admin-nav-item ${
+            location.pathname === "/admin/vocabulary"
+              ? "active"
+              : ""
+          }`}
+        >
+          <span>▣</span>
+          <span>Vocabulary</span>
+        </Link>
 
 
         {/* Scoring Configuration */}
-<Link
-  to="/admin/scoring"
-  className={`admin-nav-item ${
-    location.pathname === "/admin/scoring" ? "active" : ""
-  }`}
->
-  <span>⚙</span>
-  <span>Scoring Configuration</span>
-</Link>
+        <Link
+          to="/admin/scoring"
+          className={`admin-nav-item ${
+            location.pathname === "/admin/scoring"
+              ? "active"
+              : ""
+          }`}
+        >
+          <span>⚙</span>
+          <span>Scoring Configuration</span>
+        </Link>
 
 
         {/* Search Analytics */}
-<Link
-  to="/admin/search-analytics"
-  className={`admin-nav-item ${
-    location.pathname === "/admin/search-analytics"
-      ? "active"
-      : ""
-  }`}
->
-  <span>⌁</span>
-  <span>Search Analytics</span>
-</Link>
+        <Link
+          to="/admin/search-analytics"
+          className={`admin-nav-item ${
+            location.pathname === "/admin/search-analytics"
+              ? "active"
+              : ""
+          }`}
+        >
+          <span>⌁</span>
+          <span>Search Analytics</span>
+        </Link>
 
 
         {/* User & Role Management */}
-<Link
-  to="/admin/users"
-  className={`admin-nav-item ${
-    location.pathname === "/admin/users" ? "active" : ""
-  }`}
->
-  <span>♙</span>
-  <span>User & Role Management</span>
-</Link>
+        <Link
+          to="/admin/users"
+          className={`admin-nav-item ${
+            location.pathname === "/admin/users"
+              ? "active"
+              : ""
+          }`}
+        >
+          <span>♙</span>
+          <span>User & Role Management</span>
+        </Link>
+
 
         {/* Audit Log */}
         <Link
-        to="/admin/audit-log"
-        className={`admin-nav-item ${
-          location.pathname === "/admin/audit-log" ? "active" : ""
-           }`}
-      >
-        <span>▤</span>
-        <span>Audit Log</span>
-      </Link>
-      
+          to="/admin/audit-log"
+          className={`admin-nav-item ${
+            location.pathname === "/admin/audit-log"
+              ? "active"
+              : ""
+          }`}
+        >
+          <span>▤</span>
+          <span>Audit Log</span>
+        </Link>
+
       </nav>
 
 
-      {/* Admin Profile */}
-      <div className="admin-profile">
+      {/* =====================================================
+          ADMIN PROFILE + DROPDOWN
+         ===================================================== */}
 
-        <div className="admin-profile-avatar">
-          AD
-        </div>
+<div className="admin-profile-wrapper">
 
-        <div className="admin-profile-info">
-          <strong>Dr. Anand Sharma</strong>
-          <span>Administrator</span>
-        </div>
+<AdminProfileDropdown
+  isOpen={isProfileDropdownOpen}
+  onToggle={() =>
+    setIsProfileDropdownOpen(
+      (previous) => !previous
+    )
+  }
+  onClose={() =>
+    setIsProfileDropdownOpen(false)
+  }
+/>
 
-        <span className="admin-profile-arrow">⌄</span>
+</div>
 
-      </div>
+
+
+        
 
     </aside>
   )
