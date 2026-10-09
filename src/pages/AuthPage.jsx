@@ -415,204 +415,134 @@ function AuthPage() {
   // LOGIN
   // =========================================
 
-  const handleLogin = () => {
-    const cleanEmail =
-      email.trim().toLowerCase()
+  
+const handleLogin = () => {
+  const cleanEmail = email.trim().toLowerCase()
 
-    if (!cleanEmail || !password) {
-      alert(
-        "Please enter your email and password."
-      )
-
-      return
-    }
-
-    // =========================================
-    // IMPORTANT:
-    // MAIN LOGIN SOURCE = DRAVYAGUNA USERS
-    // =========================================
-
-    const dravyagunaUsers =
-      getDravyagunaUsers()
-
-    // =========================================
-    // FIND USER BY EMAIL + ROLE
-    // =========================================
-
-    const user =
-      dravyagunaUsers.find(
-        (account) => {
-          const accountEmail =
-            account.email
-              ?.trim()
-              .toLowerCase()
-
-          const accountRole =
-            account.role
-              ?.trim()
-              .toLowerCase()
-
-          return (
-            accountEmail === cleanEmail &&
-            accountRole === selectedRole
-          )
-        }
-      )
-
-    // =========================================
-    // USER NOT FOUND
-    // =========================================
-
-    if (!user) {
-      alert(
-        `No ${getDisplayRole(
-          selectedRole
-        )} account found with this email. Please sign up first.`
-      )
-
-      return
-    }
-
-    // =========================================
-    // CHECK ACCOUNT STATUS
-    // =========================================
-
-    const userStatus =
-      user.status
-        ?.trim()
-        .toLowerCase()
-
-    // =========================================
-    // BLOCK INACTIVE ACCOUNT
-    // =========================================
-
-    if (
-      userStatus === "inactive"
-    ) {
-      alert(
-        "This account is blocked by admin. Please contact the admin."
-      )
-
-      return
-    }
-
-    // =========================================
-    // BLOCK PENDING ACCOUNT
-    // =========================================
-
-    if (
-      userStatus === "pending"
-    ) {
-      alert(
-        "This account is pending approval. Please contact the admin."
-      )
-
-      return
-    }
-
-    // =========================================
-    // CHECK PASSWORD
-    // =========================================
-
-    if (
-      user.password !== password
-    ) {
-      alert(
-        "Incorrect password. Please try again."
-      )
-
-      return
-    }
-
-    // =========================================
-    // UPDATE LAST ACTIVE
-    // =========================================
-
-    const updatedUsers =
-      dravyagunaUsers.map(
-        (account) =>
-          account.id === user.id
-            ? {
-                ...account,
-                lastActive:
-                  new Date().toISOString(),
-              }
-            : account
-      )
-
-    localStorage.setItem(
-      "dravyaguna_users",
-      JSON.stringify(
-        updatedUsers
-      )
-    )
-
-    // =========================================
-    // REMEMBER LOGIN
-    // =========================================
-
-    if (rememberMe) {
-      localStorage.setItem(
-        "rememberedLogin",
-        JSON.stringify({
-          email:
-            cleanEmail,
-
-          password:
-            password,
-
-          role:
-            selectedRole,
-        })
-      )
-    } else {
-      localStorage.removeItem(
-        "rememberedLogin"
-      )
-    }
-
-    // =========================================
-    // SAVE CURRENT USER
-    // =========================================
-
-    const loggedInUser = {
-      ...user,
-      lastActive:
-        new Date().toISOString(),
-    }
-
-    localStorage.setItem(
-      "herbUser",
-      JSON.stringify(
-        loggedInUser
-      )
-    )
-
-    // =========================================
-    // AUTHENTICATED
-    // =========================================
-
-    localStorage.setItem(
-      "isAuthenticated",
-      "true"
-    )
-
-    // =========================================
-    // REDIRECT
-    // =========================================
-
-    if (
-      selectedRole === "doctor"
-    ) {
-      navigate("/doctor")
-    }
-
-    if (
-      selectedRole === "admin"
-    ) {
-      navigate("/admin")
-    }
+  if (!cleanEmail || !password) {
+    alert("Please enter your email and password.")
+    return
   }
+
+  // Read users from both storage locations
+  const dravyagunaUsers = getDravyagunaUsers()
+  const herbUsers = getHerbUsers()
+
+  // Match common role variations
+  const normalizeRole = (role) => {
+    const value = (role || "").trim().toLowerCase()
+
+    if (value === "doctor") return "doctor"
+    if (value === "admin") return "admin"
+    if (value === "ayurvedic reviewer" || value === "reviewer") {
+      return "reviewer"
+    }
+
+    return value
+  }
+
+  const selectedNormalizedRole = normalizeRole(selectedRole)
+
+  // Find matching email and role in the main user list
+  let user = dravyagunaUsers.find((account) => {
+    const accountEmail = (account.email || "").trim().toLowerCase()
+    const accountRole = normalizeRole(account.role)
+
+    return (
+      accountEmail === cleanEmail &&
+      accountRole === selectedNormalizedRole
+    )
+  })
+
+  // If not found there, check the other user list
+  if (!user) {
+    user = herbUsers.find((account) => {
+      const accountEmail = (account.email || "").trim().toLowerCase()
+      const accountRole = normalizeRole(account.role)
+
+      return (
+        accountEmail === cleanEmail &&
+        accountRole === selectedNormalizedRole
+      )
+    })
+  }
+
+  if (!user) {
+    alert(
+      `No ${getDisplayRole(selectedRole)} account found with this email. Please check your selected role or sign up first.`
+    )
+    return
+  }
+
+  // Check password
+  if (user.password !== password) {
+    alert("Incorrect password. Please try again.")
+    return
+  }
+
+  // Check account status, if available
+  const status = (user.status || "Active").trim().toLowerCase()
+
+  if (status === "inactive" || status === "blocked") {
+    alert("This account is blocked. Please contact the admin.")
+    return
+  }
+
+  if (status === "pending") {
+    alert("This account is pending approval. Please contact the admin.")
+    return
+  }
+
+  const now = new Date().toISOString()
+
+  // Update last active in the main user list if the account exists there
+  const updatedUsers = dravyagunaUsers.map((account) => {
+    const matchesEmail =
+      (account.email || "").trim().toLowerCase() === cleanEmail
+
+    const matchesRole =
+      normalizeRole(account.role) === selectedNormalizedRole
+
+    return matchesEmail && matchesRole
+      ? { ...account, lastActive: now }
+      : account
+  })
+
+  localStorage.setItem(
+    "dravyaguna_users",
+    JSON.stringify(updatedUsers)
+  )
+
+  const loggedInUser = {
+    ...user,
+    lastActive: now,
+    role: getDisplayRole(user.role || selectedRole),
+  }
+
+  localStorage.setItem("herbUser", JSON.stringify(loggedInUser))
+  localStorage.setItem("isAuthenticated", "true")
+
+  if (rememberMe) {
+    localStorage.setItem(
+      "rememberedLogin",
+      JSON.stringify({
+        email: cleanEmail,
+        password,
+        role: selectedRole,
+      })
+    )
+  } else {
+    localStorage.removeItem("rememberedLogin")
+  }
+
+  if (selectedNormalizedRole === "doctor") {
+    navigate("/doctor")
+  } else if (selectedNormalizedRole === "admin") {
+    navigate("/admin")
+  } else {
+    alert("This role does not have a configured destination.")
+  }
+}
 
   // =========================================
   // SUBMIT
