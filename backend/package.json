@@ -1,0 +1,45 @@
+{
+  "name": "dravyaguna-backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "migrate": "node-pg-migrate up",
+    "migrate:down": "node-pg-migrate down",
+    "migrate:create": "node-pg-migrate create",
+    "import:frontend": "node scripts/importFromFrontendDataset.js",
+    "scale:herbs": "node scripts/scaleHerbsForBenchmark.js",
+    "db:embedded": "node scripts/startEmbeddedPostgres.js",
+    "seed": "node scripts/seed.js",
+    "loadtest:search": "node scripts/loadTestSearch.js",
+    "explain:search": "node scripts/explainSearch.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "node-pg-migrate": "^7.9.1",
+    "pg": "^8.13.3",
+    "pino": "^9.6.0",
+    "pino-http": "^10.4.0",
+    "xlsx": "^0.18.5",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "autocannon": "^8.0.0",
+    "embedded-postgres": "^18.4.0-beta.17"
+  },
+  "node-pg-migrate": {
+    "migrationFileExtension": ".cjs",
+    "dir": "migrations",
+    "databaseUrl": {
+      "env": "DATABASE_URL"
+    }
+  }
+}

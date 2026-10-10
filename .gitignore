@@ -12,6 +12,15 @@ dist
 dist-ssr
 *.local
 
+# Environment and data
+.env
+Dataset/
+vocab_review.csv
+*.xlsx
+
+# Embedded PostgreSQL
+backend/.embedded-pg/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
